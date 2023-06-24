@@ -1,0 +1,392 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>一文读懂DNA甲基化及BS-seq | 白墨</title><meta name="keywords" content="生信情报站,生物信息学,DNA甲基化,BS-seq,WGBS,CpG islands"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、什么是DNA甲基化DNA甲基化是一个生物过程，它会在在DNA分子中引入甲基化基团，但是甲基化并不会改变序列本身，而会改变DNA片段的活性。 在哺乳动物中，DNA甲基化对于正常发育必不可少，而且与很多生物学现象有密切联系，包括基因组印迹，X染色体失活，转座因子招募，衰老和致癌作用。 胞嘧啶甲基化是在真核生物和原核生物普遍存在的，而且甲基化的速率在物种之间有很大的差异。 最常见的是在胞嘧啶的5号碳">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文读懂DNA甲基化及BS-seq">
+<meta property="og:url" content="https://ziptop.top/posts/63054/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="一、什么是DNA甲基化DNA甲基化是一个生物过程，它会在在DNA分子中引入甲基化基团，但是甲基化并不会改变序列本身，而会改变DNA片段的活性。 在哺乳动物中，DNA甲基化对于正常发育必不可少，而且与很多生物学现象有密切联系，包括基因组印迹，X染色体失活，转座因子招募，衰老和致癌作用。 胞嘧啶甲基化是在真核生物和原核生物普遍存在的，而且甲基化的速率在物种之间有很大的差异。 最常见的是在胞嘧啶的5号碳">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img15.png">
+<meta property="article:published_time" content="2020-09-10T02:36:23.000Z">
+<meta property="article:modified_time" content="2020-09-10T02:36:23.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="DNA甲基化">
+<meta property="article:tag" content="BS-seq">
+<meta property="article:tag" content="WGBS">
+<meta property="article:tag" content="CpG islands">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img15.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/63054/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一文读懂DNA甲基化及BS-seq',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-09-10 10:36:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img15.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一文读懂DNA甲基化及BS-seq</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-09-10T02:36:23.000Z" title="发表于 2020-09-10 10:36:23">2020-09-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E6%B5%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/">测序技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一文读懂DNA甲基化及BS-seq"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="一、什么是DNA甲基化"><a href="#一、什么是DNA甲基化" class="headerlink" title="一、什么是DNA甲基化"></a>一、什么是DNA甲基化</h3><p>DNA甲基化是一个生物过程，它会在在DNA分子中引入甲基化基团，但是甲基化并不会改变序列本身，而会改变DNA片段的活性。</p>
+<p>在哺乳动物中，DNA甲基化对于正常发育必不可少，而且与很多生物学现象有密切联系，包括基因组印迹，X染色体失活，转座因子招募，衰老和致癌作用。</p>
+<p>胞嘧啶甲基化是在真核生物和原核生物普遍存在的，而且甲基化的速率在物种之间有很大的差异。</p>
+<p>最常见的是在<strong>胞嘧啶的5号碳位置</strong>，在酶和底物的作用下，引入一个甲基基团，变成了<strong>5甲基胞嘧啶（5mC）</strong>，从而改变了它的活性。 </p>
+<p><img src="https://img-service.csdnimg.cn/img_convert/70e4952641d92e158181d5659a3533ad.png" alt="mark"></p>
+<p>腺嘌呤甲基化也在细菌，植物和哺乳动物DNA中均观察到了，但并不是研究热点。</p>
+<p>下面，我们重点看胞嘧啶甲基化。</p>
+<h3 id="二、CpG-islands"><a href="#二、CpG-islands" class="headerlink" title="二、CpG islands"></a>二、CpG islands</h3><p>在植物和其他生物中，可以在三种不同的序列中发现DNA甲基化：</p>
+<ul>
+<li>CpG（CG）</li>
+<li>CHG</li>
+<li>CHH</li>
+</ul>
+<p>其中H对应于A，T或C。</p>
+<p>CpG是胞嘧啶（C，Cytosine），磷酸（p，phosphoric acid），鸟嘌呤（G，Guanine ）的缩写，也可以去掉磷酸直接叫CG。在哺乳动物中，在基因组中富含GC和CpG的序列区段，叫CpG岛（CpG islands）。</p>
+<h4 id="1-CpG岛与转录"><a href="#1-CpG岛与转录" class="headerlink" title="1. CpG岛与转录"></a>1. CpG岛与转录</h4><p>在人基因组中，90%以上的CpG位点是被甲基化的，但是CpG岛甲基化程度通常很低，这种情况下，不影响蛋白结合到DNA的启动子区域来启动转录，进而使基因表达。</p>
+<p><img src="https://img-service.csdnimg.cn/img_convert/925d11716dae866158a404270b0b4e74.png" alt="mark"></p>
+<p>但是，如果这个DNA的CpG岛被甲基化后，蛋白不能结合DNA，进而使转录沉默，基因不表达。</p>
+<p><img src="https://img-service.csdnimg.cn/img_convert/b04bddb211a09a421330b4c0101ac53f.png" alt="mark"></p>
+<p>通常我们也会在文章中看到下面这种图，每个“棒棒糖”代表一个甲基化位点，位点集中的区域就可能是CpG岛，如果在转录因子结合的地方恰好被甲基化（黑色棒棒糖），那么这个基因就废了，不会继续表达了。<img src="https://img-service.csdnimg.cn/img_convert/4b3bd36c7bc92af14e9cb1af21036393.png" alt="mark"></p>
+<h4 id="2-如何定义CpG岛"><a href="#2-如何定义CpG岛" class="headerlink" title="2. 如何定义CpG岛"></a>2. 如何定义CpG岛</h4><p>通常定义为以下区域：</p>
+<ul>
+<li>长度大于200bp</li>
+<li>G + C含量大于50％，</li>
+<li>观察到的CpG与预期CpG的比率大于0.6，有时也使用其他定义。</li>
+</ul>
+<h4 id="3-CpG岛的分布"><a href="#3-CpG岛的分布" class="headerlink" title="3. CpG岛的分布"></a>3. CpG岛的分布</h4><p>除重复序列外，人类基因组中约有25,000个CpG岛，其中75％的岛长小于850bp。</p>
+<p>大约50％的CpG岛位于基因启动子区域，而另外25％的岛位于基因内，通常充当替代启动子。</p>
+<p>在人中，大约60-70％的基因在其启动子区域中具有CpG岛。大多数CpG岛在结构上未甲基化，并富集一些染色质修饰，例如H3K4甲基化。在体细胞组织中，只有10％的CpG岛被甲基化，其中大部分位于基因间和基因内区域。</p>
+<h3 id="三、甲基化的功能"><a href="#三、甲基化的功能" class="headerlink" title="三、甲基化的功能"></a>三、甲基化的功能</h3><ul>
+<li>基因调控：启动子区域的甲基化会使基因表达沉默</li>
+<li>发育调控：细胞分裂时可遗传，建立细胞与组织分化差异</li>
+<li>DNA复制起始及错误修正定位</li>
+<li>改变DNA区域构象变化，影响了蛋白质与DNA的相互作用，抑制了转录因子与启动区DNA的结合效率</li>
+<li>高度甲基化：<ul>
+<li>X染色体失活：持续失活导致女性的一条 X 染色体，</li>
+<li>染色体印迹：指基因表达活性只局限于来自双亲之一的基因版本</li>
+</ul>
+</li>
+<li>抑制转座子：在CpG密集区域，DNA甲基化是一种强力的转录阻遏物。尽管DNA甲基化不具有微调基因调控所需的灵活性，但其稳定性非常适合确保转座因子的永久沉默。 这种甲基化在几乎所有组织中都会使部分基因永久保持沉默。</li>
+<li>甲基化可以被环境影响</li>
+</ul>
+<h3 id="四、启动子区甲基化与基因转录"><a href="#四、启动子区甲基化与基因转录" class="headerlink" title="四、启动子区甲基化与基因转录"></a>四、启动子区甲基化与基因转录</h3><p> 在几乎所有被分析的生物中，<strong>启动子区域的甲基化与基因表达呈负相关</strong>。转录活性基因的CpG密集启动子从未被甲基化，但是，转录沉默基因并不一定带有甲基化的启动子。</p>
+<p>在小鼠和人类中，大约60％至70％的基因在其启动子区域中都有一个CpG岛，并且在分化和未分化的细胞类型中，大多数这些CpG岛都保持未甲基化状态，而与基因的转录活性无关。</p>
+<p>值得注意的是，尽管CpG岛的DNA甲基化与转录抑制作用明确相关，但对CG缺乏的启动子中DNA甲基化的功能仍不清楚。</p>
+<p>DNA甲基化可能以两种方式影响基因的转录</p>
+<p>首先，DNA本身的甲基化可能在物理上阻碍转录因子与基因的结合</p>
+<p>第二，甲基化的DNA可能被称为甲基CpG结合域（methyl-CpG-binding domain，MBD）的蛋白结合。MBD蛋白将其他蛋白募集到位点，例如组蛋白脱乙酰基酶和其他可以修饰组蛋白的染色质重塑因子，从而形成致密的，无活性的异染色质。</p>
+<h3 id="五、基因内甲基化与基因转录"><a href="#五、基因内甲基化与基因转录" class="headerlink" title="五、基因内甲基化与基因转录"></a>五、基因内甲基化与基因转录</h3><p>在几乎所有存在DNA甲基化的物种中，DNA甲基化在高度转录的基因内特别丰富，也就是说<strong>在基因内的DNA甲基化与基因表达正相关</strong>。</p>
+<p>基因内甲基化的功能尚不清楚。大量证据表明：</p>
+<ul>
+<li>它可以调节剪接并抑制基因内转录单位（密码子，启动子或转座因子）的活性。</li>
+<li>基因内甲基化似乎与H3K36甲基化紧密相关。在酵母和哺乳动物中，H3K36甲基化在高度转录的基因体内高度富集。</li>
+<li>在哺乳动物中，DNMT3a和DNMT3b PWWP结构域与H3K36me3结合，并且这两种酶被募集到活跃转录的基因体内。</li>
+</ul>
+<h3 id="六、在胚胎发育过程中的甲基化"><a href="#六、在胚胎发育过程中的甲基化" class="headerlink" title="六、在胚胎发育过程中的甲基化"></a>六、在胚胎发育过程中的甲基化</h3><p>在胚胎发育过程中，DNA甲基化先被大量擦除，然后在哺乳动物的各代之间重建。</p>
+<ul>
+<li>在配子发生和早期胚胎发育过程中，几乎擦除了来自亲本的所有甲基化，每次都发生去甲基和再甲基化。</li>
+<li>早期胚胎发育的去甲基化发生在植入前：最初在合子中，然后在桑椹胚和囊胚。</li>
+<li>在胚胎植入阶段发生了甲基化波，保护了CpG岛免受甲基化。这导致整体抑制，并使管家基因在所有细胞中表达。</li>
+<li>在植入后阶段，甲基化模式是特定于阶段和组织的，其变化将定义每种单独的细胞类型，可长期稳定持续。</li>
+</ul>
+<p><img src="https://img-service.csdnimg.cn/img_convert/853563cb4bd9f8c852e79badce097a08.png" alt="mark"></p>
+<p>尽管DNA甲基化本身对于转录沉默而言并不是必需的，但是，它代表了一种“锁定”状态，可以使转录失活。</p>
+<p>尤其在基因组印迹和X染色体失活的情况下，DNA甲基化对于维持单等位基因沉默显得至关重要。在这些情况下，表达的等位基因和沉默的等位基因的甲基化状态不同，DNA甲基化的丧失导致Xist在体细胞中的印迹和再表达的丧失。</p>
+<p>由于存在基因组印迹现象，因此母本和父本基因组具有差异性标记，并且每次通过生殖系时都必须正确地重新编程。因此，在配子发生过程中，原始生殖细胞必须根据传代母体的性别擦除并重新建立其原始的双亲DNA甲基化模式。受精后，将父本和母本基因组再次去甲基化并重新甲基化（与印迹基因相关的差异甲基化区域除外）。重编程可能是新形成胚胎的全能性和擦除获得的表观遗传变化所必需的。</p>
+<h3 id="七、检测DNA甲基化"><a href="#七、检测DNA甲基化" class="headerlink" title="七、检测DNA甲基化"></a>七、检测DNA甲基化</h3><p>亚硫酸氢盐测序（Bisulfite sequencing，BS-seq ，methseq），先使用亚硫酸氢盐处理DNA，然后上机测序来确定甲基化模式。 如果听到 WGBS（Whole-genome bisulfite sequencing） ，其实也是BS-seq。</p>
+<h5 id="1-原理"><a href="#1-原理" class="headerlink" title="1. 原理"></a>1. 原理</h5><p>用亚硫酸氢盐处理DNA可将胞嘧啶残基（C）转化为尿嘧啶（U），但5-甲基胞嘧啶残基（5mC）对其有抗性，并不会发生转变。</p>
+<p>因此，用亚硫酸氢盐处理过的DNA<strong>仅保留甲基化的胞嘧啶</strong>。</p>
+<p><img src="https://img-service.csdnimg.cn/img_convert/df0cea3cbe60739d67dd2c564bf0fb88.png" alt="mark"></p>
+<p>上图中，</p>
+<ul>
+<li>蓝色的核苷酸是被亚硫酸氢盐转化为尿嘧啶（U）的未甲基化的胞嘧啶（C）</li>
+<li>红色的核苷酸是对转化具有抗性的5-甲基胞嘧啶（5mC）</li>
+</ul>
+<p>总的来说，样本用 Bisulfite 处理，将基因组中未发生甲基化的 C 碱基转换成 U，进行PCR扩增后变成T，与原本具有甲基化修饰的 C 碱基区分开来，再结合高通量测序技术，与参考序列比对。</p>
+<ul>
+<li>未甲基化的 C -&gt; T</li>
+<li>甲基化的 C -&gt; C</li>
+</ul>
+<h5 id="2-与常规转录组相比存在的问题："><a href="#2-与常规转录组相比存在的问题：" class="headerlink" title="2. 与常规转录组相比存在的问题："></a>2. 与常规转录组相比存在的问题：</h5><ul>
+<li>未甲基化的 C 会转变为 T，这种转变会让基因组内的C少，ATG多，但是在生物中是不存在这种情况的</li>
+<li>在比对时，还使用的是一般的参考基因组，所有这些转变的 reads 不能匹配到参考基因组相应的位点</li>
+<li>BS-seq 在 Bisulfite 处理和 PCR 后会产生四条不同的链，转录组是两条正负链</li>
+</ul>
+<h5 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h5><p>后续更新…</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/63054/">https://ziptop.top/posts/63054/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/DNA%E7%94%B2%E5%9F%BA%E5%8C%96/">DNA甲基化</a><a class="post-meta__tags" href="/tags/BS-seq/">BS-seq</a><a class="post-meta__tags" href="/tags/WGBS/">WGBS</a><a class="post-meta__tags" href="/tags/CpG-islands/">CpG islands</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img15.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/51011/"><img class="prev-cover" src="/assert/img/background/img03.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux 查看文件，目录，磁盘空间占用容量</div></div></a></div><div class="next-post pull-right"><a href="/posts/296/"><img class="next-cover" src="/assert/img/background/img03.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">从零开始学统计 09 | 对数转换</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/34675/" title="Hi-C 测序技术（图解详解）"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-06</div><div class="title">Hi-C 测序技术（图解详解）</div></div></a></div><div><a href="/posts/29665/" title="Python 自动化提取基因的 CDS"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Python 自动化提取基因的 CDS</div></div></a></div><div><a href="/posts/50931/" title="Seurat | 不同单细胞转录组的整合方法"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-15</div><div class="title">Seurat | 不同单细胞转录组的整合方法</div></div></a></div><div><a href="/posts/21265/" title="Pandas 修改单列，多列，Dataframe 数据类型方法汇总"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">Pandas 修改单列，多列，Dataframe 数据类型方法汇总</div></div></a></div><div><a href="/posts/60574/" title="UCSC 基因组浏览器配置详解"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-29</div><div class="title">UCSC 基因组浏览器配置详解</div></div></a></div><div><a href="/posts/47655/" title="scanpy 单细胞分析包图文详解 01 | 深入理解 AnnData 数据结构"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-23</div><div class="title">scanpy 单细胞分析包图文详解 01 | 深入理解 AnnData 数据结构</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFDNA%E7%94%B2%E5%9F%BA%E5%8C%96"><span class="toc-text">一、什么是DNA甲基化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81CpG-islands"><span class="toc-text">二、CpG islands</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-CpG%E5%B2%9B%E4%B8%8E%E8%BD%AC%E5%BD%95"><span class="toc-text">1. CpG岛与转录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89CpG%E5%B2%9B"><span class="toc-text">2. 如何定义CpG岛</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-CpG%E5%B2%9B%E7%9A%84%E5%88%86%E5%B8%83"><span class="toc-text">3. CpG岛的分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%94%B2%E5%9F%BA%E5%8C%96%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-text">三、甲基化的功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%90%AF%E5%8A%A8%E5%AD%90%E5%8C%BA%E7%94%B2%E5%9F%BA%E5%8C%96%E4%B8%8E%E5%9F%BA%E5%9B%A0%E8%BD%AC%E5%BD%95"><span class="toc-text">四、启动子区甲基化与基因转录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%9F%BA%E5%9B%A0%E5%86%85%E7%94%B2%E5%9F%BA%E5%8C%96%E4%B8%8E%E5%9F%BA%E5%9B%A0%E8%BD%AC%E5%BD%95"><span class="toc-text">五、基因内甲基化与基因转录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%9C%A8%E8%83%9A%E8%83%8E%E5%8F%91%E8%82%B2%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E7%94%B2%E5%9F%BA%E5%8C%96"><span class="toc-text">六、在胚胎发育过程中的甲基化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%A3%80%E6%B5%8BDNA%E7%94%B2%E5%9F%BA%E5%8C%96"><span class="toc-text">七、检测DNA甲基化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%8E%9F%E7%90%86"><span class="toc-text">1. 原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E4%B8%8E%E5%B8%B8%E8%A7%84%E8%BD%AC%E5%BD%95%E7%BB%84%E7%9B%B8%E6%AF%94%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-text">2. 与常规转录组相比存在的问题：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%EF%BC%9A"><span class="toc-text">解决办法：</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

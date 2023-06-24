@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>生命可以用更少的氨基酸编码蛋白质吗？ | 白墨</title><meta name="keywords" content="Python,生信情报站,生物信息学,可视化技术,蛋白质,机器学习,特征提取,氨基酸约化"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="蛋白质是生命活动的主要承担者，生命进化最终都会体现在蛋白质的功能的多样化上。蛋白质是由20种氨基酸编码的，相比于ATGC的DNA遗传编码信息，氨基酸字母表显示出极大地复杂性和多样性。这就产生了一系列非常有趣的问题：生命为什么会选择20种氨基酸作为标准字母表？更少的氨基酸能否组成或满足一个蛋白质执行功能的基本组成单元？我们能否用更少的氨基酸创造出摆脱当前遗传法则，设计更为独特的生命？ 一、氨基酸约化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生命可以用更少的氨基酸编码蛋白质吗？">
+<meta property="og:url" content="https://ziptop.top/posts/41005/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="蛋白质是生命活动的主要承担者，生命进化最终都会体现在蛋白质的功能的多样化上。蛋白质是由20种氨基酸编码的，相比于ATGC的DNA遗传编码信息，氨基酸字母表显示出极大地复杂性和多样性。这就产生了一系列非常有趣的问题：生命为什么会选择20种氨基酸作为标准字母表？更少的氨基酸能否组成或满足一个蛋白质执行功能的基本组成单元？我们能否用更少的氨基酸创造出摆脱当前遗传法则，设计更为独特的生命？ 一、氨基酸约化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img15.png">
+<meta property="article:published_time" content="2020-06-17T13:42:39.000Z">
+<meta property="article:modified_time" content="2020-06-17T13:42:39.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="可视化技术">
+<meta property="article:tag" content="蛋白质">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="特征提取">
+<meta property="article:tag" content="氨基酸约化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img15.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/41005/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '生命可以用更少的氨基酸编码蛋白质吗？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-06-17 21:42:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img15.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">生命可以用更少的氨基酸编码蛋白质吗？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-06-17T13:42:39.000Z" title="发表于 2020-06-17 21:42:39">2020-06-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">编程基础</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/Python/">Python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="生命可以用更少的氨基酸编码蛋白质吗？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>蛋白质是生命活动的主要承担者，生命进化最终都会体现在蛋白质的功能的多样化上。蛋白质是由20种氨基酸编码的，相比于ATGC的DNA遗传编码信息，氨基酸字母表显示出极大地复杂性和多样性。这就产生了一系列非常有趣的问题：生命为什么会选择20种氨基酸作为标准字母表？更少的氨基酸能否组成或满足一个蛋白质执行功能的基本组成单元？我们能否用更少的氨基酸创造出摆脱当前遗传法则，设计更为独特的生命？<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvaDlXRlFPakI2TEQ4LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<h3 id="一、氨基酸约化"><a href="#一、氨基酸约化" class="headerlink" title="一、氨基酸约化"></a>一、氨基酸约化</h3><p>理论上，具有相似性质、原子排列或频率分布的天然氨基酸可以被合并，并用更小数量的约化字母表来表示编码的氨基酸，这个过程就叫氨基酸约化。 最简单的约化方案是以极性或者亲疏水性作为标准，将20种氨基酸只约化为两个字母，最终会得到约化氨基酸字母表。当然，这种极端的方法产生的蛋白质，一定长度的序列所能承载的信息实在太少，几乎不可能完成复杂的生命活动。那如果是3个，5个，10个呢？比如，我们使用氨基酸在不同蛋白质二级结构中的偏好性来约化20种氨基酸构成的蛋白质字母表。下图这个蛋白质，通过氨基酸约化分析，它的三维结构与二级结构有极高的匹配度。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvRkdkZDNRRVZzZGxZLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>另外，氨基酸字母表的大小直接决定motif序列的复杂性和多样性。Motif 序列是一类蛋白质共有的一段氨基酸序列，也就是说这个 Motif 序列是这类蛋白质所共享的。比如，常见的是转录因子的结合位点，蛋白质的结合位点等等。总的来说，氨基酸序列logo作为蛋白质序列保守度的可视化图形，对研究同源蛋白质的系统发育和功能差异，以及蛋白质定向分子设计具有非常重要的意义。</p>
+<p>但是，传统的 Motif Logo 包括了20种氨基酸字母，显示出极大地复杂性和多样性。由于在 Logo 生成过程中缺少对氨基酸性质等生物学因素的考虑，往往会导致对蛋白质功能进化保守性的评估出现偏差，引入冗余信息掩盖关键氨基酸序列信息。利用氨基酸约化分析的不同方案去应用到 motif 的可视化中就可以很好的解决这个问题。基于约化氨基酸的信息学 Motif logo 具有更多的信息学和生物学意义，更好的反映了蛋白序列的功能保守性。</p>
+<h3 id="二、氨基酸约化-Motif"><a href="#二、氨基酸约化-Motif" class="headerlink" title="二、氨基酸约化 Motif"></a>二、氨基酸约化 Motif</h3><p>我们通过一个工具 RaacLogo 来完成约化 Motif 的构建，网址：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://bioinfor.imu.edu.cn/raaclogo">http://bioinfor.imu.edu.cn/raaclogo</a> 。</p>
+<p>这里包含了40多种聚类算法和74种约化后的氨基酸字母，这些字母被提取生成673个约化的氨基酸簇(RAACs)，用于简化复杂的logo字母。当20个氨基酸按照一定的相似性聚类到更小的字母表中，蛋白质的复杂性就会大大降低，减少了信息冗余，相应的一些功能保守区域将被更清晰地显示出来。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvaThsUGRyMmt2cFIyLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>我们拿溶菌酶C（Lysozyme C，LYC）来获取约化氨基酸 Motif。这种酶具有溶菌作用，而且从鸡到人无处不在。首先收集从鸡到人的21个溶菌酶C比对序列，网站默认提供这个比对序列。然后，选择约化方案（极性&#x2F;中性&#x2F;疏水性，RKEDQN，GASTPHY，CLVIMFW），经过 RaacLogo 处理的 Motif 会非常整洁和简单，可以反映出高度的序列同源性。下面是详细步骤：</p>
+<p><strong>1.首先输入已经对比好的序列</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvZjB2MEs2TWlSMGQ4LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>2.选择一个氨基酸约化方案</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcva01SREdxQnh3QWNMLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>3.点击 <code>Submit</code> 提交任务</strong></p>
+<p><strong>4.我们选择其中一个方案</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvb21OakI3VERCdEY5LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>5.生成三种 Logo</strong></p>
+<p>原生氨基酸Motif，通过颜色和字母显示约化 Motif，通过颜色显示约化 Motif，可以通过右上角的导出相应的图片。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvOWZKRFBPamN2c1g5LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>可以看到，尽管LYC的氨基酸编码在从鸡到人的进化过程中发生了很大的变化，但我们可以看到，LYC的整体氨基酸特性在约化后仍保持不变，并且LYC的同源功能得以维持。</p>
+<h3 id="三、基于氨基酸约化提取特征"><a href="#三、基于氨基酸约化提取特征" class="headerlink" title="三、基于氨基酸约化提取特征"></a>三、基于氨基酸约化提取特征</h3><p>另一个应用是基于目前如火如荼的机器学习，我们都知道，做机器学习最关键的步骤就是特征提取。通过约化氨基酸来做特征提取，不仅可以减少过拟合的机会，而且会极大地降低计算维度，去除冗余信息。从而利用这些特征来做蛋白质的分类与预测。</p>
+<p><strong>1.进入网站 RaacBook</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://bioinfor.imu.edu.cn/raacbook">http://bioinfor.imu.edu.cn/raacbook</a> </p>
+<p>选择 <code>Analysis</code><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvT0NMRUQ0Y0F5Y2ZQLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>2.输入整理好的数据集</strong></p>
+<p>比如，预测是否为分泌蛋白质，就需要整理好分泌蛋白的数据集与非分泌蛋白的数据集。以 Fasta 的格式导入输入框。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvRnJlTkVGTk9VdFN0LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>3.选择约化方案</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvVU5tZGswTE5MWGEzLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>4.到了这一步可以选择默认参数提交，得到结果</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvZHdHMjBvYjlIUktpLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p><strong>5.我们的特征在<code>Download</code>下</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvUHd2VUptTVdHcE45LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>6.如果你熟悉机器学习，利用这个序列就可以来做蛋白质分类器</strong></p>
+<p>但是，如果不熟悉也没关系，RaacBook 也提供了自动化的流程，完成蛋白质分类器的训练。</p>
+<h3 id="四、基于氨基酸约化训练模型"><a href="#四、基于氨基酸约化训练模型" class="headerlink" title="四、基于氨基酸约化训练模型"></a>四、基于氨基酸约化训练模型</h3><p><strong>1.进入网站 RaacBook</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://bioinfor.imu.edu.cn/raacbook">http://bioinfor.imu.edu.cn/raacbook</a> </p>
+<p>选择 <code>Machine learning</code><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvY1BobzZPMXozVnBGLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>2.提供两个数据集</strong></p>
+<p>这两个数据集，可以是任意两种蛋白质序列。比如，和之前一样去预测是否为分泌蛋白质，就需要整理好分泌蛋白的数据集与非分泌蛋白的两个数据集，然后以 Fasta 的格式上传。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvaXZMaUw4aHIwUUlyLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>3.选择参数</strong></p>
+<p>K-tuple：也叫K-mer，也就是说K个氨基酸作为一个整体做特征</p>
+<p>Type：也就是分类方案</p>
+<p>Method：机器学习方法，有KNN，SVM，RF，目前该工具正在更新更多的方法<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvODczSFB6SUduUUtQLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>4.提交拿结果</strong></p>
+<p>会拿到训练的ROC曲线，这个结果的好坏取决于之前选择的参数。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvWXZZQ3hCYzNEU3hsLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>5.下载训练结果</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvaXhIS3YyclFxUmN5LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p><strong>6.拿到模型就可以去预测未知的序列</strong></p>
+<p>我们拿一个预测器来试试，比如防御素蛋白的预测器</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://bioinfor.imu.edu.cn/idpf">http://bioinfor.imu.edu.cn/idpf</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvREpnMDdrNlJOc3NrLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>输入一段序列，我们去预测蛋白质<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvd2RUNEFISk9EZENPLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>查看结果</p>
+<p>可以看到，这几段序列会有不同的打分值，如果一个标签的占比高，就意味着这段序列极有可能是这个标签。比如，Psd1 这段序列就是植物中的一种防御素蛋白。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvWXV0WWZ2b2hlNTN6LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<h3 id="五、模型自动训练的扩展"><a href="#五、模型自动训练的扩展" class="headerlink" title="五、模型自动训练的扩展"></a>五、模型自动训练的扩展</h3><p>机器学习中模型训练会消耗大量的硬件资源和时间，因此现在开发该工具的团队正在提供可以在本地运行的自动训练，以 Python 包的形式来使用与 RaacBook 类似的功能，敬请期待。先看看目前的进展图：</p>
+<p>会提供更多的模型训练结果评估信息：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvamlwNFdkd2lqZVdBLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>筛选最优特征<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcvTGVZeldpWDVLWEU3LnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>ROC评估信息<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcva1I5TFBvV2ZOenpDLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>高维特征缩减和可视化<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA2MTcva0ttNDBDTlBnVW5PLnBuZw?x-oss-process=image/format,png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyNjIyNTM=,size_16,color_FFFFFF,t_70#pic_center" alt="mark"></p>
+<p>总的来说，蛋白质氨基酸约化分析是对生命进化本质的探索，对于蛋白质合成、拓扑结构预测，功能预测分类以及药物设计等具有重要的意义。 </p>
+<p>如果对氨基酸约化的研究方向感兴趣可以联系：</p>
+<p>左永春教授：<a href="mailto:&#121;&#x63;&#x7a;&#x75;&#x6f;&#x40;&#105;&#109;&#117;&#46;&#101;&#x64;&#117;&#46;&#x63;&#110;" rel="external nofollow noreferrer">&#121;&#x63;&#x7a;&#x75;&#x6f;&#x40;&#105;&#109;&#117;&#46;&#101;&#x64;&#117;&#46;&#x63;&#110;</a> </p>
+<p>郑磊博士：<a href="mailto:&#98;&#x61;&#x69;&#109;&#x6f;&#x63;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#x6d;" rel="external nofollow noreferrer">&#98;&#x61;&#x69;&#109;&#x6f;&#x63;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/41005/">https://ziptop.top/posts/41005/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%80%E6%9C%AF/">可视化技术</a><a class="post-meta__tags" href="/tags/%E8%9B%8B%E7%99%BD%E8%B4%A8/">蛋白质</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/">特征提取</a><a class="post-meta__tags" href="/tags/%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BA%A6%E5%8C%96/">氨基酸约化</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img15.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/4473/"><img class="prev-cover" src="/assert/img/background/img01.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">细胞周期预测 | 单细胞转录组(scRNA-seq)分析_03</div></div></a></div><div class="next-post pull-right"><a href="/posts/7229/"><img class="next-cover" src="/assert/img/background/img07.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">在 Pycharm 中玩转 GitHub（图文详解）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/9783/" title="Pycharm 中安装及使用 Jupyter （图文详解）"><img class="cover" src="/assert/img/background/img10.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-28</div><div class="title">Pycharm 中安装及使用 Jupyter （图文详解）</div></div></a></div><div><a href="/posts/29665/" title="Python 自动化提取基因的 CDS"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Python 自动化提取基因的 CDS</div></div></a></div><div><a href="/posts/21265/" title="Pandas 修改单列，多列，Dataframe 数据类型方法汇总"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">Pandas 修改单列，多列，Dataframe 数据类型方法汇总</div></div></a></div><div><a href="/posts/15191/" title="一文极速读懂UniProt数据库"><img class="cover" src="/assert/img/background/img19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-23</div><div class="title">一文极速读懂UniProt数据库</div></div></a></div><div><a href="/posts/7229/" title="在 Pycharm 中玩转 GitHub（图文详解）"><img class="cover" src="/assert/img/background/img07.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-03</div><div class="title">在 Pycharm 中玩转 GitHub（图文详解）</div></div></a></div><div><a href="/posts/64515/" title="如何在 Pycharm 中高效使用 R 语言 （图文详解）"><img class="cover" src="/assert/img/background/img01.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-24</div><div class="title">如何在 Pycharm 中高效使用 R 语言 （图文详解）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BA%A6%E5%8C%96"><span class="toc-text">一、氨基酸约化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BA%A6%E5%8C%96-Motif"><span class="toc-text">二、氨基酸约化 Motif</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%9F%BA%E4%BA%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BA%A6%E5%8C%96%E6%8F%90%E5%8F%96%E7%89%B9%E5%BE%81"><span class="toc-text">三、基于氨基酸约化提取特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%9F%BA%E4%BA%8E%E6%B0%A8%E5%9F%BA%E9%85%B8%E7%BA%A6%E5%8C%96%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">四、基于氨基酸约化训练模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%A8%A1%E5%9E%8B%E8%87%AA%E5%8A%A8%E8%AE%AD%E7%BB%83%E7%9A%84%E6%89%A9%E5%B1%95"><span class="toc-text">五、模型自动训练的扩展</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

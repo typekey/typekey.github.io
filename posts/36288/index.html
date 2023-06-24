@@ -1,0 +1,481 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Nginx 配置详解 | 白墨</title><meta name="keywords" content="网站开发,1024程序员节"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Nginx 配置文件结构整体结构为嵌套结构：  全局块：配置影响全局，包括运行 nginx 的用户组，进程存放，日志，配置文件等 events：配置影响 nginx 服务器与客户端的网络连接，包括进程最大连接数，数据驱动模型，序列化等 http：配置代理，缓存，日志，第三方模块等，可嵌套多个 server server：配置虚拟主机的参数 location：配置请求路由，页面处理      举个栗">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx 配置详解">
+<meta property="og:url" content="https://ziptop.top/posts/36288/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="Nginx 配置文件结构整体结构为嵌套结构：  全局块：配置影响全局，包括运行 nginx 的用户组，进程存放，日志，配置文件等 events：配置影响 nginx 服务器与客户端的网络连接，包括进程最大连接数，数据驱动模型，序列化等 http：配置代理，缓存，日志，第三方模块等，可嵌套多个 server server：配置虚拟主机的参数 location：配置请求路由，页面处理      举个栗">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img03.png">
+<meta property="article:published_time" content="2021-10-24T13:14:14.000Z">
+<meta property="article:modified_time" content="2021-10-24T13:14:14.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="网站开发">
+<meta property="article:tag" content="1024程序员节">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img03.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/36288/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Nginx 配置详解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-24 21:14:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img03.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Nginx 配置详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2021-10-24T13:14:14.000Z" title="发表于 2021-10-24 21:14:14">2021-10-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/">网站开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Nginx 配置详解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Nginx-配置"><a href="#Nginx-配置" class="headerlink" title="Nginx 配置"></a>Nginx 配置</h1><h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>整体结构为嵌套结构：</p>
+<ul>
+<li><code>全局块</code>：配置影响全局，包括运行 nginx 的用户组，进程存放，日志，配置文件等</li>
+<li><code>events</code>：配置影响 nginx 服务器与客户端的网络连接，包括进程最大连接数，数据驱动模型，序列化等</li>
+<li><code>http</code>：配置代理，缓存，日志，第三方模块等，可嵌套多个 server<ul>
+<li><code>server</code>：配置虚拟主机的参数<ul>
+<li><code>location</code>：配置请求路由，页面处理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">全局配置------------------------------------------------------------------------</span><br>...              <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">events 配置--------------------------------------------------------------------</span><br>events &#123;<br>   ...<br>&#125;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">http 配置----------------------------------------------------------------------</span><br>http<br>&#123;<br><span class="hljs-meta prompt_">	#</span><span class="language-bash"><code class="language-hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">全局配置------------------------------------------------------------------------</span><br>...              <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">events 配置--------------------------------------------------------------------</span><br>events &#123;<br>   ...<br>&#125;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">http 配置----------------------------------------------------------------------</span><br>http<br>&#123;<br><span class="hljs-meta prompt_">	#</span><span class="language-bash">http 全局配置</span><br>    ...<br>    #server 全局配置<br>    server<br>    &#123; <br>    	#server全局配置<br>        ...       <br>        #location配置<br>        location [PATTERN]   <br>        &#123;<br>            ...<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>惊群现象：一个网路连接到来，多个睡眠的进程被同时叫醒，但只有一个进程能获得链接，这样会影响系统性能。 </p>
+</blockquote>
+<h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">全局配置-------------------------------------------------------------</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">指定nginx运行的用户及用户组,默认为nobody</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">user  nobody nobody;</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">开启线程数，最大值可设逻辑CPU核数</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">worker_processes  1;</span> <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">定位全局错误日志文件，级别以notice显示，还有debug,info,warn,error,crit模式，debug输出最多，crir输出最少，根据实际环境而定</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">error_log  logs/error.log;</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  notice;</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  info;</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">指定进程<span class="hljs-built_in">id</span>的存储文件位置</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">pid        logs/nginx.pid;</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">指定一个nginx进程打开的最多文件描述符数目，受系统进程的最大打开文件数量限制</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">worker_rlimit_nofile 65535</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">envents 配置----------------------------------------------------------</span><br>events &#123;<br>    ...<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><code class="language-hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">全局配置-------------------------------------------------------------</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">指定nginx运行的用户及用户组,默认为nobody</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">user  nobody nobody;</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">开启线程数，最大值可设逻辑CPU核数</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">worker_processes  1;</span> <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">定位全局错误日志文件，级别以notice显示，还有debug,info,warn,error,crit模式，debug输出最多，crir输出最少，根据实际环境而定</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">error_log  logs/error.log;</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  notice;</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">error_log  logs/error.log  info;</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">指定进程<span class="hljs-built_in">id</span>的存储文件位置</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">pid        logs/nginx.pid;</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">指定一个nginx进程打开的最多文件描述符数目，受系统进程的最大打开文件数量限制</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">worker_rlimit_nofile 65535</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">envents 配置----------------------------------------------------------</span><br>events &#123;<br>    ...<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">http 配置-------------------------------------------------------------</span><br>http &#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="events-配置"><a href="#events-配置" class="headerlink" title="events 配置"></a>events 配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">events &#123;<br>    #设置工作模式为epoll,除此之外还有select,poll,kqueue,rtsig和/dev/poll模式<br>    use epoll;<br>    #定义每个进程的最大连接数,受系统进程的最大打开文件数量限制<br>    worker_connections  1024;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="http-配置"><a href="#http-配置" class="headerlink" title="http 配置"></a>http 配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell">http &#123;<br>    #主模块指令，实现对配置文件所包含的文件的设定，可以减少主配置文件的复杂度<br>    include       mime.types;<br>    <br>    #核心模块指令，默认设置为二进制流，也就是当文件类型未定义时使用这种方式<br>    default_type  application/octet-stream;<br>    <br>    #下面代码为日志格式的设定，main为日志格式的名称，可自行设置，后面引用<br>	log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;<br>	                  &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;<br>	                  &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;<br><span class="hljs-meta prompt_">	#</span><span class="language-bash"><code class="language-hljs shell">http &#123;<br>    #主模块指令，实现对配置文件所包含的文件的设定，可以减少主配置文件的复杂度<br>    include       mime.types;<br>    <br>    #核心模块指令，默认设置为二进制流，也就是当文件类型未定义时使用这种方式<br>    default_type  application/octet-stream;<br>    <br>    #下面代码为日志格式的设定，main为日志格式的名称，可自行设置，后面引用<br>	log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;<br>	                  &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;<br>	                  &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;<br><span class="hljs-meta prompt_">	#</span><span class="language-bash">引用日志main格式</span><br>	access_log  logs/access.log  main;<br><br>    #设置允许客户端请求的最大的单个文件字节数<br>    client_max_body_size 20M;<br>    #指定来自客户端请求头的headebuffer大小<br>    client_header_buffer_size  32k;<br>    #指定连接请求试图写入缓存文件的目录路径<br>    client_body_temp_path /dev/shm/client_body_temp;<br>    #指定客户端请求中较大的消息头的缓存最大数量和大小，目前设置为4个32KB<br>    large client_header_buffers 4 32k;<br><br>    #开启高效文件传输模式<br>    sendfile        on;<br>    #开启防止网络阻塞<br>    tcp_nopush     on;<br>    #开启防止网络阻塞<br>    tcp_nodelay    on;<br><br>    #设置客户端连接保存活动的超时时间<br>    #keepalive_timeout  0; # 无限时间<br>    keepalive_timeout  65;<br><br>    #设置客户端请求读取header超时时间<br>    client_header_timeout 10;<br>    #设置客户端请求body读取超时时间<br>    client_body_timeout 10;<br><br>    #HttpGZip模块配置<br>    #开启gzip压缩<br>    gzip  on;<br>    #设置允许压缩的页面最小字节数<br>    gzip_min_length 1k;<br>    #申请4个单位为16K的内存作为压缩结果流缓存<br>    gzip_buffers 4 16k;<br>    #设置识别http协议的版本，默认为1.1<br>    gzip_http_version 1.1;<br>    #指定gzip压缩比，1-9数字越小，压缩比越小，速度越快<br>    gzip_comp_level 2;<br>    #指定压缩的类型<br>    gzip_types text/plain application/x-javascript text/css application/xml;<br>    #让前端的缓存服务器进过gzip压缩的页面<br>    gzip_vary on; <br>    <br>    # server配置<br>    server &#123;<br>        <br>    &#125;    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="server-配置"><a href="#server-配置" class="headerlink" title="server 配置"></a>server 配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell">server &#123;<br>    #单连接请求上限次数<br>    keepalive_requests 120; <br>    #监听端口<br>    listen       88;<br>    #监听地址，可以是ip，最好是域名<br>    server_name  111.222.333.123;<br>    #server_name  www.123.com;<br>    #设置访问的语言编码<br>    charset utf-8;<br>    #设置虚拟主机访问日志的存放路径及日志的格式为main<br>    access_log  /www/wwwlogs/111.222.333.123.log main; #响应日志<br>    error_log  /www/wwwlogs/111.222.333.123.log main; #错误日志<br>    <br>    #PHP-INFO-START  PHP引用配置，可以注释或修改<br>    include enable-php-74.conf;<br>    #PHP-INFO-END<br>    <br>    #REWRITE-START URL重写规则引用<br>    include /www/server/panel/vhost/rewrite/111.222.333.123.conf;<br>    #REWRITE-END<br>    <br>    #设置主机基本信息<br>    #请求的url过滤，正则匹配，~为区分大小写，~*为不区分大小写。<br>    location  ~*^.+$ &#123;<br>    	#根目录<br>        root html;  <br>        #设置默认页<br>        index  index.html index.htm;<br>        #拒绝的ip,黑名单<br>        deny 127.0.0.1;  <br>        #允许的ip，白名单<br>        allow 172.18.5.54; <br>    &#125; <br>    <br>    #禁止访问的文件或目录<br>    location ~ ^/(\.user.ini|\.htaccess|\.git|\.svn|\.project|LICENSE|README.md)<br>    &#123;<br>        return 404;<br>    &#125;<br>    <br>    #SSL证书验证目录相关设置<br>    location ~ \.well-known&#123;<br>        allow all;<br>    &#125;<br>    <br><span class="hljs-meta prompt_">	#</span><span class="language-bash"><code class="language-hljs shell">server &#123;<br>    #单连接请求上限次数<br>    keepalive_requests 120; <br>    #监听端口<br>    listen       88;<br>    #监听地址，可以是ip，最好是域名<br>    server_name  111.222.333.123;<br>    #server_name  www.123.com;<br>    #设置访问的语言编码<br>    charset utf-8;<br>    #设置虚拟主机访问日志的存放路径及日志的格式为main<br>    access_log  /www/wwwlogs/111.222.333.123.log main; #响应日志<br>    error_log  /www/wwwlogs/111.222.333.123.log main; #错误日志<br>    <br>    #PHP-INFO-START  PHP引用配置，可以注释或修改<br>    include enable-php-74.conf;<br>    #PHP-INFO-END<br>    <br>    #REWRITE-START URL重写规则引用<br>    include /www/server/panel/vhost/rewrite/111.222.333.123.conf;<br>    #REWRITE-END<br>    <br>    #设置主机基本信息<br>    #请求的url过滤，正则匹配，~为区分大小写，~*为不区分大小写。<br>    location  ~*^.+$ &#123;<br>    	#根目录<br>        root html;  <br>        #设置默认页<br>        index  index.html index.htm;<br>        #拒绝的ip,黑名单<br>        deny 127.0.0.1;  <br>        #允许的ip，白名单<br>        allow 172.18.5.54; <br>    &#125; <br>    <br>    #禁止访问的文件或目录<br>    location ~ ^/(\.user.ini|\.htaccess|\.git|\.svn|\.project|LICENSE|README.md)<br>    &#123;<br>        return 404;<br>    &#125;<br>    <br>    #SSL证书验证目录相关设置<br>    location ~ \.well-known&#123;<br>        allow all;<br>    &#125;<br>    <br><span class="hljs-meta prompt_">	#</span><span class="language-bash">图片资源配置</span><br>    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$<br>    &#123;<br>        expires      30d;<br>        error_log /dev/null;<br>        access_log off;<br>    &#125;<br>    <br>    #网站js与css资源配置<br>    location ~ .*\.(js|css)?$<br>    &#123;<br>        expires      12h;<br>        error_log /dev/null;<br>        access_log off; <br>    &#125;<br>    <br>    #访问异常页面配置<br>    error_page  404              /404.html;<br>    error_page  500 502 503 504  /50x.html;<br>    location = /50x.html &#123;<br>		root   html;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Rewrite"><a href="#Rewrite" class="headerlink" title="Rewrite"></a>Rewrite</h1><h3 id="一、地址重写，地址转发，重定向"><a href="#一、地址重写，地址转发，重定向" class="headerlink" title="一、地址重写，地址转发，重定向"></a>一、地址重写，地址转发，重定向</h3><p>地址重写：为了标准化网址，比如输入baidu.com和<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.baidu.com,都会被重写到www.baidu.com,而且我们在浏览器看到的也会是/">www.baidu.com，都会被重写到www.baidu.com，而且我们在浏览器看到的也会是</a> <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.baidu.com/">www.baidu.com</a></p>
+<p>地址转发：指在网络数据传输过程中数据分组到达路由器或桥接器后，该设备通过检查分组地址并将数据转发到最近的局域网的过程。 </p>
+<p>不同点：</p>
+<ul>
+<li>地址重写会改变浏览器中的地址，使之变成重写成浏览器最新的地址。而地址转发他是不会改变浏览器的地址的。 </li>
+<li>地址重写会产生两次请求，而地址转发只会有一次请求。 </li>
+<li>地址转发一般发生在同一站点项目内部，而地址重写且不受限制。 </li>
+<li>地址转发的速度比地址重定向快。</li>
+</ul>
+<h3 id="二、URL-重写"><a href="#二、URL-重写" class="headerlink" title="二、URL 重写"></a>二、URL 重写</h3><p>在 Nginx 中通过在 server 或 location 中配置 rewrite 指令实现：</p>
+<h6 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h6><p><code>rewrite regex replacement [flag];</code></p>
+<ul>
+<li><strong>rewrite</strong>：该指令是实现URL重写的指令</li>
+<li><strong>regex</strong>：用于匹配URI的正则表达式</li>
+<li><strong>replacement</strong>：将regex正则匹配到的内容替换成 replacement。</li>
+<li><strong>flag</strong>:标记<ul>
+<li><strong>last:</strong> 本条规则匹配完成后，继续向下匹配新的location URI 规则。(不常用) </li>
+<li><strong>break:</strong> 本条规则匹配完成即终止，不再匹配后面的任何规则(不常用)。 </li>
+<li><strong>redirect:</strong> 返回302临时重定向，浏览器地址会显示跳转新的URL地址。</li>
+<li><strong>permanent:</strong> 返回301永久重定向。浏览器地址会显示跳转新的URL地址。</li>
+</ul>
+</li>
+</ul>
+<h6 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h6><p><code>rewrite ^/(.*) http://www.baidu.com/$1 permanent;</code></p>
+<ul>
+<li><strong>rewrite</strong> ：指令。</li>
+<li><strong>regex</strong>：正则表达式，匹配完整的域名和后面的路径地址。</li>
+<li><strong>replacement</strong>：$1是取regex部分()里面的内容。如果匹配成功后跳转到的URL。</li>
+<li><strong>flag；</strong>permanent，代表永久重定向的含义，即跳转到 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.baidu.com/$1">http://www.baidu.com/$1</a> 地址上。</li>
+</ul>
+<p>正则表达式</p>
+<table>
+<thead>
+<tr>
+<th><strong>字符</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\</td>
+<td>转义字符标记，如 <code>\n</code>匹配一个换行符，而<code>\$</code>则匹配<code>$</code></td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的起始位置</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结束位置</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的字符零次或多次。如<code>ol*</code>能匹配<code>o</code>及<code>ol</code>、<code>oll</code></td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的字符一次或多次。如<code>ol+</code>能匹配<code>ol</code>及<code>oll</code>、<code>oll</code>，但不能匹配<code>o</code></td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的字符零次或一次，例如<code>do(es)?</code>能匹配<code>do</code>或者<code>does</code>，<code>?</code>等效于<code>&#123;0,1&#125;</code></td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除“<code>\n</code>之外的任何单个字符，若要匹配包括“\n”在内的任意字符，请使用诸如<code>[.\n]</code>之类的模式。</td>
+</tr>
+<tr>
+<td>(pattern)</td>
+<td>匹配括号内pattern并可以在后面获取对应的匹配，常用<code>$0...$9</code>属性获取小括号中的匹配内容，要匹配圆括号字符需要<code>\(Content\)</code></td>
+</tr>
+</tbody></table>
+<h3 id="三、if-指令使用"><a href="#三、if-指令使用" class="headerlink" title="三、if 指令使用"></a>三、if 指令使用</h3><p>语法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">if (condition) &#123;<br>  // ....<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Rewrite 可以使用的全局变量</p>
+<ul>
+<li><strong>$args</strong>: 该变量中存放了请求URL中的请求指令。比如 <code>http://127.0.0.1:3001?arg1=value1&amp;arg2=value2</code> 中的 <code>arg1=value1&amp;arg2=value2</code></li>
+<li><strong>$content_length</strong>: 该变量中存放了请求头中的Content-length字段</li>
+<li><strong>$content_type</strong>: 该变量中存放了请求头中的 Content-type字段</li>
+<li><strong>$document_root</strong>: 该变量中存放了针对当前请求的根路径</li>
+<li><strong>$document_uri</strong>: 该变量中存放了请求的当前URI, 但是不包括请求指令。比如 <code>http://xxx.abc.com/home/1?arg1=value1&amp; arg2=value2;</code> 中的 <code>/home/1</code> </li>
+<li><strong>$host:</strong> 变量中存放了请求的URL中的主机部分字段，比如<code>http://xxx.abc.com:8080/home</code>中的 <code>xxx.abc.com</code></li>
+<li><strong>$http_host</strong>: 该变量与$host唯一区别带有端口号：比如上面的是 <code>xxx.abc.com:8080 </code></li>
+<li><strong>$http_user_agent</strong>: 变量中存放客户端的代理信息</li>
+<li><strong>$http_cookie</strong>, 该变量中存放客户端的cookie信息</li>
+<li><strong>$remote_addr</strong> 该变量中存放客户端的地址</li>
+<li><strong>$remote_port</strong> 该变量中存放了客户端与服务器建立连接的端口号 </li>
+<li><strong>$remote_user</strong> 变量中存放客户端的用户名</li>
+<li><strong>$request_body_file</strong> 变量中存放了发给后端服务器的本地文件资源的名称 </li>
+<li><strong>$request_method</strong> 变量中存放了客户端的请求方式，比如 ‘GET’、’POST’等</li>
+<li><strong>$request_filename</strong> 变量中存放了当前请求的资源文件的路径名</li>
+<li><strong>$request_uri</strong> 变量中存放了当前请求的URI，并且带请求指令</li>
+<li><strong>$query_string</strong> 和变量$args含义一样</li>
+<li><strong>$scheme</strong> 变量中存放了客户端请求使用的协议，比如 ‘http’, ‘https’等</li>
+<li><strong>$server_protocol</strong> 变量中存放了客户端请求协议的版本, 比如 ‘HTTP&#x2F;1.0’、’HTTP&#x2F;1.1’ 等</li>
+</ul>
+<p>正则表达式：</p>
+<h5 id="1、变量匹配"><a href="#1、变量匹配" class="headerlink" title="1、变量匹配"></a>1、变量匹配</h5><ul>
+<li><code>~</code>：表示匹配过程中对大小写敏感</li>
+<li><code>~*</code>：表示匹配过程中对大小写不敏感</li>
+<li><code>!~</code> ：如果<code>~</code>匹配失败时，那么该条件就为true</li>
+<li><code>!~*&#39;</code>：如果 <code>~*</code> 匹配失败时，那么该条件就为true</li>
+</ul>
+<p>举个栗子：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">if ($http_user_agent ~ MSIE) &#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>含义：$http_user_agent值中是否含有 MSIE 字符串，如果包含为true，否则为false</p>
+<h5 id="2、判断请求的文件是否存在"><a href="#2、判断请求的文件是否存在" class="headerlink" title="2、判断请求的文件是否存在"></a>2、判断请求的文件是否存在</h5><figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell">if (-f $request_filename) &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">判断请求的文件是否存在</span><br>&#125;<br><br>if (!-f $request_filename) &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash"><code class="language-hljs shell">if (-f $request_filename) &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">判断请求的文件是否存在</span><br>&#125;<br><br>if (!-f $request_filename) &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">判断请求的文件是否不存在</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其他指令： </p>
+<ul>
+<li>-f和!-f用来判断请求文件是否存在 </li>
+<li>-d和!-d用来判断请求目录是否存在 </li>
+<li>-e和!-e用来判断是请求的文件或者目录否存在 </li>
+<li>-x和!-x用来判断请求的文件是否可执行</li>
+</ul>
+<h5 id="3、判断手机访问"><a href="#3、判断手机访问" class="headerlink" title="3、判断手机访问"></a>3、判断手机访问</h5><figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">if ( $http_user_agent ~* "(Android)|(iPhone)|(Mobile)|(WAP)|(UCWEB)" )&#123;<br>  rewrite ^/$  http://www.cnblogs.com  permanent；<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4、其他"><a href="#4、其他" class="headerlink" title="4、其他"></a>4、其他</h5><p>现在我们使用if指令来对nginx加一些判断；比如说我们访问<a target="_blank" rel="noopener external nofollow noreferrer" href="http://xxx.abc.com:8080/home%E6%97%B6%E5%80%99%EF%BC%8C%E5%A6%82%E6%9E%9C$host">http://xxx.abc.com:8080/home时候，如果$host</a> &#x3D; ‘xxx.abc.com’ 的时候，就做重定向跳转，nginx配置代码如下： </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">server &#123;<br>  listen 8088;<br>  server_name xxx.abc.com;<br>  location / &#123;<br>    proxy_pass http://127.0.0.1:3001;<br>    if ($host = &#x27;xxx.abc.com&#x27;) &#123;<br>      rewrite ^/(.*) http://www.cnblogs.com redirect;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="四、防盗链"><a href="#四、防盗链" class="headerlink" title="四、防盗链"></a>四、防盗链</h3><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/tugenhua0707/p/10798762.html">https://www.cnblogs.com/tugenhua0707/p/10798762.html</a></p>
+<p><strong>什么是防盗链？</strong></p>
+<p>盗链可以理解盗图链接，也就是说把别人的图片偷过来用在自己的服务器上，那么防盗链可以理解为防止其他人把我的图片盗取过去。</p>
+<p><strong>防盗链的实现原理：</strong></p>
+<p>客户端向服务器端请求资源时，为了减少网络带宽，提高响应时间，服务器一般不会一次将所有资源完整地传回客户端。比如请求一个网页时，首先会传回该网页的文本内容，当客户端浏览器在解析文本的过程中发现有图片存在时，会再次向服务器发起对该图片资源的请求，服务器将存储的图片资源再发送给客户端。但是如果这个图片是链接到其他站点的服务器上去了呢，比如在我项目中，我引用了的是淘宝中的一张图片的话，那么当我们网站重新加载的时候，就会请求淘宝的服务器，那么这就很有可能造成淘宝服务器负担。因此这个就是盗链行为。因此我们要实现防盗链。</p>
+<p><strong>实现防盗链：</strong></p>
+<p>使用http协议中请求头部的Referer头域来判断当前访问的网页或文件的源地址。通过该头域的值，我们可以检测访问目标资源的源地址。如果目标源地址不是我们自己站内的URL的话，那么这种情况下，我们采取阻止措施，实现防盗链。但是注意的是：Referer头域中的值是可以被更改的。因此该方法也不能完全安全阻止防盗链。 </p>
+<p><strong>使用Nginx服务器的Rewrite功能实现防盗链。</strong></p>
+<p>Nginx中有一个指令 valid_referers. 该指令可以用来获取 Referer 头域中的值，并且根据该值的情况给 Nginx全局变量 invalidreferer赋值。如果Referer头域中没有符合validreferers指令的值的话，invalidreferer赋值。如果Referer头域中没有符合validreferers指令的值的话，invalid_referer变量将会赋值为</p>
+<p>valid_referers 指令基本语法如下：</p>
+<p><code>valid_referers  none | blocked | server_names | string</code></p>
+<p><strong>none:</strong> 检测Referer头域不存在的情况。</p>
+<p><strong>blocked：</strong> 检测Referer头域的值被防火墙或者代理服务器删除或伪装的情况。那么在这种情况下，该头域的值不以”http:&#x2F;&#x2F;“ 或 “https:&#x2F;&#x2F;“ 开头。</p>
+<p><strong>server_names:</strong> 设置一个或多个URL，检测Referer头域的值是否是URL中的某个。</p>
+<p>因此我们有了 valid_referers指令和$invalid_referer变量的话，我们就可以通过 Rewrite功能来实现防盗链。<br>下面我们介绍两种方案：第一：根据请求资源的类型。第二：根据请求目录。</p>
+<h5 id="1-根据请求文件类型实现防盗链配置实列如下："><a href="#1-根据请求文件类型实现防盗链配置实列如下：" class="headerlink" title="1. 根据请求文件类型实现防盗链配置实列如下："></a>1. 根据请求文件类型实现防盗链配置实列如下：</h5><figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">server &#123;<br>  listen 8080;<br>  server_name xxx.abc.com<br>  location ~* ^.+\.(gif|jpg|png|swf|flv|rar|zip)$ &#123;<br>    valid_referers none blocked www.xxx.com www.yyy.com *.baidu.com  *.tabobao.com;<br>    if ($invalid_referer) &#123;<br>      rewrite ^/ http://www.xxx.com/images/forbidden.png;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如上基本配置，当有网络连接对以 gif、jpg、png为后缀的图片资源时候、当有以swf、flv为后缀的媒体资源时、或以 rar、zip为后缀的压缩资源发起请求时，如果检测到Referer头域中没有符合 valid_referers指令的话，那么说明不是本站的资源请求。</p>
+<p>location ~* ^.+.(gif|jpg|png|swf|flv|rar|zip)$ 该配置的含义是 设置防盗链的文件类型。</p>
+<p>valid_referers none blocked <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.xxx.com/">www.xxx.com</a> <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.yyy.com/">www.yyy.com</a> *.baidu.com *.tabobao.com; 可以理解为白名单，允许文件链出的域名白名单，如果请求的资源文件不是以这些域名开头的话，就说明请求的资源文件不是该域下的请求，因此可以判断它是盗链。因此如果不是该域下的请求，就会使用 Rewrite进行重定向到 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.xxx.com/images/forbidden.png">http://www.xxx.com/images/forbidden.png</a> 这个图片，比如这张图片是一个x或其他的标识，然后其他的网站就访问不了你这个图片哦。</p>
+<ol start="2">
+<li>根据请求目录实现防盗链的配置实列如下：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">server &#123;<br>  listen 8080;<br>  server_name xxx.abc.com<br>  location /file/ &#123;<br>    root /server/file/;<br>    valid_referers none blocked www.xxx.com www.yyy.com *.baidu.com  *.tabobao.com;<br>    if ($invalid_referer) &#123;<br>      rewrite ^/ http://www.xxx.com/images/forbidden.png;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>其他栗子</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">例子一（域名跳转）:<br>    server &#123;<br>            listen 80;<br>            server_name   abc.com;<br>            rewrite   ^/(.*)     http://www.ab c.com/$1 permanent;  # 跳转到www.abc.com网址上<br>        &#125;<br>例子二：<br>  server &#123;<br>            listen 80;<br>            server_name   www.myweb.com www.web.info<br>            if($host ~ myweb\.info)&#123;                        #"."需要使用“\”转义，这里是匹配到www.web.info时<br>                     rewrite ^(.*)  http://www.myweb.com/&1 permanent;   #永久重定向到http://www.myweb.com网址上&1是匹配的uri<br>            &#125;<br>        &#125;<br>例子三(防盗链)：<br>location ~* \.(gif|jpg|png|swf|flv)$ &#123;<br>    valid_referers none blocked www.vison.com www.wsvison.com;  #这里表示Referer头域中的值是none或者blocked或者后面这些网址才会返回去正常的gif|jpg|png|swf|flv文件，否则执行下面if块代码<br>    if ($invalid_referer) &#123;  #上面没有匹配成功，$invalid_referer值为1，否则为0<br>        return 404;<br>    &#125; //防盗链<br>&#125;       <br>其他例子：    <br>if ($http_user_agent ~ MSIE) &#123;<br>    rewrite ^(.*)$ /msie/$1 break;<br>&#125; //如果UA包含"MSIE"，rewrite请求到/msid/目录下<br><br>if ($http_cookie ~* "id=([^;]+)(?:;|$)") &#123;<br>    set $id $1;<br> &#125; //如果cookie匹配正则，设置变量$id等于正则引用部分<br><br>if ($request_method = POST) &#123;<br>    return 405;<br>&#125; //如果提交方法为POST，则返回状态405（Method not allowed）。return不能返回301,302<br><br>if ($slow) &#123;<br>    limit_rate 10k;<br>&#125; //限速，$slow可以通过 set 指令设置<br><br>if (!-f $request_filename)&#123;<br>    break;<br>    proxy_pass  http://127.0.0.1; <br>&#125; //如果请求的文件名不存在，则反向代理到localhost 。这里的break也是停止rewrite检查<br><br>if ($args ~ post=140)&#123;<br>    rewrite ^ http://example.com/ permanent;<br>&#125; //如果query string中包含"post=140"，永久重定向到example.com<br><br></code></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/36288/">https://ziptop.top/posts/36288/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/">网站开发</a><a class="post-meta__tags" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/">1024程序员节</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img03.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/45506/"><img class="prev-cover" src="/assert/img/background/img05.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JS 中 Json 数据的快速排序</div></div></a></div><div class="next-post pull-right"><a href="/posts/7999/"><img class="next-cover" src="/assert/img/background/img04.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">从水果连连看到两条序列比对</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/8526/" title="查看并关闭占用端口"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-24</div><div class="title">查看并关闭占用端口</div></div></a></div><div><a href="/posts/1551/" title="D3入门篇 01 | 选择集及数据处理"><img class="cover" src="/assert/img/background/img10.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-31</div><div class="title">D3入门篇 01 | 选择集及数据处理</div></div></a></div><div><a href="/posts/8315/" title="Django REST 框架详解 03 | 模型建立与表设计"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-17</div><div class="title">Django REST 框架详解 03 | 模型建立与表设计</div></div></a></div><div><a href="/posts/1776/" title="Apache+PHP+VC14环境搭建及测试"><img class="cover" src="/assert/img/background/img19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2015-09-29</div><div class="title">Apache+PHP+VC14环境搭建及测试</div></div></a></div><div><a href="/posts/885/" title="Django REST 框架详解 02 | 设置与模块"><img class="cover" src="/assert/img/background/img16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-17</div><div class="title">Django REST 框架详解 02 | 设置与模块</div></div></a></div><div><a href="/posts/43307/" title="Django REST 框架详解 01 | 安装与数据库配置"><img class="cover" src="/assert/img/background/img07.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-17</div><div class="title">Django REST 框架详解 01 | 安装与数据库配置</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E9%85%8D%E7%BD%AE"><span class="toc-text">Nginx 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-text">全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#events-%E9%85%8D%E7%BD%AE"><span class="toc-text">events 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-%E9%85%8D%E7%BD%AE"><span class="toc-text">http 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server-%E9%85%8D%E7%BD%AE"><span class="toc-text">server 配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rewrite"><span class="toc-text">Rewrite</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9C%B0%E5%9D%80%E9%87%8D%E5%86%99%EF%BC%8C%E5%9C%B0%E5%9D%80%E8%BD%AC%E5%8F%91%EF%BC%8C%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">一、地址重写，地址转发，重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81URL-%E9%87%8D%E5%86%99"><span class="toc-text">二、URL 重写</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="toc-text">使用：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81if-%E6%8C%87%E4%BB%A4%E4%BD%BF%E7%94%A8"><span class="toc-text">三、if 指令使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E5%8F%98%E9%87%8F%E5%8C%B9%E9%85%8D"><span class="toc-text">1、变量匹配</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E5%88%A4%E6%96%AD%E8%AF%B7%E6%B1%82%E7%9A%84%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="toc-text">2、判断请求的文件是否存在</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81%E5%88%A4%E6%96%AD%E6%89%8B%E6%9C%BA%E8%AE%BF%E9%97%AE"><span class="toc-text">3、判断手机访问</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E3%80%81%E5%85%B6%E4%BB%96"><span class="toc-text">4、其他</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%98%B2%E7%9B%97%E9%93%BE"><span class="toc-text">四、防盗链</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E6%A0%B9%E6%8D%AE%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B%E5%AE%9E%E7%8E%B0%E9%98%B2%E7%9B%97%E9%93%BE%E9%85%8D%E7%BD%AE%E5%AE%9E%E5%88%97%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">1. 根据请求文件类型实现防盗链配置实列如下：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

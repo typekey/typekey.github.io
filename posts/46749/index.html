@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>一文极速读懂 Gene Ontology （GO）数据库 | 白墨</title><meta name="keywords" content="生物信息,数据库,生信情报站,基因,GO,GeneOntology"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、介绍官方：基因本体（GO）知识库是有关基因功能的全球最大信息来源。 这些知识既是人类可读的，也是机器可读的，并且是生物医学研究中大规模分子生物学和遗传学实验的计算分析的基础。 在读懂基因本体论（Gene Ontology）前，我们先看看什么是本体论： 本体论（Ontology ）是探究世界的本原或基质的哲学理论 。 本体论通常处理的问题：存在哪些本质，如何将这些本质分组，在层次结构内关联以及如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文极速读懂 Gene Ontology （GO）数据库">
+<meta property="og:url" content="https://ziptop.top/posts/46749/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="一、介绍官方：基因本体（GO）知识库是有关基因功能的全球最大信息来源。 这些知识既是人类可读的，也是机器可读的，并且是生物医学研究中大规模分子生物学和遗传学实验的计算分析的基础。 在读懂基因本体论（Gene Ontology）前，我们先看看什么是本体论： 本体论（Ontology ）是探究世界的本原或基质的哲学理论 。 本体论通常处理的问题：存在哪些本质，如何将这些本质分组，在层次结构内关联以及如">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img07.png">
+<meta property="article:published_time" content="2019-12-30T01:40:46.000Z">
+<meta property="article:modified_time" content="2019-12-30T01:40:46.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生物信息">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="基因">
+<meta property="article:tag" content="GO">
+<meta property="article:tag" content="GeneOntology">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img07.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/46749/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一文极速读懂 Gene Ontology （GO）数据库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-12-30 09:40:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img07.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一文极速读懂 Gene Ontology （GO）数据库</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-12-30T01:40:46.000Z" title="发表于 2019-12-30 09:40:46">2019-12-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/">生信分析</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一文极速读懂 Gene Ontology （GO）数据库"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h3><p>官方：基因本体（GO）知识库是有关基因功能的全球最大信息来源。 这些知识既是人类可读的，也是机器可读的，并且是生物医学研究中大规模分子生物学和遗传学实验的计算分析的基础。</p>
+<p>在读懂基因本体论（Gene Ontology）前，我们先看看什么是本体论：</p>
+<p>本体论（Ontology ）是探究世界的本原或基质的哲学理论 。</p>
+<p>本体论通常处理的问题：存在哪些本质，如何将这些本质分组，在层次结构内关联以及如何根据相似性和差异进行细分 。</p>
+<blockquote>
+<p>个人理解：本体&#x3D;本质&#x3D;本原&#x3D;基质</p>
+</blockquote>
+<p>基因本体论（Gene Ontology）包含生物学领域知识体系本质的表示形式，本体通常由一组类（或术语或概念）组成，它们之间具有关系。 基因本体论（GO）从三个方面（GO domains）描述了我们对生物学领域的了解：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjcvY3VrMk51Z0NZbmRvLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<ul>
+<li><p><strong>分子功能（Molecular Function，MF ）</strong></p>
+<p><strong>单个的基因产物（包括蛋白质和RNA）或多个基因产物的复合物在分子水平上的活动</strong>，比如“催化”，“转运”</p>
+<p>需要注意，这里的描述只表示活动，而不指定执行功能的实体（分子或复合物），动作发生的地点，时间或背景</p>
+<p>广义上的例子是催化活性和转运蛋白活性。具体的例子是腺苷酸环化酶活性或Toll样受体结合</p>
+<p>为避免基因产物名称与其分子功能之间的混淆，GO分子功能通常附加“活性（activity）”一词。比如，蛋白激酶（protein kinase）具有GO分子功能：蛋白激酶活性（ protein kinase activity）</p>
+</li>
+<li><p><strong>细胞组分（Cellular Component ，CC）</strong></p>
+<p><strong>基因产物在执行功能时所处的细胞结构位置</strong>，比如在线粒体，核糖体</p>
+<p>需要注意：细胞组分是细胞解刨结构，不指代过程</p>
+</li>
+<li><p><strong>生物过程（Biological Process ，BP）</strong></p>
+<p><strong>通过多种分子活动完成的生物学过程</strong></p>
+<p>广义上的例子是DNA修复或信号转导。更加具体的例子是嘧啶核苷生物合成过程或葡萄糖跨膜转运</p>
+<p>需要注意：生物学过程不等同于通路。目前，GO没有表示完整的通路信息所需的动力学或依赖性的描述信息</p>
+</li>
+</ul>
+<p>理解了上述的概念，现在举个例子，如果站在基因本体论GO的角度来解释一个基因的话：</p>
+<p>基因产物：细胞色素C（cytochrome c）</p>
+<p>分子功能：氧化还原酶活性</p>
+<p>细胞组分：线粒体基质</p>
+<p>生物过程：氧化磷酸化</p>
+<h4 id="GO术语的构成"><a href="#GO术语的构成" class="headerlink" title="GO术语的构成"></a>GO术语的构成</h4><h5 id="基本要素"><a href="#基本要素" class="headerlink" title="基本要素"></a>基本要素</h5><ul>
+<li><strong>唯一标识符（GO ID）和名称</strong>：比如GO：0005739，GO：1904659，GO：0016597和线粒体，葡萄糖跨膜转运，氨基酸结合</li>
+<li><strong>方面</strong>：该术语属于细胞成分，生物过程或分子功能的哪一个。</li>
+<li><strong>定义</strong>：术语的文字描述，以及信息来源的引用。</li>
+<li><strong>关系</strong>：该术语与本体中其他术语的关系。  例如，葡萄糖跨膜转运（GO：1904659）是单糖转运（GO：0015749）。</li>
+</ul>
+<h5 id="可选要素"><a href="#可选要素" class="headerlink" title="可选要素"></a>可选要素</h5><ul>
+<li><strong>次级ID（备用ID）</strong>：当两个或多个术语的含义相同并且合并为一个术语时，就会出现辅助ID。 所有术语ID都会保留下来，因此不会丢失任何信息（例如，合并ID的注释）。</li>
+<li><strong>同义字</strong>：含义与术语名称紧密相关的替代字词或短语，表示名称与同义词范围所赋予的同义词之间的关系。 GO同义词的范围是：<ul>
+<li><strong>相同 <em>Exact</em></strong> ： 术语名称可以互换； 例如 鸟氨酸循环是尿素循环的确切同义词</li>
+<li><strong>广义<em>Broad</em></strong> ：同义词比术语名称更广泛； 例如 细胞分裂是胞质分裂的广义同义词</li>
+<li><strong>狭义 <em>Narrow</em></strong> ：同义词比术语名称更具体或更精确； 例如 用光裂酶修复嘧啶二聚体是光反应性修复的狭义同义词</li>
+<li><strong>相关 <em>Related</em></strong> ：术语以不精确的方式相关； 例如 细胞色素bc1复合体是泛醇-细胞色素c还原酶活性的相关同义词毒力是发病机理的相关同义词</li>
+</ul>
+</li>
+</ul>
+<p>自定义同义词类型也用于本体中。 例如，许多同义词被指定为系统同义词。 此类型的同义词是术语名称的确切同义词。</p>
+<h4 id="基因本体论中的关系"><a href="#基因本体论中的关系" class="headerlink" title="基因本体论中的关系"></a>基因本体论中的关系</h4><p>GO以图的形式构建，术语作为同种的节点，术语间的关系（对象属性）作为连接。</p>
+<h5 id="关系的描述"><a href="#关系的描述" class="headerlink" title="关系的描述"></a>关系的描述</h5><ul>
+<li><strong>节点</strong> <em>node</em>：是指GO术语</li>
+<li><strong>父级</strong> <em>parent</em>：是指更靠近图的根的节点</li>
+<li><strong>子级</strong> <em>child</em>：是指更靠近叶节点的节点； 对于is_a和part_of关系，父级是一个更宽泛的GO术语，而子级是一个更具体的术语</li>
+<li><strong>箭头</strong> <em>arrowhead</em>：指示关系的方向</li>
+<li><strong>虚线</strong> <em>Dotted lines</em>：表示推断的关系，即本体中未明确说明的关系</li>
+</ul>
+<h5 id="节点的连接"><a href="#节点的连接" class="headerlink" title="节点的连接"></a>节点的连接</h5><p>GO图中的节点与其他节点可以具有任意数量和类型的关系， 就像层次结构，例如，家谱或一个物种的分类法</p>
+<p>一个节点可能与多个子节点（更特定的节点）具有连接，也可以具有多个父节点（较宽的节点）</p>
+<p>利用关系与关系间的连接可以推断相应的分组注释，节点间关系的推断，这个会在后面详细研究：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvZ1EyV3BRWVREZ3phLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>上图表示：A is a B，B is part of C，所以可以推断 A is part of C</p>
+<p>节点间总体与部分关系：</p>
+<p>一个节点可能与一个节点有一部分关系。 下图说明了这一点：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvckVwNkxKMzE0U2M4LnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>上图：<em>mitochondrion</em>  是两个节点的父节点：it <em>is an</em> organelle and it is <em>part of</em> the cytoplasm ；<em>organelle</em> 有两个子节点: mitochondrion <em>is an</em> organelle, and organelle membrane <em>is part</em> of organelle </p>
+<h5 id="GO的主要关系"><a href="#GO的主要关系" class="headerlink" title="GO的主要关系"></a>GO的主要关系</h5><p>我们将上面的关系图简化表示为<code>箭头导向性图</code>，这是图中常见的关系表示：</p>
+<table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>关系</th>
+<th>符号</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td>is a</td>
+<td>A<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvT1JOekR0bG9RTEJMLnBuZw?x-oss-process=image/format,png" alt="mark">B</td>
+<td>有丝分裂细胞周期 <code>is a</code> 细胞周期</td>
+</tr>
+<tr>
+<td>P</td>
+<td>part of</td>
+<td>A<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvZUJZa3N6OUFOeEcwLnBuZw?x-oss-process=image/format,png" alt="mark">B</td>
+<td>线粒体内膜 <code>part of</code> 线粒体</td>
+</tr>
+<tr>
+<td>hP</td>
+<td>has part</td>
+<td>A<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvc1RhR2pGRnVBdG9DLnBuZw?x-oss-process=image/format,png" alt="mark">B</td>
+<td>受体酪氨酸激酶活性 <code>has part</code> 激酶活性</td>
+</tr>
+<tr>
+<td>R</td>
+<td>regulates</td>
+<td>A<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvN3VPU1Q4d2V2NUVrLnBuZw?x-oss-process=image/format,png" alt="mark">B</td>
+<td>抗凋亡 <code>regulates</code> 细胞程序性死亡</td>
+</tr>
+<tr>
+<td>R+</td>
+<td>positively regulates</td>
+<td>A<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvSlh5OUVIUEJNTWpZLnBuZw?x-oss-process=image/format,png" alt="mark">B</td>
+<td>减数分裂激活 <code>positively regulates</code> 减数分裂</td>
+</tr>
+<tr>
+<td>R-</td>
+<td>negatively regulates</td>
+<td>A<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvZnlZUzRneERKaHRYLnBuZw?x-oss-process=image/format,png" alt="mark">B</td>
+<td>脊髓平滑信号通路 <code>negatively regulates</code> 脊髓腹侧</td>
+</tr>
+</tbody></table>
+<p>接下我们详细看看GO是怎样来描述这几种关系的：</p>
+<h6 id="1-is-a"><a href="#1-is-a" class="headerlink" title="1.is a"></a>1.<code>is a</code></h6><p>如果我们说 <code>A is a B</code>，则意味着节点A是节点B的子类型。例如，有丝分裂细胞周期是细胞周期，或者裂解酶活性是催化活性。 </p>
+<p>应该注意的是，a并不代表是实例。 从本体论上来说，一个实例是某个事物的具体示例。 例如 猫是哺乳动物，但加菲猫是猫的实例，而不是猫的亚型。 GO中的术语表示实体或现象的类别，而不是特定的表现形式（或实例）。 但是，如果我们知道猫是哺乳动物，则可以说猫的每个实例都是哺乳动物。</p>
+<p>使用 <code>is a</code> 对批注进行分组是<strong>安全的</strong>。例如，如果将基因产物X注释为具有酪氨酸激酶活性，并且本体论证明酪氨酸激酶活性是激酶活性的一种（类型），那么我们可以安全地得出结论，基因产物X具有激酶活性。</p>
+<p>利用上面得到结论，我们可以将<code>is a</code>关系和其他关系类型结合来推断，下图表示了可以推断的关系：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvRklEeDZBQU5NazFELnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h6 id="2-part-of"><a href="#2-part-of" class="headerlink" title="2.part of"></a>2.<code>part of</code></h6><p>关系的一部分用于表示整个部分的关系。 <code>part of</code> 只有当B一定是A的一部分时，才会在A和B之间部分关系：无论B存在于何处，它都是A的一部分，B的存在意味着A的存在。但是，考虑到A的出现，我们不能肯定地说B的存在。</p>
+<p>使用的 <code>part of</code> 进行分组注释是<strong>安全的</strong>。 例如，如果将基因产物X标注为位于线粒体内膜上，而本体论记录了线粒体内膜与线粒体之间的关系的一部分，则可以安全地得出结论X位于线粒体内。</p>
+<p>利用上面得到结论，我们可以将<code>part of</code>关系和其他关系类型结合来推断，下图表示了可以推断的关系：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvanRjM21LdHZLSzdmLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h6 id="3-has-part"><a href="#3-has-part" class="headerlink" title="3.has part"></a>3.<code>has part</code></h6><p><code>has part</code>是对关系部分的逻辑补充，它从父级的角度代表了“部分-整体”关系。 </p>
+<p>与 <code>part of</code> 一样，GO关系 <code>has part</code> 仅在A始终将B作为一部分的情况下使用，即A必定具有B的部分。 但是，如果B存在，我们不能肯定地说A存在。 即所有A都有B部分，但是A只是B的一部分。</p>
+<p>使用<code>has part</code>注释进行分组是<strong>不正确的</strong>。 例如，我们可以在本体论中断言受体酪氨酸激酶活性具有部分激酶活性。 然而，将所有注释归类到受体酪氨酸激酶活性下的激酶活性将是不正确的。</p>
+<p>利用上面得到结论，我们可以将<code>has part</code>关系和其他关系类型结合来推断，下图表示了可以推断的关系：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYveE12VVBXa3R2b1AxLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h6 id="4-regulates"><a href="#4-regulates" class="headerlink" title="4.regulates"></a>4.<code>regulates</code></h6><p>一种过程直接影响另一种过程或质量的表现，即前者调节后者。 调节的目标可以是另一种过程，例如调节途径或酶促反应，或者可以是质量，例如细胞大小或pH。 与 <code>part of</code> 关系类似，该关系专门用于表示必定的调节：如果同时存在A和B，则B总是调节A，但是A可能不总是受B调节，即所有B都调节A; 一些A受B调节。</p>
+<p>如果将基因产物X注释为参与调节糖酵解的过程，则不能得出结论X参与糖酵解是<strong>不正确的</strong>。 但是，某些工具使用调节关系来对批注进行分组, 这可用于基因集富集, 所得的基因集包括与分组术语有因果关系的过程中涉及的基因。</p>
+<p>利用上面得到结论，我们可以将<code>regulates</code>关系和其他关系类型结合来推断，下图表示了可以推断的关系：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAxOTEyMjYvQktYTXYxUGk5Ymt6LnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h4 id="GO-图（有向无环图）"><a href="#GO-图（有向无环图）" class="headerlink" title="GO 图（有向无环图）"></a>GO 图（有向无环图）</h4><p>GO的结构可以用下图来表示，这个图也叫有向无环图（Directed Acyclic Graph ，DAG）。</p>
+<blockquote>
+<p>在图论中，如果一个有向图无法从某个顶点出发经过若干条边回到该点,那么这个图就是有向无环图。</p>
+<p>因为有向图中一个点经过两种路线到达另一个点未必形成环，因此有向无环图未必能转化成树，但任何有向树均为有向无环图。 </p>
+<p>下图中从左到右依次是有向树，有向无环图，有向图</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-kxfUUpud-1577669934280)(C:\Users\baimo\AppData\Local\Temp\1577331013387.png)]</p>
+</blockquote>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-akvgbVw5-1577669934280)(<a target="_blank" rel="noopener external nofollow noreferrer" href="http://geneontology.org/assets/hexose-biosynthetic-process.png)]">http://geneontology.org/assets/hexose-biosynthetic-process.png)]</a> </p>
+<p>如上图所示，三个GO域（细胞成分，生物学过程和分子功能）分别由一个单独的根本体术语表示。</p>
+<p>一个域中的所有术语都可以将其父源追溯到一个根术语，通过到本体根的中间术语可能存在许多不同的路径。</p>
+<p>这三个根节点是不相关的，并且没有公共的父节点，这意味着来自不同本体的术语之间没有任何关系。但是，GO本体之间也存在其他关系，例如，分子功能术语“细胞周期蛋白依赖性蛋白激酶活性”是生物过程“细胞周期”的一部分。GO本体间相关<a target="_blank" rel="noopener external nofollow noreferrer" href="http://geneontology.org/docs/ontology-relations/%E3%80%82">http://geneontology.org/docs/ontology-relations/。</a></p>
+<p>某些基于图的软件可能需要一个根节点。在这种情况下，可以将“假”术语添加为三个现有根节点的代。</p>
+<h4 id="GO的动态更新"><a href="#GO的动态更新" class="headerlink" title="GO的动态更新"></a>GO的动态更新</h4><p>GO只代表生物学的当前认知，因此随着生物学知识的积累，它会不断地被修订和扩展。也就是说目前的GO术语不一定代表某个基因产物所有的功能，组分或参加的过程，只是现阶段对它的认知。</p>
+<p>每周更新一次，由GOC本体团队与请求更新的科学家共同完成的。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/46749/">https://ziptop.top/posts/46749/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E5%9F%BA%E5%9B%A0/">基因</a><a class="post-meta__tags" href="/tags/GO/">GO</a><a class="post-meta__tags" href="/tags/GeneOntology/">GeneOntology</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img07.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/58187/"><img class="prev-cover" src="/assert/img/background/img04.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">生信格式 | GAF GO注释文件详解</div></div></a></div><div class="next-post pull-right"><a href="/posts/57987/"><img class="next-cover" src="/assert/img/background/img18.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">KEGG 下载 Pathway 通路数据</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/58187/" title="生信格式 | GAF GO注释文件详解"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-30</div><div class="title">生信格式 | GAF GO注释文件详解</div></div></a></div><div><a href="/posts/29665/" title="Python 自动化提取基因的 CDS"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Python 自动化提取基因的 CDS</div></div></a></div><div><a href="/posts/15191/" title="一文极速读懂UniProt数据库"><img class="cover" src="/assert/img/background/img19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-23</div><div class="title">一文极速读懂UniProt数据库</div></div></a></div><div><a href="/posts/57987/" title="KEGG 下载 Pathway 通路数据"><img class="cover" src="/assert/img/background/img18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-24</div><div class="title">KEGG 下载 Pathway 通路数据</div></div></a></div><div><a href="/posts/33989/" title="Seurat 包图文详解 | 单细胞转录组(scRNA-seq)分析02"><img class="cover" src="/assert/img/background/img03.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-06</div><div class="title">Seurat 包图文详解 | 单细胞转录组(scRNA-seq)分析02</div></div></a></div><div><a href="/posts/15458/" title="二代测序原理（Illumina）"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-12</div><div class="title">二代测序原理（Illumina）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GO%E6%9C%AF%E8%AF%AD%E7%9A%84%E6%9E%84%E6%88%90"><span class="toc-text">GO术语的构成</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0"><span class="toc-text">基本要素</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E8%A6%81%E7%B4%A0"><span class="toc-text">可选要素</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E5%9B%A0%E6%9C%AC%E4%BD%93%E8%AE%BA%E4%B8%AD%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">基因本体论中的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="toc-text">关系的描述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="toc-text">节点的连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#GO%E7%9A%84%E4%B8%BB%E8%A6%81%E5%85%B3%E7%B3%BB"><span class="toc-text">GO的主要关系</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-is-a"><span class="toc-text">1.is a</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-part-of"><span class="toc-text">2.part of</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-has-part"><span class="toc-text">3.has part</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-regulates"><span class="toc-text">4.regulates</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GO-%E5%9B%BE%EF%BC%88%E6%9C%89%E5%90%91%E6%97%A0%E7%8E%AF%E5%9B%BE%EF%BC%89"><span class="toc-text">GO 图（有向无环图）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GO%E7%9A%84%E5%8A%A8%E6%80%81%E6%9B%B4%E6%96%B0"><span class="toc-text">GO的动态更新</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

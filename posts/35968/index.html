@@ -1,0 +1,1142 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>生信自动化流程搭建 07 | 配置文件 | 白墨</title><meta name="keywords" content="生物信息,生信情报站,生物学,生信流程,Nextflow,流程自动化"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="配置文件启动管道脚本时，Nextflow将在当前目录和脚本基本目录（如果与当前目录不同）中查找一个名为nextflow.config的文件。最后，它检查文件 $HOME&#x2F;.nextflow&#x2F;config。 当存在多个文件时，它们将被合并，因此第一个文件中的设置将覆盖第二个文件中可能出现的相同设置，依此类推。 如果要忽略任何默认配置文件，而仅使用自定义文件，请使用命令行选项 。-C &lt;conf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生信自动化流程搭建 07 | 配置文件">
+<meta property="og:url" content="https://ziptop.top/posts/35968/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="配置文件启动管道脚本时，Nextflow将在当前目录和脚本基本目录（如果与当前目录不同）中查找一个名为nextflow.config的文件。最后，它检查文件 $HOME&#x2F;.nextflow&#x2F;config。 当存在多个文件时，它们将被合并，因此第一个文件中的设置将覆盖第二个文件中可能出现的相同设置，依此类推。 如果要忽略任何默认配置文件，而仅使用自定义文件，请使用命令行选项 。-C &lt;conf">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img15.png">
+<meta property="article:published_time" content="2020-08-10T10:51:14.000Z">
+<meta property="article:modified_time" content="2020-08-10T10:51:14.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生物信息">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物学">
+<meta property="article:tag" content="生信流程">
+<meta property="article:tag" content="Nextflow">
+<meta property="article:tag" content="流程自动化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img15.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/35968/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '生信自动化流程搭建 07 | 配置文件',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-10 18:51:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img15.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">生信自动化流程搭建 07 | 配置文件</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-08-10T10:51:14.000Z" title="发表于 2020-08-10 18:51:14">2020-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="生信自动化流程搭建 07 | 配置文件"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>启动管道脚本时，Nextflow将在当前目录和脚本基本目录（如果与当前目录不同）中查找一个名为<code>nextflow.config</code>的文件。最后，它检查文件 <code>$HOME/.nextflow/config</code>。</p>
+<p>当存在多个文件时，它们将被合并，因此第一个文件中的设置将覆盖第二个文件中可能出现的相同设置，依此类推。</p>
+<p>如果要忽略任何默认配置文件，而仅使用自定义文件，请使用命令行选项 。<code>-C &lt;config file&gt;</code></p>
+<blockquote>
+<p>值得注意的是，通过这样做，文件<code>nextflow.config</code>和<code>$HOME/.nextflow/config</code>不会被忽略，并且如上所述将它们合并。</p>
+</blockquote>
+<h3 id="配置语法"><a href="#配置语法" class="headerlink" title="配置语法"></a>配置语法</h3><p>Nextflow配置文件是一个简单的文本文件，其中包含使用以下语法定义的一组属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">name = value<br></code></pre></td></tr></table></figure>
+
+<p>字符串值需要用引号引起来，而数字和布尔值（<code>true</code>，<code>false</code>）则不需要。</p>
+<p>需要注意，键入的值（例如<code>1</code>）不同于<code>&#39;1&#39;</code>，因为第一个解释为数字，而第一个解释为字符串值。</p>
+<h3 id="配置变量"><a href="#配置变量" class="headerlink" title="配置变量"></a>配置变量</h3><p>通过使用通常的<code>$propertyName</code>或<code>$&#123;expression&#125;</code>语法，配置属性可以用作配置文件本身中的变量 。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">propertyOne = &#x27;world&#x27;<br>anotherProp = "Hello $propertyOne"<br>customPath = "$PATH:/my/app/folder"<br></code></pre></td></tr></table></figure>
+
+<p>包含变量引用的字符串<strong>必须用双引号字符</strong>而不是单引号字符包装。</p>
+<h3 id="配置注释"><a href="#配置注释" class="headerlink" title="配置注释"></a>配置注释</h3><p>配置文件使用与Groovy或Java编程语言相同的注释约定。因此，用于<code>//</code>注释单行或<code>/*</code>.. <code>*/</code>注释多行中的块。</p>
+<h3 id="配置包括"><a href="#配置包括" class="headerlink" title="配置包括"></a>配置包括</h3><p>一个配置文件可以使用关键字包含一个或多个配置文件<code>includeConfig</code>。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process.executor = &#x27;sge&#x27;<br>process.queue = &#x27;long&#x27;<br>process.memory = &#x27;10G&#x27;<br><br>includeConfig &#x27;path/foo.config&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>使用相对路径时，将根据包含文件的实际位置解析该路径。</p>
+<h2 id="配置域"><a href="#配置域" class="headerlink" title="配置域"></a>配置域</h2><p>可以通过在属性名称前加一个范围标识符为点名称加上前缀，或使用大括号表示法在同一范围内对属性进行分组，来在不同的范围内组织配置设置。在下面的示例中显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">alpha.x  = 1<br>alpha.y  = &#x27;string value..&#x27;<br><br>beta &#123;<br>     p = 2<br>     q = &#x27;another string ..&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="env"><a href="#env" class="headerlink" title="env"></a><em>env</em></h3><p><code>env</code>范围允许将在所述工作流任务将被执行的环境被导出的定义的一个或多个变量。</p>
+<p>只需在变量名前加上<code>env</code>范围或用大括号括起来即可，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">env.ALPHA = &#x27;some value&#x27;<br>env.BETA = "$HOME/some/path"<br><br>env &#123;<br>     DELTA = &#x27;one more&#x27;<br>     GAMMA = "/my/path:$PATH"<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p><code>params</code>范围允许你定义的参数，将在管道脚本访问。只需在参数名称前加<code>params</code>范围或用大括号括起来即可，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">params.custom_param = 123<br>params.another_param = &#x27;string value .. &#x27;<br><br>params &#123;<br><br>   alpha_1 = true<br>   beta_2 = &#x27;another string ..&#x27;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="process"><a href="#process" class="headerlink" title="process"></a><em>process</em></h3><p><code>process</code>配置域可以在管道的process中提供的默认配置。</p>
+<p>您可以在此处指定process指令和executor部分中描述的任何属性。举些例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>  executor=&#x27;sge&#x27;<br>  queue=&#x27;long&#x27;<br>  clusterOptions = &#x27;-pe smp 10 -l virtual_free=64G,h_rt=30:00:00&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过使用此配置，管道中的<strong>所有进程</strong>将通过SGE集群以指定的设置执行。</p>
+<h4 id="Process-selectors"><a href="#Process-selectors" class="headerlink" title="Process selectors"></a><em>Process selectors</em></h4><p><code>withLabel</code>选择器允许与注释的所有进程的配置标签指令如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>    withLabel: big_mem &#123;<br>        cpus = 16<br>        memory = 64.GB<br>        queue = &#x27;long&#x27;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的配置示例将16 cpus，64 Gb内存和<code>long</code>队列分配给所有带有<code>big_mem</code>标签注释的进程。</p>
+<p>以相同的方式，<code>withName</code>选择器允许通过名称在管道中配置特定进程。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>    withName: hello &#123;<br>        cpus = 4<br>        memory = 8.GB<br>        queue = &#x27;short&#x27;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>并不需要或者标签和进程名称用引号字符括起来，提供的名称不包含特殊字符（例如<code>-</code>，<code>!</code>等），或者它不是一个关键字或内置类型标识符。如有疑问，可以用单引号或双引号将标签名称或过程名称括起来。</p>
+</blockquote>
+<h4 id="选择器表达式"><a href="#选择器表达式" class="headerlink" title="选择器表达式"></a>选择器表达式</h4><p>标签和进程名称选择器都允许使用正则表达式，以便将相同的配置应用于与指定模式条件匹配的所有进程。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>    withLabel: &#x27;foo|bar&#x27; &#123;<br>        cpus = 2<br>        memory = 4.GB<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的配置代码片段为进程添加了2 cpus和4 GB的内存，并用标签<code>foo</code> 和<code>bar</code>进行了注释。</p>
+<p>可以否定进程选择器，并在其前面加上特殊字符<code>!</code>。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>    withLabel: &#x27;foo&#x27; &#123; cpus = 2 &#125;<br>    withLabel: &#x27;!foo&#x27; &#123; cpus = 4 &#125;<br>    withName: &#x27;!align.*&#x27; &#123; queue = &#x27;long&#x27; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的配置代码段为带有<code>foo</code>标签注释的进程设置2 cpus，为所有未带有该标签注释的进程设置4 cpus 。最后，将使用<code>long</code>队列的所有进程。</p>
+<h4 id="选择器优先"><a href="#选择器优先" class="headerlink" title="选择器优先"></a>选择器优先</h4><p>在混合通用流程配置和选择器时，将应用以下优先级规则（从低到高）：</p>
+<ol>
+<li>处理通用配置。</li>
+<li>工作流程脚本中定义的特定于流程的指令。</li>
+<li><code>withLabel</code> 选择器定义。</li>
+<li><code>withName</code> 选择器定义。</li>
+</ol>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>    cpus = 4<br>    withLabel: foo &#123; cpus = 8 &#125;<br>    withName: bar &#123; cpus = 32 &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用上面的配置代码段，如果工作流脚本中未另行指定，则所有工作流进程均使用4 cpus。此外，带有<code>foo</code>标签注释的过程使用8 cpus。最后，名为的进程<code>bar</code> 使用32 cpus。</p>
+<hr>
+<h3 id="executor-的域"><a href="#executor-的域" class="headerlink" title="executor 的域"></a><em>executor</em> 的域</h3><p><code>executor</code>配置范围允许您设置可选的执行程序设置，下表中列出。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>使用执行人的名称，如<code>local</code>，<code>sge</code>等。</td>
+</tr>
+<tr>
+<td>queueSize</td>
+<td>执行程序将以并行方式处理的任务数（默认值：）<code>100</code>。</td>
+</tr>
+<tr>
+<td>pollInterval</td>
+<td>确定轮询发生的频率，以检查进程是否终止。</td>
+</tr>
+<tr>
+<td>dumpInterval</td>
+<td>确定将执行程序状态写入应用程序日志文件的频率（默认值：）<code>5min</code>。</td>
+</tr>
+<tr>
+<td>queueStatInterval</td>
+<td>确定从集群系统获取队列状态的频率。此设置仅由网格执行程序使用（默认值：）<code>1min</code>。</td>
+</tr>
+<tr>
+<td>exitReadTimeout</td>
+<td>确定当进程终止但退出文件不存在或为空时，执行程序在返回错误状态之前等待的时间。此设置仅由网格执行程序使用（默认值：）。<code>270 sec</code></td>
+</tr>
+<tr>
+<td>killBatchSize</td>
+<td>确定在单个命令执行中可以杀死的作业数（默认值：）<code>100</code>。</td>
+</tr>
+<tr>
+<td>SubmitRateLimit</td>
+<td>确定每个时间单位可以执行的最大作业率，例如 每秒最多10个作业（默认值：无限制）。<code>&#39;10 sec&#39;</code></td>
+</tr>
+<tr>
+<td>perJobMemLimit</td>
+<td>指定平台LSF <em>每个作业的</em>内存限制模式。参见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#lsf-executor">LSF</a>。</td>
+</tr>
+<tr>
+<td>jobName</td>
+<td>确定提交给基础集群执行器的作业的名称，例如。<code>executor.jobName = &#123; &quot;$task.name - $task.hash&quot; &#125;</code></td>
+</tr>
+<tr>
+<td>cpus</td>
+<td>基础系统可用的最大CPU数（仅由<code>local</code>执行程序使用）。</td>
+</tr>
+<tr>
+<td>memory</td>
+<td>基础系统可用的最大内存量（仅由<code>local</code>执行程序使用）。</td>
+</tr>
+</tbody></table>
+<p>执行器设置可以如下定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">executor &#123;<br>    name = &#x27;sge&#x27;<br>    queueSize = 200<br>    pollInterval = &#x27;30 sec&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在管道中使用两个（或多个）不同的执行程序时，可以通过在执行程序名称前加上符号<code>$</code>并将其用作特殊作用域标识符来分别指定其设置。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">executor &#123;<br>  $sge &#123;<br>      queueSize = 100<br>      pollInterval = &#x27;30sec&#x27;<br>  &#125;<br><br>  $local &#123;<br>      cpus = 8<br>      memory = &#x27;32 GB&#x27;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以使用如下所示的点符号来重写以上配置示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">executor.$sge.queueSize = 100<br>executor.$sge.pollInterval = &#x27;30sec&#x27;<br>executor.$local.cpus = 8<br>executor.$local.memory = &#x27;32 GB&#x27;<br></code></pre></td></tr></table></figure>
+
+<h3 id="docker-的域"><a href="#docker-的域" class="headerlink" title="docker 的域"></a>docker 的域</h3><p><code>docker</code>配置范围控制如何<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.docker.com/">泊坞</a>容器通过Nextflow执行。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>enabled</td>
+<td>将此标志<code>true</code>启用以启用Docker执行（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>envWhitelist</td>
+<td>用逗号分隔的要包含在容器环境中的环境变量名称列表。</td>
+</tr>
+<tr>
+<td>legacy</td>
+<td>使用从1.10.x版本开始删除的命令行选项（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>sudo</td>
+<td>以<code>sudo</code>（默认值：）执行Docker run命令<code>false</code>。</td>
+</tr>
+<tr>
+<td>tty</td>
+<td>分配一个伪tty（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>temp</td>
+<td>将选择的路径挂载为<code>/tmp</code>容器中的目录。<code>auto</code>每次创建容器时，都使用特殊值创建一个临时目录。</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>执行后清理容器（默认值：）<code>true</code>。有关详细信息，请参见：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/engine/reference/run/#clean-up---rm">https</a> : <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/engine/reference/run/#clean-up---rm">&#x2F;&#x2F;docs.docker.com&#x2F;engine&#x2F;reference&#x2F;run&#x2F;#clean-up—rm</a>。</td>
+</tr>
+<tr>
+<td>runOptions</td>
+<td>此属性可用于提供命令支持的任何其他命令行选项。有关详细信息，请参见：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/engine/reference/run/">https</a> : <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/engine/reference/run/">&#x2F;&#x2F;docs.docker.com&#x2F;engine&#x2F;reference&#x2F;run&#x2F;</a>。<code>docker run</code></td>
+</tr>
+<tr>
+<td>registry</td>
+<td>从中提取Docker映像的注册表。它仅应用于指定私有注册表服务器。它不应包含协议前缀，即<code>http://</code>。</td>
+</tr>
+<tr>
+<td>fixOwnership</td>
+<td>修复由Docker容器创建的文件的所有权。</td>
+</tr>
+<tr>
+<td>engineOptions</td>
+<td>该属性可用于提供Docker引擎支持的任何选项，即。<code>docker [OPTIONS]</code></td>
+</tr>
+<tr>
+<td>mountFlags</td>
+<td>将指定的标志添加到卷安装中，例如mountFlags &#x3D;’ro，Z’</td>
+</tr>
+</tbody></table>
+<p>可以通过在<code>docker</code>范围前面加上前缀或用大括号括起来来使用以上选项，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process.container = &#x27;nextflow/examples&#x27;<br><br>docker &#123;<br>    enabled = true<br>    temp = &#x27;auto&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>阅读<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/docker.html#docker-page">Docker容器</a>页面以进一步了解如何将Docker容器与Nextflow一起使用。</p>
+<h3 id="singularity-的域"><a href="#singularity-的域" class="headerlink" title="singularity 的域"></a>singularity 的域</h3><p>的<code>singularity</code>配置范围控制如何<a target="_blank" rel="noopener external nofollow noreferrer" href="https://sylabs.io/singularity/">奇异</a>容器通过Nextflow执行。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已启用</td>
+<td>将此标志<code>true</code>启用以启用奇点执行（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>engineOptions</td>
+<td>此属性可用于提供奇点引擎支持的任何选项，即。<code>singularity [OPTIONS]</code></td>
+</tr>
+<tr>
+<td>envWhitelist</td>
+<td>用逗号分隔的要包含在容器环境中的环境变量名称列表。</td>
+</tr>
+<tr>
+<td>runOptions</td>
+<td>此属性可用于提供.NET支持的任何其他命令行选项。<code>singularity exec</code></td>
+</tr>
+<tr>
+<td>noHttps</td>
+<td>旋转此标志可<code>true</code>使用http协议（默认值：）拉出奇点图像<code>false</code>。</td>
+</tr>
+<tr>
+<td>自动挂载</td>
+<td>当<code>true</code>Nextflow自动将主机路径安装在执行的容器中时。它要求您在Singularity安装中启用了用户绑定控制功能（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>cacheDir</td>
+<td>远程奇点图像的存储目录。使用计算群集时，它必须是所有计算节点均可访问的共享文件夹。</td>
+</tr>
+<tr>
+<td>pullTimeout</td>
+<td>奇异性拉动可以持续的时间量，超过该时间量将终止该过程（默认值：）。<code>20 min</code></td>
+</tr>
+</tbody></table>
+<p>阅读<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/singularity.html#singularity-page">Singularity容器</a>页面以了解如何将Nexting与Singularity容器一起使用。</p>
+<h3 id="podman-的域"><a href="#podman-的域" class="headerlink" title="podman 的域"></a>podman 的域</h3><p>的<code>podman</code>配置范围控制如何<a target="_blank" rel="noopener external nofollow noreferrer" href="https://podman.io/">Podman</a>容器通过Nextflow执行。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已启用</td>
+<td><code>true</code>启用此标志以启用Podman执行（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>envWhitelist</td>
+<td>用逗号分隔的要包含在容器环境中的环境变量名称列表。</td>
+</tr>
+<tr>
+<td>温度</td>
+<td>将选择的路径挂载为<code>/tmp</code>容器中的目录。<code>auto</code>每次创建容器时，都使用特殊值创建一个临时目录。</td>
+</tr>
+<tr>
+<td>去掉</td>
+<td>执行后清理容器（默认值：）<code>true</code>。</td>
+</tr>
+<tr>
+<td>runOptions</td>
+<td>此属性可用于提供命令支持的任何其他命令行选项。<code>podman run</code></td>
+</tr>
+<tr>
+<td>注册表</td>
+<td>从中提取容器映像的注册表。它仅应用于指定私有注册表服务器。它不应包含协议前缀，即<code>http://</code>。</td>
+</tr>
+<tr>
+<td>engineOptions</td>
+<td>该属性可用于提供Docker引擎支持的任何选项，即。<code>podman [OPTIONS]</code></td>
+</tr>
+<tr>
+<td>mountFlags</td>
+<td>将指定的标志添加到卷安装中，例如mountFlags &#x3D;’ro，Z’</td>
+</tr>
+</tbody></table>
+<p>可以通过在<code>podman</code>范围前面加上前缀或用大括号括起来来使用以上选项，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process.container = &#x27;nextflow/examples&#x27;<br><br>podman &#123;<br>    enabled = true<br>    temp = &#x27;auto&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>阅读<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/podman.html#podman-page">Podman容器</a>页面以了解如何将Podman容器与Nextflow一起使用。</p>
+<h3 id="manifest-的域"><a href="#manifest-的域" class="headerlink" title="manifest 的域"></a><em>manifest</em> 的域</h3><p>通过<code>manifest</code>配置作用域，您可以定义在GitHub，BitBucket或GitLab上发布管道项目或运行管道时所需的一些元数据信息。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>作者</td>
+<td>项目作者名称（使用逗号分隔多个名称）。</td>
+</tr>
+<tr>
+<td>defaultBranch</td>
+<td>Git仓库默认分支（默认：）<code>master</code>。</td>
+</tr>
+<tr>
+<td>描述</td>
+<td>描述工作流程项目的自由文本。</td>
+</tr>
+<tr>
+<td>土井</td>
+<td>与项目相关的出版物DOI标识符。</td>
+</tr>
+<tr>
+<td>主页</td>
+<td>项目主页URL。</td>
+</tr>
+<tr>
+<td>主脚本</td>
+<td>项目主脚本（默认值：）<code>main.nf</code>。</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>项目简称。</td>
+</tr>
+<tr>
+<td>nextflowVersion</td>
+<td>最低要求的Nextflow版本。</td>
+</tr>
+<tr>
+<td>版</td>
+<td>项目版本号。</td>
+</tr>
+</tbody></table>
+<p>可以通过在<code>manifest</code>范围前面加上前缀或用大括号括起来来使用以上选项。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">manifest &#123;<br>    homePage = &#x27;http://foo.com&#x27;<br>    description = &#x27;Pipeline does this and that&#x27;<br>    mainScript = &#x27;foo.nf&#x27;<br>    version = &#x27;1.0.0&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>要了解如何在GitHub，BitBucket或GitLab代码存储库上发布管道，请阅读<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/sharing.html#sharing-page">管道共享</a> 文档页面。</p>
+<h4 id="Nextflow版本"><a href="#Nextflow版本" class="headerlink" title="Nextflow版本"></a>Nextflow版本</h4><p>该<code>nextflowVersion</code>设置允许您指定运行管道所需的最低版本。这对于确保使用特定版本可能很有用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">nextflowVersion = &#x27;1.2.3&#x27;        // exact match<br>nextflowVersion = &#x27;1.2+&#x27;         // 1.2 or later (excluding 2 and later)<br>nextflowVersion = &#x27;>=1.2&#x27;        // 1.2 or later<br>nextflowVersion = &#x27;>=1.2, <=1.5&#x27; // any version in the 1.2 .. 1.5 range<br>nextflowVersion = &#x27;!>=1.2&#x27;       // with ! prefix, stop execution if current version<br>                                    does not match required version.<br></code></pre></td></tr></table></figure>
+
+<h3 id="范围追踪"><a href="#范围追踪" class="headerlink" title="范围追踪"></a>范围追踪</h3><p>该<code>trace</code>范围允许您控制Nextflow生成的执行跟踪文件的布局。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已启用</td>
+<td>当<code>true</code>打开执行跟踪报告文件的生成时（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>领域</td>
+<td>用逗号分隔的要包含在报告中的字段列表。可用字段在<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/tracing.html#trace-fields">此页面</a>列出</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>跟踪文件名（默认值：）<code>trace.txt</code>。</td>
+</tr>
+<tr>
+<td>九月</td>
+<td>用于分隔每一行中值的字符（默认值：）<code>\t</code>。</td>
+</tr>
+<tr>
+<td>生的</td>
+<td>当<code>true</code>打开原始数字报告生成时，即日期和时间以毫秒报告，内存以字节数报告</td>
+</tr>
+</tbody></table>
+<p>可以通过在<code>trace</code>范围前面加上前缀或用大括号括起来来使用以上选项。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">trace &#123;<br>    enabled = true<br>    file = &#x27;pipeline_trace.txt&#x27;<br>    fields = &#x27;task_id,name,status,exit,realtime,%cpu,rss&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>要了解有关Nextflow可以生成的执行报告的更多信息，请阅读<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/tracing.html#trace-report">跟踪报告</a>文档页面。</p>
+<h3 id="范围aws"><a href="#范围aws" class="headerlink" title="范围aws"></a>范围aws</h3><p>该<code>aws</code>范围允许您配置对Amazon S3存储的访问。使用属性<code>accessKey</code>和<code>secretKey</code> 指定存储桶凭证。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">aws &#123;<br>    accessKey = &#x27;<YOUR S3 ACCESS KEY>&#x27;<br>    secretKey = &#x27;<YOUR S3 SECRET KEY>&#x27;<br>    region = &#x27;<REGION IDENTIFIER>&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>单击以下链接以了解有关<a target="_blank" rel="noopener external nofollow noreferrer" href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html">AWS Security Credentials的</a>更多信息。</p>
+<p>可以使用<code>client</code>属性设置高级客户端配置选项。可以使用以下属性：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>连接超时</td>
+<td>最初建立连接之前放弃和超时之前要等待的时间（以毫秒为单位）。</td>
+</tr>
+<tr>
+<td>终点</td>
+<td>AWS S3 API入口点，例如s3-us-west-1.amazonaws.com。</td>
+</tr>
+<tr>
+<td>maxConnections</td>
+<td>允许的最大打开HTTP连接数。</td>
+</tr>
+<tr>
+<td>maxErrorRetry</td>
+<td>失败的可重试请求的最大重试次数。</td>
+</tr>
+<tr>
+<td>协议</td>
+<td>连接到AWS时要使用的协议（即HTTP或HTTPS）。</td>
+</tr>
+<tr>
+<td>proxyHost</td>
+<td>通过代理主机进行连接。</td>
+</tr>
+<tr>
+<td>代理端口</td>
+<td>代理主机上要连接的端口。</td>
+</tr>
+<tr>
+<td>proxyUsername</td>
+<td>通过代理连接时使用的用户名。</td>
+</tr>
+<tr>
+<td>proxyPassword</td>
+<td>通过代理连接时使用的密码。</td>
+</tr>
+<tr>
+<td>signerOverride</td>
+<td>用于对客户端发出的请求进行签名的签名算法的名称。</td>
+</tr>
+<tr>
+<td>socketSendBufferSizeHint</td>
+<td>低级TCP发送缓冲区的大小提示（以字节为单位）。</td>
+</tr>
+<tr>
+<td>socketRecvBufferSizeHint</td>
+<td>低级TCP接收缓冲区的大小提示（以字节为单位）。</td>
+</tr>
+<tr>
+<td>socketTimeout</td>
+<td>在连接超时之前，等待数据通过已建立的打开的连接传输的时间（以毫秒为单位）。</td>
+</tr>
+<tr>
+<td>存储加密</td>
+<td>在S3上保存对象时将使用的S3服务器端加密（当前仅支持AES256）</td>
+</tr>
+<tr>
+<td>用户代理</td>
+<td>与所有HTTP请求一起传递的HTTP用户代理标头。</td>
+</tr>
+<tr>
+<td>uploadMaxThreads</td>
+<td>用于分段上传的最大线程数。</td>
+</tr>
+<tr>
+<td>uploadChunkSize</td>
+<td>分段上传中单个部分的大小（默认值：10 MB）。</td>
+</tr>
+<tr>
+<td>uploadStorageClass</td>
+<td>S3存储类应用于存储的对象，[ STANDARD，STANDARD_IA，ONEZONE_IA，INTELLIGENT_TIERING ]（默认值：STANDARD）之一。</td>
+</tr>
+<tr>
+<td>uploadMaxAttempts</td>
+<td>分段上传后返回错误的最大尝试上传次数（默认值：5）。</td>
+</tr>
+<tr>
+<td>uploadRetrySleep</td>
+<td>上载失败尝试重试零件上载后要等待的时间（默认值：100ms）。</td>
+</tr>
+</tbody></table>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">aws &#123;<br>    client &#123;<br>        maxConnections = 20<br>        connectionTimeout = 10000<br>        uploadStorageClass = &#x27;INTELLIGENT_TIERING&#x27;<br>        storageEncryption = &#x27;AES256&#x27;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以使用<code>batch</code>属性设置“高级批处理”配置选项。可以使用以下属性（必需版本19.07.0或更高版本）：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>路径</td>
+<td>主机AMI中AWS命令行工具的安装路径。</td>
+</tr>
+<tr>
+<td>职业角色</td>
+<td>需要用于执行批处理作业的AWS Job Role ARN。</td>
+</tr>
+<tr>
+<td>卷</td>
+<td>一个或多个容器安装架。挂载可以指定为简单格式（例如&#x2F; some &#x2F; path）或规范格式（例如）&#96;&#x2F;host&#x2F;path:&#x2F;mount&#x2F;path[:ro</td>
+</tr>
+<tr>
+<td>delayBetweenAttempts</td>
+<td>从S3下载尝试之间的延迟（默认为10秒）。</td>
+</tr>
+<tr>
+<td>maxParallelTransfers</td>
+<td><em>每个作业的</em>最大并行上传&#x2F;下载传输操作（默认值：）<code>16</code>。</td>
+</tr>
+<tr>
+<td>maxTransferAttempts</td>
+<td>从S3下载的最大尝试次数（默认值：1）。</td>
+</tr>
+</tbody></table>
+<h3 id="范围云"><a href="#范围云" class="headerlink" title="范围云"></a>范围云</h3><p>注意</p>
+<p>在<code>cloud</code>配置范围已经退役。</p>
+<h3 id="范围康达"><a href="#范围康达" class="headerlink" title="范围康达"></a>范围康达</h3><p>该<code>conda</code>范围允许定义配置设置，以控制Conda程序包管理器创建Conda环境。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cacheDir</td>
+<td>定义存储Conda环境的路径。使用计算群集时，请确保提供可从所有计算节点访问的共享文件系统路径。</td>
+</tr>
+<tr>
+<td>createTimeout</td>
+<td>定义Conda环境创建可以持续的时间。超过超时时间（默认值：）时，创建过程终止。<code>20 min</code></td>
+</tr>
+</tbody></table>
+<h3 id="范围k8s"><a href="#范围k8s" class="headerlink" title="范围k8s"></a>范围k8s</h3><p>该<code>k8s</code>范围允许定义配置设置，以控制Kubernetes集群中工作流程应用程序的部署和执行。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>autoMountHostPaths</td>
+<td>自动将主机路径安装在作业窗格中。仅在使用单节点群集时用于开发目的（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>语境</td>
+<td>定义要使用的Kubernetes <a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/">配置上下文名称</a>。</td>
+</tr>
+<tr>
+<td>命名空间</td>
+<td>定义要使用的Kubernetes命名空间（默认值：）<code>default</code>。</td>
+</tr>
+<tr>
+<td>serviceAccount</td>
+<td>定义要使用的Kubernetes <a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/">服务帐户名</a>。</td>
+</tr>
+<tr>
+<td>launchDir</td>
+<td>定义启动工作流和存储用户数据的路径。这必须是共享K8s持久卷中的路径（默认值：<code>&lt;volume-claim-mount-path&gt;/&lt;user-name&gt;</code>。</td>
+</tr>
+<tr>
+<td>工作目录</td>
+<td>定义工作流临时数据的存储路径。这必须是共享K8s持久卷中的路径（默认值：）<code>&lt;user-dir&gt;/work</code>。</td>
+</tr>
+<tr>
+<td>projectDir</td>
+<td>定义下载Nextflow项目的路径。这必须是共享K8s持久卷中的路径（默认值：）<code>&lt;volume-claim-mount-path&gt;/projects</code>。</td>
+</tr>
+<tr>
+<td>荚</td>
+<td>允许定义一个或多个pod配置选项，例如环境变量，配置映射，机密等。它允许与<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#process-pod">pod</a> process指令相同的设置。</td>
+</tr>
+<tr>
+<td>pullPolicy</td>
+<td>定义用于拉出容器图像的策略，例如。<code>pullPolicy: &#39;Always&#39;</code></td>
+</tr>
+<tr>
+<td>runAsUser</td>
+<td>定义用于运行容器的用户标识。</td>
+</tr>
+<tr>
+<td>storageClaimName</td>
+<td>持久卷声明的名称，用于存储工作流结果数据。</td>
+</tr>
+<tr>
+<td>storageMountPath</td>
+<td>用于挂载持久卷声明的路径位置（默认值：）<code>/workspace</code>。</td>
+</tr>
+<tr>
+<td>storageSubPath</td>
+<td>要安装的永久卷中的路径（默认值：root）。</td>
+</tr>
+<tr>
+<td>volumeClaims</td>
+<td>（已弃用）</td>
+</tr>
+</tbody></table>
+<p>有关更多详细信息，请参见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/kubernetes.html#k8s-page">Kubernetes</a>文档。</p>
+<h3 id="范围时间表"><a href="#范围时间表" class="headerlink" title="范围时间表"></a>范围时间表</h3><p>该<code>timeline</code>范围使您可以启用&#x2F;禁用Nextflow生成的流程执行时间表报告。</p>
+<p>可以使用以下设置：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已启用</td>
+<td>当<code>true</code>打开时间轴报告文件的生成时（默认值：）<code>false</code>。</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>时间轴文件名（默认值：）<code>timeline.html</code>。</td>
+</tr>
+</tbody></table>
+<h3 id="范围邮件"><a href="#范围邮件" class="headerlink" title="范围邮件"></a>范围邮件</h3><p>该<code>mail</code>范围允许您定义发送电子邮件所需的邮件服务器配置设置。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>从</td>
+<td>默认电子邮件发件人地址。</td>
+</tr>
+<tr>
+<td>smtp主机</td>
+<td>邮件服务器的主机名。</td>
+</tr>
+<tr>
+<td>smtp端口</td>
+<td>邮件服务器的端口号。</td>
+</tr>
+<tr>
+<td>smtp.user</td>
+<td>连接到邮件服务器的用户名。</td>
+</tr>
+<tr>
+<td>smtp.password</td>
+<td>连接到邮件服务器的用户密码。</td>
+</tr>
+<tr>
+<td>smtp.proxy.host</td>
+<td>HTTP Web代理服务器的主机名，将用于连接到邮件服务器。</td>
+</tr>
+<tr>
+<td>smtp.proxy.port</td>
+<td>HTTP Web代理服务器的端口号。</td>
+</tr>
+<tr>
+<td>smtp。*</td>
+<td>Java Mail API支持的任何SMTP配置属性（请参见下面的链接）。</td>
+</tr>
+<tr>
+<td>调试</td>
+<td>当<code>true</code>使Java邮件日志用于调试的目的。</td>
+</tr>
+</tbody></table>
+<p>注意</p>
+<p>Nextflow依靠<a target="_blank" rel="noopener external nofollow noreferrer" href="https://javaee.github.io/javamail/">Java Mail API</a>发送电子邮件。可以使用Java Mail API支持的任何SMTP配置属性来提供高级邮件配置。请参阅<a target="_blank" rel="noopener external nofollow noreferrer" href="https://javaee.github.io/javamail/docs/api/com/sun/mail/smtp/package-summary.html#properties">此链接上的可用属性表</a>。</p>
+<p>例如，以下代码片段显示了如何配置Nextflow以通过<a target="_blank" rel="noopener external nofollow noreferrer" href="https://aws.amazon.com/ses/">AWS Simple Email Service</a>发送电子邮件 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">mail &#123;<br>    smtp.host = &#x27;email-smtp.us-east-1.amazonaws.com&#x27;<br>    smtp.port = 587<br>    smtp.user = &#x27;<Your AWS SES access key>&#x27;<br>    smtp.password = &#x27;<Your AWS SES secret key>&#x27;<br>    smtp.auth = true<br>    smtp.starttls.enable = true<br>    smtp.starttls.required = true<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="范围通知"><a href="#范围通知" class="headerlink" title="范围通知"></a>范围通知</h3><p>该<code>notification</code>范围使您可以定义工作流程执行终止时自动发送通知电子邮件。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已启用</td>
+<td>当工作流程执行完成时，启用发送通知消息的功能。</td>
+</tr>
+<tr>
+<td>至</td>
+<td>通知电子邮件的收件人地址。可以指定多个地址，并用逗号分隔。</td>
+</tr>
+<tr>
+<td>从</td>
+<td>通知电子邮件的发件人地址。</td>
+</tr>
+<tr>
+<td>模板</td>
+<td>提供通知消息内容的模板文件的路径。</td>
+</tr>
+<tr>
+<td>捆绑</td>
+<td>对模板文件中的变量进行建模的关联数组。</td>
+</tr>
+</tbody></table>
+<p>通知消息是使用配置<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/config.html#config-mail">邮件范围中</a>定义的STMP服务器<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/config.html#config-mail">发送的</a>。</p>
+<p>如果未提供邮件配置，它将尝试使用最终由底层系统提供的外部邮件命令（例如<code>sendmail</code>或<code>mail</code>）发送通知消息。</p>
+<h3 id="范围报告"><a href="#范围报告" class="headerlink" title="范围报告"></a>范围报告</h3><p>该<code>report</code>范围使您可以定义工作流<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/tracing.html#execution-report">执行报告的</a>配置设置。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已启用</td>
+<td>如果<code>true</code>创建工作流程执行报告。</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>创建的执行报告文件的路径（默认值：）<code>report.html</code>。</td>
+</tr>
+</tbody></table>
+<h3 id="范围网志"><a href="#范围网志" class="headerlink" title="范围网志"></a>范围网志</h3><p>的<code>weblog</code>范围允许发送详细<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/tracing.html#trace-fields">的跟踪范围</a>的信息作为HTTP POST请求Web服务器，运作为JSON对象。</p>
+<p>有关JSON字段的详细信息可以在<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/tracing.html#weblog-service">Weblog描述中</a>找到。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已启用</td>
+<td>如果<code>true</code>它将HTTP POST请求发送到给定的URL。</td>
+</tr>
+<tr>
+<td>网址</td>
+<td>发送HTTP POST请求的网址（默认值：）<code>http:localhost</code>。</td>
+</tr>
+</tbody></table>
+<h2 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h2><p>配置文件可以包含一个或多个定义<em>配置文件</em>。配置文件是一组配置属性，在使用<code>-profile</code>命令行选项启动管道执行时可以激活&#x2F;选择这些配置属性。</p>
+<p>通过使用特殊作用域定义配置配置文件，该特殊作用域<code>profiles</code>使用公共前缀将属于同一配置文件的属性进行分组。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">profiles &#123;<br><br>    standard &#123;<br>        process.executor = &#x27;local&#x27;<br>    &#125;<br><br>    cluster &#123;<br>        process.executor = &#x27;sge&#x27;<br>        process.queue = &#x27;long&#x27;<br>        process.memory = &#x27;10GB&#x27;<br>    &#125;<br><br>    cloud &#123;<br>        process.executor = &#x27;cirrus&#x27;<br>        process.container = &#x27;cbcrg/imagex&#x27;<br>        docker.enabled = true<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>此配置定义了三个不同的配置文件：<code>standard</code>，<code>cluster</code>并且<code>cloud</code>根据目标运行时平台设置了不同的流程配置策略。按照约定，<code>standard</code>当用户未指定其他任何配置文件时，将隐式使用该配置文件。</p>
+<p>小费</p>
+<p>可以通过使用逗号分隔配置文件名称来指定两个或多个配置配置文件，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">nextflow run <your script> -profile standard,cloud<br></code></pre></td></tr></table></figure>
+
+<p>危险</p>
+<p>在配置文件中使用<em>配置文件</em>功能时，请勿在<code>profiles</code>上下文的内部和外部在同一范围内设置属性。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process.cpus = 1<br><br>profiles &#123;<br>  foo &#123;<br>    process.memory = &#x27;2 GB&#x27;<br>  &#125;<br><br>  bar &#123;<br>    process.memory = &#x27;4 GB&#x27;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，<code>process.cpus</code>属性未正确应用，因为<code>process</code>作用域还用于<code>foo</code>和<code>bar</code>配置文件上下文。</p>
+<p>以上功能需要0.28.x或更高版本。</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>以下环境变量控制Nextflow运行时的配置以及它使用的Java虚拟机。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NXF_HOME</td>
+<td>Nextflow主目录（默认值：）<code>$HOME/.nextflow</code>。</td>
+</tr>
+<tr>
+<td>NXF_VER</td>
+<td>定义要使用的Nextflow版本。</td>
+</tr>
+<tr>
+<td>NXF_ORG</td>
+<td>查找托管存储库时的默认组织前缀（默认：）<code>nextflow-io</code>。</td>
+</tr>
+<tr>
+<td>NXF_GRAB</td>
+<td>提供从Maven存储库服务下载的额外运行时依赖项。</td>
+</tr>
+<tr>
+<td>NXF_OPTS</td>
+<td>为Java和Nextflow运行时提供额外的选项。它必须是空白的<code>-Dkey[=value]</code>属性列表。</td>
+</tr>
+<tr>
+<td>NXF_CLASSPATH</td>
+<td>允许使用额外的JAR文件或类文件夹扩展Java运行时类路径。</td>
+</tr>
+<tr>
+<td>NXF_ASSETS</td>
+<td>定义了下载的管道仓库的存储目录（默认：<code>$NXF_HOME/assets</code>）</td>
+</tr>
+<tr>
+<td>NXF_PID_FILE</td>
+<td>在后台启动Nextflow时，保存过程PID的文件的名称。</td>
+</tr>
+<tr>
+<td>NXF_WORK</td>
+<td>工作文件的存储目录（通常是您的<em>临时</em>目录）</td>
+</tr>
+<tr>
+<td>NXF_TEMP</td>
+<td>存放临时文件的目录</td>
+</tr>
+<tr>
+<td>NXF_DEBUG</td>
+<td>定义脚本调试级别：<code>1</code>在任务日志文件中转储任务环境变量；<code>2</code>启用命令脚本执行跟踪；<code>3</code>启用命令包装程序执行跟踪。</td>
+</tr>
+<tr>
+<td>NXF_EXECUTOR</td>
+<td>定义默认的流程执行器，例如sge</td>
+</tr>
+<tr>
+<td>NXF_CONDA_CACHEDIR</td>
+<td>存储Conda环境的目录。使用计算群集时，它必须是一个可从所有计算节点访问的共享文件夹。</td>
+</tr>
+<tr>
+<td>NXF_SINGULARITY_CACHEDIR</td>
+<td>存储远程奇点图像的目录。使用计算群集时，它必须是一个可从所有计算节点访问的共享文件夹。</td>
+</tr>
+<tr>
+<td>NXF_JAVA_HOME</td>
+<td>定义用于运行Nextflow的Java VM安装的路径位置。<code>JAVA_HOME</code>如果定义，此变量将覆盖该变量。</td>
+</tr>
+<tr>
+<td>NXF_OFFLINE</td>
+<td>当<code>true</code>从远程仓库禁用项目的自动下载和更新（默认：<code>false</code>）。</td>
+</tr>
+<tr>
+<td>NXF_CLOUD_DRIVER</td>
+<td>定义默认的云驱动程序，如果未在配置文件中指定，或者未指定为命令行选项（<code>aws</code>或）<code>google</code>。</td>
+</tr>
+<tr>
+<td>NXF_ANSI_LOG</td>
+<td>启用&#x2F;禁用ANSI控制台输出（<code>true</code>检测到ANSI终端时为默认值）。</td>
+</tr>
+<tr>
+<td>NXF_ANSI_SUMMARY</td>
+<td>启用&#x2F;禁用ANSI完成摘要：true | false（默认值：如果执行持续1分钟以上，则显示打印摘要）。</td>
+</tr>
+<tr>
+<td>JAVA_HOME</td>
+<td>定义用于运行Nextflow的Java VM安装的路径位置。</td>
+</tr>
+<tr>
+<td>JAVA_CMD</td>
+<td>定义用于启动Nextflow的Java二进制命令的路径位置。</td>
+</tr>
+<tr>
+<td>HTTP_PROXY</td>
+<td>定义HTTP代理服务器</td>
+</tr>
+<tr>
+<td>HTTPS_PROXY</td>
+<td>定义HTTPS代理服务器</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/35968/">https://ziptop.top/posts/35968/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E5%AD%A6/">生物学</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a><a class="post-meta__tags" href="/tags/Nextflow/">Nextflow</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E7%A8%8B%E8%87%AA%E5%8A%A8%E5%8C%96/">流程自动化</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img15.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/48120/"><img class="prev-cover" src="/assert/img/background/img15.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Pycharm 免费激活专业版（图文详解）</div></div></a></div><div class="next-post pull-right"><a href="/posts/40556/"><img class="next-cover" src="/assert/img/background/img16.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生信自动化流程搭建 06 | 指令</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/9930/" title="生信自动化流程搭建 03 | 输入 input"><img class="cover" src="/assert/img/background/img19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 03 | 输入 input</div></div></a></div><div><a href="/posts/43064/" title="生信自动化流程搭建 04 | 输出 output"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 04 | 输出 output</div></div></a></div><div><a href="/posts/12151/" title="生信自动化流程搭建 01 | Nextflow的介绍与安装"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 01 | Nextflow的介绍与安装</div></div></a></div><div><a href="/posts/15984/" title="生信自动化流程搭建 02 | 脚本"><img class="cover" src="/assert/img/background/img18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 02 | 脚本</div></div></a></div><div><a href="/posts/59212/" title="生信自动化流程搭建 05 | 通道 Channels"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 05 | 通道 Channels</div></div></a></div><div><a href="/posts/40556/" title="生信自动化流程搭建 06 | 指令"><img class="cover" src="/assert/img/background/img16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 06 | 指令</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%AF%AD%E6%B3%95"><span class="toc-text">配置语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="toc-text">配置变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%B3%A8%E9%87%8A"><span class="toc-text">配置注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8C%85%E6%8B%AC"><span class="toc-text">配置包括</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%9F%9F"><span class="toc-text">配置域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#env"><span class="toc-text">env</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-text">参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#process"><span class="toc-text">process</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Process-selectors"><span class="toc-text">Process selectors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">选择器表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E4%BC%98%E5%85%88"><span class="toc-text">选择器优先</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#executor-%E7%9A%84%E5%9F%9F"><span class="toc-text">executor 的域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E7%9A%84%E5%9F%9F"><span class="toc-text">docker 的域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#singularity-%E7%9A%84%E5%9F%9F"><span class="toc-text">singularity 的域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#podman-%E7%9A%84%E5%9F%9F"><span class="toc-text">podman 的域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#manifest-%E7%9A%84%E5%9F%9F"><span class="toc-text">manifest 的域</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nextflow%E7%89%88%E6%9C%AC"><span class="toc-text">Nextflow版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E8%BF%BD%E8%B8%AA"><span class="toc-text">范围追踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4aws"><span class="toc-text">范围aws</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E4%BA%91"><span class="toc-text">范围云</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E5%BA%B7%E8%BE%BE"><span class="toc-text">范围康达</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4k8s"><span class="toc-text">范围k8s</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E6%97%B6%E9%97%B4%E8%A1%A8"><span class="toc-text">范围时间表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E9%82%AE%E4%BB%B6"><span class="toc-text">范围邮件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E9%80%9A%E7%9F%A5"><span class="toc-text">范围通知</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E6%8A%A5%E5%91%8A"><span class="toc-text">范围报告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4%E7%BD%91%E5%BF%97"><span class="toc-text">范围网志</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">环境变量</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

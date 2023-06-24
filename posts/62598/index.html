@@ -1,0 +1,2272 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>一文读懂参考基因组和基因组注释+最全下载方法 | 白墨</title><meta name="keywords" content="生信情报站,生物信息学,二代测序,参考基因组,基因组注释"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、什么是参考基因组和基因组注释？先来理一理参考基因组，基因组注释文件间的关系。 自从 1990 启动的家喻户晓的人类基因组计划开始，全世界的科学家竭尽全力破译了第一个完整的人类基因组，从那时开始人类拿到了一本只有 ATCG 四个碱基书写的天书。后续人们逐步完善了基因组序列信息，并写在 Fasta 格式的文本文件“天书”中，这本天书就叫做参考基因组。  但是，直接拿天书来看是一脸懵逼的，于是大家开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文读懂参考基因组和基因组注释+最全下载方法">
+<meta property="og:url" content="https://ziptop.top/posts/62598/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="一、什么是参考基因组和基因组注释？先来理一理参考基因组，基因组注释文件间的关系。 自从 1990 启动的家喻户晓的人类基因组计划开始，全世界的科学家竭尽全力破译了第一个完整的人类基因组，从那时开始人类拿到了一本只有 ATCG 四个碱基书写的天书。后续人们逐步完善了基因组序列信息，并写在 Fasta 格式的文本文件“天书”中，这本天书就叫做参考基因组。  但是，直接拿天书来看是一脸懵逼的，于是大家开">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img10.png">
+<meta property="article:published_time" content="2021-06-02T14:26:12.000Z">
+<meta property="article:modified_time" content="2021-06-02T14:26:12.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="二代测序">
+<meta property="article:tag" content="参考基因组">
+<meta property="article:tag" content="基因组注释">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img10.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/62598/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一文读懂参考基因组和基因组注释+最全下载方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-02 22:26:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img10.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一文读懂参考基因组和基因组注释+最全下载方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2021-06-02T14:26:12.000Z" title="发表于 2021-06-02 22:26:12">2021-06-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/">生信分析</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>19分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一文读懂参考基因组和基因组注释+最全下载方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、什么是参考基因组和基因组注释？"><a href="#一、什么是参考基因组和基因组注释？" class="headerlink" title="一、什么是参考基因组和基因组注释？"></a>一、什么是参考基因组和基因组注释？</h2><p>先来理一理参考基因组，基因组注释文件间的关系。</p>
+<p>自从 1990 启动的家喻户晓的人类基因组计划开始，全世界的科学家竭尽全力破译了第一个完整的人类基因组，从那时开始人类拿到了一本只有 ATCG 四个碱基书写的天书。后续人们逐步完善了基因组序列信息，并写在 Fasta 格式的文本文件“天书”中，这本<strong>天书</strong>就叫做<strong>参考基因组</strong>。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/ccd6eb2e126c9efb7e0a8dc356676921.png" alt="image.png"></p>
+<p>但是，直接拿天书来看是一脸懵逼的，于是大家开始利用实验技术手段开始着手解密这本天书，随后大量的基因以及非编码序列被人们详细的标记在参考基因组对应的位置。同时对该位置加入大量的注释细节，最终将这些信息写在 BED，GTF，GFF 格式的<strong>基因组注释</strong>文件 。所以也可以把基因组注释文件理解为<strong>字典</strong>，看不懂天书，翻翻字典就懂了。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/69ee6dcaffc01df2ab3eede75809afb0.png" alt="image.png"><br>随着时间的推移，在更先进技术的加持下，在已经构建好的基因组和注释信息上不断增加，删减，修改，就有了不同的版本。而每一个版本的参考基因组都会对应有一个基因组注释文件（天书和字典一一对应），接下来我们看看参考基因组版本是怎么指定的。</p>
+<h2 id="二、参考基因组版本命名"><a href="#二、参考基因组版本命名" class="headerlink" title="二、参考基因组版本命名"></a>二、参考基因组版本命名</h2><p>在讲参考基因组之前，需要提到一个组织参考基因组联盟（<strong>G</strong>enome <strong>R</strong>eference <strong>C</strong>onsortium），它是由 NCBI，EBI，桑格研究所等机构组成。GRC 利用最佳的技术装配，纠正，增加基因组序列，以此作为在生信分析领域作为参考的基因组。目前，该机构构建了人，小鼠，大鼠，斑马鱼，鸡的参考基因组。</p>
+<p>人基因组官名叫 <code>GRCh38</code> （Genome Reference Consortium Human Build 38），GRCh38 在UCSC基因组浏览器中还有个小名 hg38，这个小名对于大多数人来说是更亲切熟悉的。GRCh38 在 GenBank 中叫 GCA_000001405.15，在 RefSeq 中叫 GCF_000001405.26，虽然 GRC 组织建议在所有出版物和工具中使用该编号，但事实是前两种 GRCh38 和 hg38 对生信分析更常见。</p>
+<p>在不更改染色体坐标的情况下，向参考基因组添加或替换新序列，这种打补丁的方式，会在基因组版本后加 <code>.p</code> （patch）来命名。</p>
+<p>这就像在王者荣耀，英雄联盟中，为了维持游戏热度，会大幅修改游戏架构，流程，世界观，图片，叫大版本更新，而定期对某些英雄的面板属性修正，作为补丁。</p>
+<p>举个例子，GRCh38 的第九个补丁，正式版本叫做 Genome Reference Consortium Human Build 38 patch release 9，简称 GRCh38.p9。在 GenBank 编号为 GCA_000001405.24，RefSeq 编号为 GCF_000001405.35。在 Ensemble 编号为 GRCh38，NCBI 编号为 GRCh38。</p>
+<h3 id="1、常用人参考基因组对应表"><a href="#1、常用人参考基因组对应表" class="headerlink" title="1、常用人参考基因组对应表"></a>1、常用人参考基因组对应表</h3><table>
+<thead>
+<tr>
+<th>发布时间</th>
+<th>2013</th>
+<th>2009</th>
+<th>2006</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GRC 官名</td>
+<td>GRCh38</td>
+<td>GRCh37</td>
+<td>GRCh36</td>
+</tr>
+<tr>
+<td>UCSC</td>
+<td>hg38</td>
+<td>hg19</td>
+<td>hg18</td>
+</tr>
+<tr>
+<td>Ensemble</td>
+<td>GRCh38</td>
+<td>GRCh37</td>
+<td>GRCh36</td>
+</tr>
+<tr>
+<td>GENCODE</td>
+<td>38</td>
+<td>19</td>
+<td>3c</td>
+</tr>
+<tr>
+<td>NCBI</td>
+<td>GRCh38</td>
+<td>GRCh37</td>
+<td>GRCh36</td>
+</tr>
+<tr>
+<td>GenBank</td>
+<td>GCA_000001405</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RefSeq</td>
+<td>GCF_000001405</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>根据 GRC 官网信息，GRCh39 大版本将会无限停更，他们在考虑用新模型和序列来构建人类的参考基因组，细节不清楚，猜测有可能会有泛基因组内容。</p>
+<h3 id="2、常用小鼠参考基因组对应表"><a href="#2、常用小鼠参考基因组对应表" class="headerlink" title="2、常用小鼠参考基因组对应表"></a>2、常用小鼠参考基因组对应表</h3><table>
+<thead>
+<tr>
+<th>发布时间</th>
+<th>2020</th>
+<th>2011</th>
+<th>2007</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GRC 官名</td>
+<td>GRCm39</td>
+<td>GRCm38</td>
+<td></td>
+</tr>
+<tr>
+<td>UCSC</td>
+<td>m39</td>
+<td>mm10</td>
+<td>mm9</td>
+</tr>
+<tr>
+<td>Ensemble</td>
+<td>GRCm39</td>
+<td>GRCm38</td>
+<td></td>
+</tr>
+<tr>
+<td>GENCODE</td>
+<td>M27</td>
+<td>M25</td>
+<td>M1</td>
+</tr>
+<tr>
+<td>NCBI</td>
+<td>GRCm39</td>
+<td>GRCm38</td>
+<td>NCBIM37</td>
+</tr>
+</tbody></table>
+<h2 id="三、下载"><a href="#三、下载" class="headerlink" title="三、下载"></a>三、下载</h2><h3 id="1、NCBI"><a href="#1、NCBI" class="headerlink" title="1、NCBI"></a>1、NCBI</h3><p>这里提供两种下载方式，一种为网页界面下载，另一种为FTP下载。</p>
+<p><strong>可视化下载</strong></p>
+<ul>
+<li>进入网址</li>
+</ul>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/genome/browse#!/overview/">https://www.ncbi.nlm.nih.gov/genome/browse#!/overview/</a></p>
+<ul>
+<li>搜索物种</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2e3c1ef04c05abb7f5616dde2043021f.png" alt="image.png"></p>
+<ul>
+<li>下载界面</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b18afddb8d058c3a300c7b4fed229500.png" alt="image.png"></p>
+<p><strong>FTP下载</strong></p>
+<blockquote>
+<p>随便提一下，Chrome 浏览器在18版本后由于安全原因已经不支持 ftp 协议，改用 https 协议，可以看到链接已经与之前的不同。</p>
+</blockquote>
+<p>这里以下载人的参考基因组 GRCh38 为例：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/reference/GCF_000001405.39_GRCh38.p13/">https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian&#x2F;Homo_sapiens&#x2F;reference&#x2F;GCF_000001405.39_GRCh38.p13</a></p>
+<p>人类基因组注释文件：</p>
+<p>GTF 格式：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/annotation_releases/109/GCF_000001405.38_GRCh38.p12/GCF_000001405.38_GRCh38.p12_genomic.gtf.gz">https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/annotation_releases/109/GCF_000001405.38_GRCh38.p12/GCF_000001405.38_GRCh38.p12_genomic.gtf.gz</a></p>
+<p>GFF 格式：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/annotation_releases/109/GCF_000001405.38_GRCh38.p12/GCF_000001405.38_GRCh38.p12_genomic.gff.gz">https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/annotation_releases/109/GCF_000001405.38_GRCh38.p12/GCF_000001405.38_GRCh38.p12_genomic.gff.gz</a></p>
+<p>如果以这种方式下载，其实已经可以路径中大概看出相关物种的下载地址，可以自行查询及下载其他物种。</p>
+<h3 id="2、Ensemble"><a href="#2、Ensemble" class="headerlink" title="2、Ensemble"></a>2、Ensemble</h3><p><strong>可视化下载</strong></p>
+<ul>
+<li>网址：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://asia.ensembl.org/">http://asia.ensembl.org</a></li>
+<li>点击物种名，进入下载界面</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a8c077b0f5a440c0a427ed28da5b4731.png" alt="image.png"></p>
+<ul>
+<li>点击对应名称，下载参考基因组和基因组注释文件</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/396a1dcf91806028db1b47022ce8d336.png" alt="image.png"></p>
+<p><strong>FTP下载</strong></p>
+<p>同样以下载人参考基因组 GRCh38 为例：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://ftp.ensembl.org/pub/current_fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz">http://ftp.ensembl.org/pub/current_fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz</a></p>
+<p>GTF 文件：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://ftp.ensembl.org/pub/current_gtf/homo_sapiens/Homo_sapiens.GRCh38.104.gtf.gz">http://ftp.ensembl.org/pub/current_gtf/homo_sapiens/Homo_sapiens.GRCh38.104.gtf.gz</a></p>
+<p>GTT 文件：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://ftp.ensembl.org/pub/current_gff3/homo_sapiens/Homo_sapiens.GRCh38.104.gff3.gz">http://ftp.ensembl.org/pub/current_gff3/homo_sapiens/Homo_sapiens.GRCh38.104.gff3.gz</a></p>
+<h3 id="3、GENCODE"><a href="#3、GENCODE" class="headerlink" title="3、GENCODE"></a>3、GENCODE</h3><p>如果小伙伴研究的物种只涉及人类和小鼠，极力推荐 GENCOE，这里有着相较其他数据库，最新最全的基因组和其注释信息。</p>
+<ul>
+<li>网址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.gencodegenes.org/">https://www.gencodegenes.org/</a></li>
+<li>点击人类的最新版</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/04e9d2d248eff86645f35bc5b0ae624c.png" alt="image.png"></p>
+<ul>
+<li>点击下载基因组注释文件</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/8d8945546bcab1ceacccb6c79ae9a0cf.png" alt="image.png"></p>
+<ul>
+<li>点击下载参考基因组文件</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9b44df3dda1e3d1653586c4a09056a43.png" alt="image.png"></p>
+<h3 id="4、UCSC"><a href="#4、UCSC" class="headerlink" title="4、UCSC"></a>4、UCSC</h3><p>相对其他下载方式，UCSC 本职的工作是做基因组浏览器的，因此也可以从下图看到，在这里可以根据自己定义来下载相对于的基因组区域，比如 prime，exon，gene，transcript等等。</p>
+<ul>
+<li>网址：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://genome.ucsc.edu/cgi-bin/hgTables">http://genome.ucsc.edu/cgi-bin/hgTables</a></li>
+<li>下载：设置参数如下，然后点击下载参考基因组及注释文件</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/835956085051350cf86fc3beec9f92df.png" alt="image.png"></p>
+<h3 id="5、iGenomes"><a href="#5、iGenomes" class="headerlink" title="5、iGenomes"></a>5、iGenomes</h3><p>iGenomes是常见分析生物的参考序列和注释文件的集合。这些文件已从Ensembl，NCBI或UCSC下载。染色体名称已更改为简单且与下载源一致。每个iGenome都可以作为压缩文件使用，其中包含生物体的单个基因组构建的序列和注释文件。</p>
+<p>网址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://support.illumina.com/sequencing/sequencing_software/igenome.html">https://support.illumina.com/sequencing/sequencing_software/igenome.html</a></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/19712a471e44969c273c91b8ba2ff5a3.png" alt="image.png"></p>
+<p>由亚马逊资助的生物信息参考基因组下载站点，有各种参考基因组，注释文件，软件索引等常用文件，并且有着极快的下载速度，但是缺点是只有常用的物种。</p>
+<p><strong>站点：</strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ewels.github.io/AWS-iGenomes/">https://ewels.github.io/AWS-iGenomes/</a></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/0387a13f1c694ccd3461a975460e2909.png" alt="image.png"></p>
+<h2 id="四、其他参考基因组信息"><a href="#四、其他参考基因组信息" class="headerlink" title="四、其他参考基因组信息"></a>四、其他参考基因组信息</h2><table>
+<thead>
+<tr>
+<th>SPECIES</th>
+<th>UCSC VERSION</th>
+<th>RELEASE DATE</th>
+<th>RELEASE NAME</th>
+<th>STATUS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MAMMALS</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Human</td>
+<td>hg38</td>
+<td>Dec. 2013</td>
+<td>Genome Reference Consortium GRCh38</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>hg19</td>
+<td>Feb. 2009</td>
+<td>Genome Reference Consortium GRCh37</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>hg18</td>
+<td>Mar. 2006</td>
+<td>NCBI Build 36.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>hg17</td>
+<td>May 2004</td>
+<td>NCBI Build 35</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>hg16</td>
+<td>Jul. 2003</td>
+<td>NCBI Build 34</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>hg15</td>
+<td>Apr. 2003</td>
+<td>NCBI Build 33</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>hg13</td>
+<td>Nov. 2002</td>
+<td>NCBI Build 31</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>hg12</td>
+<td>Jun. 2002</td>
+<td>NCBI Build 30</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>hg11</td>
+<td>Apr. 2002</td>
+<td>NCBI Build 29</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg10</td>
+<td>Dec. 2001</td>
+<td>NCBI Build 28</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg8</td>
+<td>Aug. 2001</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg7</td>
+<td>Apr. 2001</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg6</td>
+<td>Dec. 2000</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg5</td>
+<td>Oct. 2000</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg4</td>
+<td>Sep. 2000</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg3</td>
+<td>Jul. 2000</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg2</td>
+<td>Jun. 2000</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td></td>
+<td>hg1</td>
+<td>May 2000</td>
+<td>UCSC-assembled</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td>Alpaca</td>
+<td>vicPac2</td>
+<td>Mar. 2013</td>
+<td>Broad Institute Vicugna_pacos-2.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>vicPac1</td>
+<td>Jul. 2008</td>
+<td>Broad Institute VicPac1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Armadillo</td>
+<td>dasNov3</td>
+<td>Dec. 2011</td>
+<td>Broad Institute DasNov3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Baboon</td>
+<td>papAnu4</td>
+<td>Apr. 2017</td>
+<td>Human Genome Sequencing Center</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>papAnu2</td>
+<td>Mar. 2012</td>
+<td>Baylor College of Medicine Panu_2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>papHam1</td>
+<td>Nov. 2008</td>
+<td>Baylor College of Medicine HGSC Pham_1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Bison</td>
+<td>bisBis1</td>
+<td>Oct. 2014</td>
+<td>Univ. of Maryland Bison_UMD1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Bonobo</td>
+<td>panPan3</td>
+<td>May 2020</td>
+<td>University of Washington</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>panPan2</td>
+<td>Dec. 2015</td>
+<td>Max-Planck Institute for Evolutionary Anthropology panpan1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>panPan1</td>
+<td>May 2012</td>
+<td>Max-Planck Institute panpan1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Brown kiwi</td>
+<td>aptMan1</td>
+<td>Jun. 2015</td>
+<td>Max-Planck Institute for Evolutionary Anthropology AptMant0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Bushbaby</td>
+<td>otoGar3</td>
+<td>Mar. 2011</td>
+<td>Broad Institute OtoGar3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Cat</td>
+<td>felCat9</td>
+<td>Nov. 2017</td>
+<td>Genome Sequencing Center (GSC) at Washington University (WashU) School of Medicine Felis_catus_9.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>felCat8</td>
+<td>Nov. 2014</td>
+<td>ICGSC Felis_catus_8.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>felCat5</td>
+<td>Sep. 2011</td>
+<td>ICGSC Felis_catus-6.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>felCat4</td>
+<td>Dec. 2008</td>
+<td>NHGRI catChrV17e</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>felCat3</td>
+<td>Mar. 2006</td>
+<td>Broad Institute Release 3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Chimp</td>
+<td>panTro6</td>
+<td>Jan. 2018</td>
+<td>Clint_PTRv2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>panTro5</td>
+<td>May 2016</td>
+<td>CGSC Build 3.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>panTro4</td>
+<td>Feb. 2011</td>
+<td>CGSC Build 2.1.4</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>panTro3</td>
+<td>Oct. 2010</td>
+<td>CGSC Build 2.1.3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>panTro2</td>
+<td>Mar. 2006</td>
+<td>CGSC Build 2.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>panTro1</td>
+<td>Nov. 2003</td>
+<td>CGSC Build 1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Chinese hamster</td>
+<td>criGri1</td>
+<td>Jul. 2013</td>
+<td>Beijing Genomics Institution-Shenzhen C_griseus_v1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Chinese hamster ovary cell line</td>
+<td>criGriChoV2</td>
+<td>Jun. 2017</td>
+<td>Eagle Genomics Ltd CHOK1S_HZDv1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>criGriChoV1</td>
+<td>Aug. 2011</td>
+<td>Beijing Genomics Institute CriGri_1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Chinese pangolin</td>
+<td>manPen1</td>
+<td>Aug. 2014</td>
+<td>Washington University (WashU) M_pentadactyla-1.1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Cow</td>
+<td>bosTau9</td>
+<td>Apr. 2018</td>
+<td>USDA ARS</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>bosTau8</td>
+<td>Jun. 2014</td>
+<td>University of Maryland v3.1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>bosTau7</td>
+<td>Oct. 2011</td>
+<td>Baylor College of Medicine HGSC Btau_4.6.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>bosTau6</td>
+<td>Nov. 2009</td>
+<td>University of Maryland v3.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>bosTau4</td>
+<td>Oct. 2007</td>
+<td>Baylor College of Medicine HGSC Btau_4.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>bosTau3</td>
+<td>Aug. 2006</td>
+<td>Baylor College of Medicine HGSC Btau_3.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>bosTau2</td>
+<td>Mar. 2005</td>
+<td>Baylor College of Medicine HGSC Btau_2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>bosTau1</td>
+<td>Sep. 2004</td>
+<td>Baylor College of Medicine HGSC Btau_1.0</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td>Crab-eating macaque</td>
+<td>macFas5</td>
+<td>Jun. 2013</td>
+<td>Washington University Macaca_fascicularis_5.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Dog</td>
+<td>canFam5</td>
+<td>May 2019</td>
+<td>University of Michigan</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>canFam4</td>
+<td>Mar. 2020</td>
+<td>Uppsala University</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>canFam3</td>
+<td>Sep. 2011</td>
+<td>Broad Institute v3.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>canFam2</td>
+<td>May 2005</td>
+<td>Broad Institute v2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>canFam1</td>
+<td>Jul. 2004</td>
+<td>Broad Institute v1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Dolphin</td>
+<td>turTru2</td>
+<td>Oct. 2011</td>
+<td>Baylor College of Medicine Ttru_1.4</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Elephant</td>
+<td>loxAfr3</td>
+<td>Jul. 2009</td>
+<td>Broad Institute LoxAfr3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Ferret</td>
+<td>musFur1</td>
+<td>Apr. 2011</td>
+<td>Ferret Genome Sequencing Consortium MusPutFur1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Garter snake</td>
+<td>thaSir1</td>
+<td>Jun. 2015</td>
+<td>Washington University Thamnophis_sirtalis-6.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Gibbon</td>
+<td>nomLeu3</td>
+<td>Oct. 2012</td>
+<td>Gibbon Genome Sequencing Consortium Nleu3.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>nomLeu2</td>
+<td>Jun. 2011</td>
+<td>Gibbon Genome Sequencing Consortium Nleu1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>nomLeu1</td>
+<td>Jan. 2010</td>
+<td>Gibbon Genome Sequencing Consortium Nleu1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Golden eagle</td>
+<td>aquChr2</td>
+<td>Oct. 2014</td>
+<td>University of Washington aquChr2-1.0.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Golden snub-nosed monkey</td>
+<td>rhiRox1</td>
+<td>Oct. 2014</td>
+<td>Novogene Rrox_v1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Gorilla</td>
+<td>gorGor6</td>
+<td>Aug. 2019</td>
+<td>University of Washington</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>gorGor5</td>
+<td>Mar. 2016</td>
+<td>University of Washington GSMRT3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>gorGor4</td>
+<td>Dec. 2014</td>
+<td>Wellcome Trust Sanger Institute gorGor4</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>gorGor3</td>
+<td>May 2011</td>
+<td>Wellcome Trust Sanger Institute gorGor3.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Green Monkey</td>
+<td>chlSab2</td>
+<td>Mar. 2014</td>
+<td>Vervet Genomics Consortium 1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Guinea pig</td>
+<td>cavPor3</td>
+<td>Feb. 2008</td>
+<td>Broad Institute cavPor3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Hawaiian monk seal</td>
+<td>neoSch1</td>
+<td>Jun. 2017</td>
+<td>Johns Hopkins University ASM220157v1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Hedgehog</td>
+<td>eriEur2</td>
+<td>May 2012</td>
+<td>Broad Institute EriEur2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>eriEur1</td>
+<td>Jun. 2006</td>
+<td>Broad Institute Draft_v1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Horse</td>
+<td>equCab3</td>
+<td>Jan. 2018</td>
+<td>University of Louisville</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>equCab2</td>
+<td>Sep. 2007</td>
+<td>Broad Institute EquCab2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>equCab1</td>
+<td>Jan. 2007</td>
+<td>Broad Institute EquCab1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Kangaroo rat</td>
+<td>dipOrd1</td>
+<td>Jul. 2008</td>
+<td>Baylor&#x2F;Broad Institute DipOrd1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Malayan flying lemur</td>
+<td>galVar1</td>
+<td>Jul. 2014</td>
+<td>WashU G_variegatus-3.0.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Manatee</td>
+<td>triMan1</td>
+<td>Oct. 2011</td>
+<td>Broad Institute TriManLat1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Marmoset</td>
+<td>calJac4</td>
+<td>May 2020</td>
+<td>Washington University Callithrix_jacchus_cj1700_1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Marmoset</td>
+<td>calJac3</td>
+<td>Mar. 2009</td>
+<td>WUSTL Callithrix_jacchus-v3.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>calJac1</td>
+<td>Jun. 2007</td>
+<td>WUSTL Callithrix_jacchus-v2.0.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Megabat</td>
+<td>pteVam1</td>
+<td>Jul. 2008</td>
+<td>Broad Institute Ptevap1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Microbat</td>
+<td>myoLuc2</td>
+<td>Jul. 2010</td>
+<td>Broad Institute MyoLuc2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Minke whale</td>
+<td>balAcu1</td>
+<td>Oct. 2013</td>
+<td>KORDI BalAcu1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Mouse</td>
+<td>mm39</td>
+<td>Jun. 2020</td>
+<td>Genome Reference Consortium Mouse Build 39</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>mm10</td>
+<td>Dec. 2011</td>
+<td>Genome Reference Consortium GRCm38</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>mm9</td>
+<td>Jul. 2007</td>
+<td>NCBI Build 37</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>mm8</td>
+<td>Feb. 2006</td>
+<td>NCBI Build 36</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>mm7</td>
+<td>Aug. 2005</td>
+<td>NCBI Build 35</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>mm6</td>
+<td>Mar. 2005</td>
+<td>NCBI Build 34</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>mm5</td>
+<td>May 2004</td>
+<td>NCBI Build 33</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>mm4</td>
+<td>Oct. 2003</td>
+<td>NCBI Build 32</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>mm3</td>
+<td>Feb. 2003</td>
+<td>NCBI Build 30</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>mm2</td>
+<td>Feb. 2002</td>
+<td>MGSCv3</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>mm1</td>
+<td>Nov. 2001</td>
+<td>MGSCv2</td>
+<td>Archived (data only)</td>
+</tr>
+<tr>
+<td>Mouse lemur</td>
+<td>micMur2</td>
+<td>May 2015</td>
+<td>Baylor&#x2F;Broad Institute Mmur_2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>micMur1</td>
+<td>Jul. 2007</td>
+<td>Broad Institute MicMur1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Naked mole-rat</td>
+<td>hetGla2</td>
+<td>Jan. 2012</td>
+<td>Broad Institute HetGla_female_1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>hetGla1</td>
+<td>Jul. 2011</td>
+<td>Beijing Genomics Institute HetGla_1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Opossum</td>
+<td>monDom5</td>
+<td>Oct. 2006</td>
+<td>Broad Institute release MonDom5</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>monDom4</td>
+<td>Jan. 2006</td>
+<td>Broad Institute release MonDom4</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>monDom1</td>
+<td>Oct. 2004</td>
+<td>Broad Institute release MonDom1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Orangutan</td>
+<td>ponAbe2</td>
+<td>Jul. 2007</td>
+<td>WUSTL Pongo_albelii-2.0.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ponAbe3</td>
+<td>Jan. 2018</td>
+<td>Susie_PABv2&#x2F;ponAbe3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Panda</td>
+<td>ailMel1</td>
+<td>Dec. 2009</td>
+<td>BGI-Shenzhen AilMel 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Pig</td>
+<td>susScr11</td>
+<td>Feb. 2017</td>
+<td>Swine Genome Sequencing Consortium Sscrofa11.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>susScr3</td>
+<td>Aug. 2011</td>
+<td>Swine Genome Sequencing Consortium Sscrofa10.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>susScr2</td>
+<td>Nov. 2009</td>
+<td>Swine Genome Sequencing Consortium Sscrofa9.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Pika</td>
+<td>ochPri3</td>
+<td>May 2012</td>
+<td>Broad Institute OchPri3.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ochPri2</td>
+<td>Jul. 2008</td>
+<td>Broad Institute OchPri2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Platypus</td>
+<td>ornAna2</td>
+<td>Feb. 2007</td>
+<td>WUSTL v5.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ornAna1</td>
+<td>Mar. 2007</td>
+<td>WUSTL v5.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Proboscis Monkey</td>
+<td>nasLar1</td>
+<td>Nov. 2014</td>
+<td>Proboscis Monkey Functional Genome Consortium Charlie1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Rabbit</td>
+<td>oryCun2</td>
+<td>Apr. 2009</td>
+<td>Broad Institute release OryCun2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Rat</td>
+<td>rn7</td>
+<td>Nov. 2020</td>
+<td>Wellcome Sanger Institute mRatBN7.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rn6</td>
+<td>Jul. 2014</td>
+<td>RGSC Rnor_6.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rn5</td>
+<td>Mar. 2012</td>
+<td>RGSC Rnor_5.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rn4</td>
+<td>Nov. 2004</td>
+<td>Baylor College of Medicine HGSC v3.4</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rn3</td>
+<td>Jun. 2003</td>
+<td>Baylor College of Medicine HGSC v3.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rn2</td>
+<td>Jan. 2003</td>
+<td>Baylor College of Medicine HGSC v2.1</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>rn1</td>
+<td>Nov. 2002</td>
+<td>Baylor College of Medicine HGSC v1.0</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td>Rhesus</td>
+<td>rheMac10</td>
+<td>Feb. 2019</td>
+<td>The Genome Institute at Washington University School of Medicine Mmul_10</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rheMac8</td>
+<td>Nov. 2015</td>
+<td>Baylor College of Medicine HGSC Mmul_8.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rheMac3</td>
+<td>Oct. 2010</td>
+<td>Beijing Genomics Institute CR_1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rheMac2</td>
+<td>Jan. 2006</td>
+<td>Baylor College of Medicine HGSC v1.0 Mmul_051212</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>rheMac1</td>
+<td>Jan. 2005</td>
+<td>Baylor College of Medicine HGSC Mmul_0.1</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td>Rock hyrax</td>
+<td>proCap1</td>
+<td>Jul. 2008</td>
+<td>Baylor College of Medicine HGSC Procap1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Sheep</td>
+<td>oviAri4</td>
+<td>Dec. 2015</td>
+<td>ISGC Oar_v4.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>oviAri3</td>
+<td>Aug. 2012</td>
+<td>ISGC Oar_v3.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>oviAri1</td>
+<td>Feb. 2010</td>
+<td>ISGC Ovis aries 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Shrew</td>
+<td>sorAra2</td>
+<td>Aug. 2008</td>
+<td>Broad Institute SorAra2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>sorAra1</td>
+<td>Jun. 2006</td>
+<td>Broad Institute SorAra1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Sloth</td>
+<td>choHof1</td>
+<td>Jul. 2008</td>
+<td>Broad Institute ChoHof1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Squirrel</td>
+<td>speTri2</td>
+<td>Nov. 2011</td>
+<td>Broad Institute SpeTri2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Squirrel monkey</td>
+<td>saiBol1</td>
+<td>Oct. 2011</td>
+<td>Broad Institute SaiBol1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Tarsier</td>
+<td>tarSyr2</td>
+<td>Sep. 2013</td>
+<td>WashU Tarsius_syrichta-2.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>tarSyr1</td>
+<td>Aug. 2008</td>
+<td>WUSTL&#x2F;Broad Institute Tarsyr1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Tasmanian devil</td>
+<td>sarHar1</td>
+<td>Feb. 2011</td>
+<td>Wellcome Trust Sanger Institute Devil_refv7.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Tenrec</td>
+<td>echTel2</td>
+<td>Nov. 2012</td>
+<td>Broad Institute EchTel2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>echTel1</td>
+<td>Jul. 2005</td>
+<td>Broad Institute echTel1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Tree shrew</td>
+<td>tupBel1</td>
+<td>Dec. 2006</td>
+<td>Broad Institute Tupbel1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Wallaby</td>
+<td>macEug2</td>
+<td>Sep. 2009</td>
+<td>Tammar Wallaby Genome Sequencing Consortium Meug_1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>White rhinoceros</td>
+<td>cerSim1</td>
+<td>May 2012</td>
+<td>Broad Institute CerSimSim1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>VERTEBRATES</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>African clawed frog</td>
+<td>xenLae2</td>
+<td>Aug. 2016</td>
+<td>Int. Xenopus Sequencing Consortium</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>American alligator</td>
+<td>allMis1</td>
+<td>Aug. 2012</td>
+<td>Int. Crocodilian Genomes Working Group allMis0.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Atlantic cod</td>
+<td>gadMor1</td>
+<td>May 2010</td>
+<td>Genofisk GadMor_May2010</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Budgerigar</td>
+<td>melUnd1</td>
+<td>Sep. 2011</td>
+<td>WUSTL v6.3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Chicken</td>
+<td>galGal6</td>
+<td>Mar. 2018</td>
+<td>GRCg6 Gallus-gallus-6.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>galGal5</td>
+<td>Dec. 2015</td>
+<td>ICGC Gallus-gallus-5.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>galGal4</td>
+<td>Nov. 2011</td>
+<td>ICGC Gallus-gallus-4.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>galGal3</td>
+<td>May 2006</td>
+<td>WUSTL Gallus-gallus-2.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>galGal2</td>
+<td>Feb. 2004</td>
+<td>WUSTL Gallus-gallus-1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Coelacanth</td>
+<td>latCha1</td>
+<td>Aug. 2011</td>
+<td>Broad Institute LatCha1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Elephant shark</td>
+<td>calMil1</td>
+<td>Dec. 2013</td>
+<td>IMCB Callorhinchus_milli_6.1.3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Fugu</td>
+<td>fr3</td>
+<td>Oct. 2011</td>
+<td>JGI v5.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>fr2</td>
+<td>Oct. 2004</td>
+<td>JGI v4.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>fr1</td>
+<td>Aug. 2002</td>
+<td>JGI v3.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Lamprey</td>
+<td>petMar3</td>
+<td>Dec. 2017</td>
+<td>University of Kentucky Pmar_germline 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>petMar2</td>
+<td>Sep. 2010</td>
+<td>WUGSC 7.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>petMar1</td>
+<td>Mar. 2007</td>
+<td>WUSTL v3.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Lizard</td>
+<td>anoCar2</td>
+<td>May 2010</td>
+<td>Broad Institute AnoCar2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>anoCar1</td>
+<td>Feb. 2007</td>
+<td>Broad Institute AnoCar1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Medaka</td>
+<td>oryLat2</td>
+<td>Oct. 2005</td>
+<td>NIG v1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Medium ground finch</td>
+<td>geoFor1</td>
+<td>Apr. 2012</td>
+<td>BGI GeoFor_1.0 &#x2F; NCBI 13302</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Nile tilapia</td>
+<td>oreNil2</td>
+<td>Jan. 2011</td>
+<td>Broad Institute Release OreNil1.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Painted turtle</td>
+<td>chrPic1</td>
+<td>Dec. 2011</td>
+<td>IPTGSC Chrysemys_picta_bellii-3.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Stickleback</td>
+<td>gasAcu1</td>
+<td>Feb. 2006</td>
+<td>Broad Institute Release 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Tetraodon</td>
+<td>tetNig2</td>
+<td>Mar. 2007</td>
+<td>Genoscope v7</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>tetNig1</td>
+<td>Feb. 2004</td>
+<td>Genoscope v7</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Tibetan frog</td>
+<td>nanPar1</td>
+<td>Mar. 2015</td>
+<td>Beijing Genomics Institute BGI_ZX_20015</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Turkey</td>
+<td>melGal5</td>
+<td>Nov. 2014</td>
+<td>Turkey Genome Consortium v5.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>melGal1</td>
+<td>Dec. 2009</td>
+<td>Turkey Genome Consortium v2.01</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>X. tropicalis</em></td>
+<td>xenTro9</td>
+<td>Jul. 2016</td>
+<td>JGI v.9.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>xenTro7</td>
+<td>Sep. 2012</td>
+<td>JGI v.7.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>xenTro3</td>
+<td>Nov. 2009</td>
+<td>JGI v.4.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>xenTro2</td>
+<td>Aug. 2005</td>
+<td>JGI v.4.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>xenTro1</td>
+<td>Oct. 2004</td>
+<td>JGI v.3.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Zebra finch</td>
+<td>taeGut2</td>
+<td>Feb. 2013</td>
+<td>WashU taeGut324</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>taeGut1</td>
+<td>Jul. 2008</td>
+<td>WUSTL v3.2.4</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Zebrafish</td>
+<td>danRer11</td>
+<td>May 2017</td>
+<td>Genome Reference Consortium GRCz11</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer10</td>
+<td>Sep. 2014</td>
+<td>Genome Reference Consortium GRCz10</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer7</td>
+<td>Jul. 2010</td>
+<td>Sanger Institute Zv9</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer6</td>
+<td>Dec. 2008</td>
+<td>Sanger Institute Zv8</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer5</td>
+<td>Jul. 2007</td>
+<td>Sanger Institute Zv7</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer4</td>
+<td>Mar. 2006</td>
+<td>Sanger Institute Zv6</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer3</td>
+<td>May 2005</td>
+<td>Sanger Institute Zv5</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer2</td>
+<td>Jun. 2004</td>
+<td>Sanger Institute Zv4</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td>danRer1</td>
+<td>Nov. 2003</td>
+<td>Sanger Institute Zv3</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>DEUTEROSTOMES</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em>C. intestinalis</em></td>
+<td>ci3</td>
+<td>Apr. 2011</td>
+<td>Kyoto KH</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>C. intestinalis</em></td>
+<td>ci2</td>
+<td>Mar. 2005</td>
+<td>JGI v2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ci1</td>
+<td>Dec. 2002</td>
+<td>JGI v1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Lancelet</td>
+<td>braFlo1</td>
+<td>Mar. 2006</td>
+<td>JGI v1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>S. purpuratus</em></td>
+<td>strPur2</td>
+<td>Sep. 2006</td>
+<td>Baylor College of Medicine HGSC v. Spur 2.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>strPur1</td>
+<td>Apr. 2005</td>
+<td>Baylor College of Medicine HGSC v. Spur_0.5</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>INSECTS</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em>A. mellifera</em></td>
+<td>apiMel2</td>
+<td>Jan. 2005</td>
+<td>Baylor College of Medicine HGSC v.Amel_2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>apiMel1</td>
+<td>Jul. 2004</td>
+<td>Baylor College of Medicine HGSC v.Amel_1.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>A. gambiae</em></td>
+<td>anoGam3</td>
+<td>Oct. 2006</td>
+<td>International Consortium for the Sequencing of Anopheles Genome AgamP3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>anoGam1</td>
+<td>Feb. 2003</td>
+<td>IAGP v.MOZ2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. ananassae</em></td>
+<td>droAna2</td>
+<td>Aug. 2005</td>
+<td>Agencourt Arachne release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>droAna1</td>
+<td>Jul. 2004</td>
+<td>TIGR Celera release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. erecta</em></td>
+<td>droEre1</td>
+<td>Aug. 2005</td>
+<td>Agencourt Arachne release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. grimshawi</em></td>
+<td>droGri1</td>
+<td>Aug. 2005</td>
+<td>Agencourt Arachne release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. melanogaster</em></td>
+<td>dm6</td>
+<td>Aug. 2014</td>
+<td>BDGP Release 6 + ISO1 MT</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>dm3</td>
+<td>Apr. 2006</td>
+<td>BDGP Release 5</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>dm2</td>
+<td>Apr. 2004</td>
+<td>BDGP Release 4</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>dm1</td>
+<td>Jan. 2003</td>
+<td>BDGP Release 3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. mojavensis</em></td>
+<td>droMoj2</td>
+<td>Aug. 2005</td>
+<td>Agencourt Arachne release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>droMoj1</td>
+<td>Aug. 2004</td>
+<td>Agencourt Arachne release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. persimilis</em></td>
+<td>droPer1</td>
+<td>Oct. 2005</td>
+<td>Broad Institute release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. pseudoobscura</em></td>
+<td>dp3</td>
+<td>Nov. 2004</td>
+<td>FlyBase Release 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>dp2</td>
+<td>Aug. 2003</td>
+<td>Baylor College of Medicine HGSC Freeze 1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. sechellia</em></td>
+<td>droSec1</td>
+<td>Oct. 2005</td>
+<td>Broad Institute Release 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. simulans</em></td>
+<td>droSim1</td>
+<td>Apr. 2005</td>
+<td>WUSTL Release 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. virilis</em></td>
+<td>droVir2</td>
+<td>Aug. 2005</td>
+<td>Agencourt Arachne release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>droVir1</td>
+<td>Jul. 2004</td>
+<td>Agencourt Arachne release</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>D. yakuba</em></td>
+<td>droYak2</td>
+<td>Nov. 2005</td>
+<td>WUSTL Release 2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>droYak1</td>
+<td>Apr. 2004</td>
+<td>WUSTL Release 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>NEMATODES</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em>C. brenneri</em></td>
+<td>caePb2</td>
+<td>Feb. 2008</td>
+<td>WUSTL 6.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>caePb1</td>
+<td>Jan. 2007</td>
+<td>WUSTL 4.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>C. briggsae</em></td>
+<td>cb3</td>
+<td>Jan. 2007</td>
+<td>WUSTL Cb3</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>cb1</td>
+<td>Jul. 2002</td>
+<td>WormBase v. cb25.agp8</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>C. elegans</em></td>
+<td>ce11</td>
+<td>Feb. 2013</td>
+<td>C. elegans Sequencing Consortium WBcel235</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ce10</td>
+<td>Oct. 2010</td>
+<td>WormBase v. WS220</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ce6</td>
+<td>May 2008</td>
+<td>WormBase v. WS190</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ce4</td>
+<td>Jan. 2007</td>
+<td>WormBase v. WS170</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ce2</td>
+<td>Mar. 2004</td>
+<td>WormBase v. WS120</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>ce1</td>
+<td>May 2003</td>
+<td>WormBase v. WS100</td>
+<td>Archived</td>
+</tr>
+<tr>
+<td><em>C. japonica</em></td>
+<td>caeJap1</td>
+<td>Mar. 2008</td>
+<td>WUSTL 3.0.2</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>C. remanei</em></td>
+<td>caeRem3</td>
+<td>May 2007</td>
+<td>WUSTL 15.0.1</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>caeRem2</td>
+<td>Mar. 2006</td>
+<td>WUSTL 1.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><em>P. pacificus</em></td>
+<td>priPac1</td>
+<td>Feb. 2007</td>
+<td>WUSTL 5.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>OTHER</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sea Hare</td>
+<td>aplCal1</td>
+<td>Sep. 2008</td>
+<td>Broad Release Aplcal2.0</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Yeast</td>
+<td>sacCer3</td>
+<td>April 2011</td>
+<td>SGD April 2011 sequence</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>sacCer2</td>
+<td>June 2008</td>
+<td>SGD June 2008 sequence</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td>sacCer1</td>
+<td>Oct. 2003</td>
+<td>SGD 1 Oct 2003 sequence</td>
+<td>Available</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>VIRUSES</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ebola Virus</td>
+<td>eboVir3</td>
+<td>June 2014</td>
+<td>Sierra Leone 2014 (G3683&#x2F;KM034562.1)</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>SARS-CoV-2</td>
+<td>wuhCor1</td>
+<td>Jan. 2020</td>
+<td>SARS-CoV-2 ASM985889v3</td>
+<td>Available</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/grc/human">https://www.ncbi.nlm.nih.gov/grc</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://genomeref.blogspot.com/">http://genomeref.blogspot.com/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/62598/">https://ziptop.top/posts/62598/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/%E4%BA%8C%E4%BB%A3%E6%B5%8B%E5%BA%8F/">二代测序</a><a class="post-meta__tags" href="/tags/%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84/">参考基因组</a><a class="post-meta__tags" href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%B3%A8%E9%87%8A/">基因组注释</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img10.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5273/"><img class="prev-cover" src="/assert/img/background/img11.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux 查看并关闭端口</div></div></a></div><div class="next-post pull-right"><a href="/posts/47655/"><img class="next-cover" src="/assert/img/background/img05.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">scanpy 单细胞分析包图文详解 01 | 深入理解 AnnData 数据结构</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/34675/" title="Hi-C 测序技术（图解详解）"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-06</div><div class="title">Hi-C 测序技术（图解详解）</div></div></a></div><div><a href="/posts/56525/" title="参考基因组下载"><img class="cover" src="/assert/img/background/img09.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-21</div><div class="title">参考基因组下载</div></div></a></div><div><a href="/posts/29665/" title="Python 自动化提取基因的 CDS"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Python 自动化提取基因的 CDS</div></div></a></div><div><a href="/posts/50931/" title="Seurat | 不同单细胞转录组的整合方法"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-15</div><div class="title">Seurat | 不同单细胞转录组的整合方法</div></div></a></div><div><a href="/posts/21265/" title="Pandas 修改单列，多列，Dataframe 数据类型方法汇总"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">Pandas 修改单列，多列，Dataframe 数据类型方法汇总</div></div></a></div><div><a href="/posts/60574/" title="UCSC 基因组浏览器配置详解"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-29</div><div class="title">UCSC 基因组浏览器配置详解</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%92%8C%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%B3%A8%E9%87%8A%EF%BC%9F"><span class="toc-text">一、什么是参考基因组和基因组注释？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D"><span class="toc-text">二、参考基因组版本命名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%B8%B8%E7%94%A8%E4%BA%BA%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%AF%B9%E5%BA%94%E8%A1%A8"><span class="toc-text">1、常用人参考基因组对应表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%B8%B8%E7%94%A8%E5%B0%8F%E9%BC%A0%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%AF%B9%E5%BA%94%E8%A1%A8"><span class="toc-text">2、常用小鼠参考基因组对应表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%8B%E8%BD%BD"><span class="toc-text">三、下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81NCBI"><span class="toc-text">1、NCBI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Ensemble"><span class="toc-text">2、Ensemble</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81GENCODE"><span class="toc-text">3、GENCODE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81UCSC"><span class="toc-text">4、UCSC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81iGenomes"><span class="toc-text">5、iGenomes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%85%B6%E4%BB%96%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84%E4%BF%A1%E6%81%AF"><span class="toc-text">四、其他参考基因组信息</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

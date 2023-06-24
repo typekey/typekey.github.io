@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>生信自动化流程搭建 04 | 输出 output | 白墨</title><meta name="keywords" content="生物信息,生信情报站,生物信息学,生信流程,Nextflow,流程自动化"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="输出输出声明块允许定义所使用的过程中发出所产生的结果的信道。 最多可以定义一个输出块，并且可以包含一个或多个输出声明。输出块遵循以下语法： output:    [into [,channel,..]] [attribute [,..]]  输出定义以输出限定符和输出名称开头，后跟关键字into和一个或多个通过其发送输出的通道。最后，可以指定一些可选属性。 注意，当输出名称与通道名称相同时，int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生信自动化流程搭建 04 | 输出 output">
+<meta property="og:url" content="https://ziptop.top/posts/43064/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="输出输出声明块允许定义所使用的过程中发出所产生的结果的信道。 最多可以定义一个输出块，并且可以包含一个或多个输出声明。输出块遵循以下语法： output:    [into [,channel,..]] [attribute [,..]]  输出定义以输出限定符和输出名称开头，后跟关键字into和一个或多个通过其发送输出的通道。最后，可以指定一些可选属性。 注意，当输出名称与通道名称相同时，int">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img04.png">
+<meta property="article:published_time" content="2020-08-10T10:47:01.000Z">
+<meta property="article:modified_time" content="2020-08-10T10:47:01.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生物信息">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="生信流程">
+<meta property="article:tag" content="Nextflow">
+<meta property="article:tag" content="流程自动化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img04.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/43064/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '生信自动化流程搭建 04 | 输出 output',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-10 18:47:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img04.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">生信自动化流程搭建 04 | 输出 output</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-08-10T10:47:01.000Z" title="发表于 2020-08-10 18:47:01">2020-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="生信自动化流程搭建 04 | 输出 output"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出声明块允许定义所使用的过程中发出所产生的结果的信道。</p>
+<p>最多可以定义一个输出块，并且可以包含一个或多个输出声明。输出块遵循以下语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">output:<br>  <output qualifier> <output name> [into <target channel>[,channel,..]] [attribute [,..]]<br></code></pre></td></tr></table></figure>
+
+<p>输出定义以输出限定符和输出名称开头，后跟关键字<code>into</code>和一个或多个通过其发送输出的通道。最后，可以指定一些可选属性。</p>
+<p>注意，当输出名称与通道名称相同时，<code>into</code>可以省略声明的一部分。</p>
+<p>下表中列出了可以在输出声明块中使用的限定符：</p>
+<table>
+<thead>
+<tr>
+<th>预选赛</th>
+<th>语义的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>val</td>
+<td>发送具有在输出通道上指定的名称的变量。</td>
+</tr>
+<tr>
+<td>file</td>
+<td>发送在输出通道上指定名称的由进程生成的文件。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>发送在输出通道上指定名称的由进程生成的文件（替换<code>file</code>）。</td>
+</tr>
+<tr>
+<td>env</td>
+<td>使用在输出通道上指定的名称发送在流程环境中定义的变量。</td>
+</tr>
+<tr>
+<td>stdout</td>
+<td>通过输出通道发送已执行的进程标准输出。</td>
+</tr>
+<tr>
+<td>tuple</td>
+<td>可以通过同一输出通道发送多个值。</td>
+</tr>
+</tbody></table>
+<h3 id="输出值"><a href="#输出值" class="headerlink" title="输出值"></a>输出值</h3><p><code>val</code>限定符允许输出一个值在脚本上下文中定义。</p>
+<p>在常见的使用场景中，这是在输入声明块中定义的值，如以下示例所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">methods = [&#x27;prot&#x27;,&#x27;dna&#x27;, &#x27;rna&#x27;]<br><br>process foo &#123;<br>  input:<br>  val x from methods<br><br>  output:<br>  val x into receiver<br><br>  """<br>  echo $x > file<br>  """<br><br>&#125;<br><br>receiver.println &#123; "Received: $it" &#125;<br></code></pre></td></tr></table></figure>
+
+<p>有效的输出值是值文字，输入值标识符，过程范围中可访问的变量和值表达式。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br>  input:<br>  file fasta from &#x27;dummy&#x27;<br><br>  output:<br>  val x into var_channel<br>  val &#x27;BB11&#x27; into str_channel<br>  val "$&#123;fasta.baseName&#125;.out" into exp_channel<br><br>  script:<br>  x = fasta.name<br>  """<br>  cat $x > file<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="输出文件"><a href="#输出文件" class="headerlink" title="输出文件"></a>输出文件</h3><p><code>file</code>限定符允许输出一个或多个文件，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process randomNum &#123;<br><br>   output:<br>   file &#x27;result.txt&#x27; into numbers<br><br>   &#x27;&#x27;&#x27;<br>   echo $RANDOM > result.txt<br>   &#x27;&#x27;&#x27;<br><br>&#125;<br><br>numbers.subscribe &#123; println "Received: " + it.text &#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，该过程在执行时会创建一个名为的<code>result.txt</code>文件，其中包含随机数。</p>
+<p>在输出中声明了使用相同名称的文件参数</p>
+<p>因此当任务完成时，该文件将通过<code>numbers</code>通道发送。</p>
+<p>与输入声明相同的通道下游进程将能够接收它。</p>
+<p>需要注意，如果指定为输出的通道先前未在管道脚本中声明，则它将由输出声明本身隐式创建。</p>
+<h3 id="多个输出文件"><a href="#多个输出文件" class="headerlink" title="多个输出文件"></a>多个输出文件</h3><p>当输出文件名包含<code>*</code>或<code>?</code>通配符时，它将被解释为<a target="_blank" rel="noopener external nofollow noreferrer" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">全局</a>路径匹配器。这样可以将多个文件捕获到一个列表对象中，并将其作为唯一的输出。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process splitLetters &#123;<br><br>    output:<br>    file &#x27;chunk_*&#x27; into letters<br><br>    &#x27;&#x27;&#x27;<br>    printf &#x27;Hola&#x27; | split -b 1 - chunk_<br>    &#x27;&#x27;&#x27;<br>&#125;<br><br>letters<br>    .flatMap()<br>    .subscribe &#123; println "File: $&#123;it.name&#125; => $&#123;it.text&#125;" &#125;<br></code></pre></td></tr></table></figure>
+
+<p>它打印：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">File: chunk_aa => H<br>File: chunk_ab => o<br>File: chunk_ac => l<br>File: chunk_ad => a<br></code></pre></td></tr></table></figure>
+
+<p>注意</p>
+<p>在上面的示例中，运算符<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/operator.html#operator-flatmap">flatMap</a>用于将<code>letters</code>通道发出的文件列表转换为独立发出每个文件对象的通道。</p>
+<p>关于全局模式行为的一些警告：</p>
+<ul>
+<li>输入文件不包括在可能的匹配列表中。</li>
+<li>球形模式与文件和目录路径匹配。</li>
+<li>当使用两星模式<code>**</code>在目录间求助时，仅文件路径匹配，即目录不包括在结果列表中。</li>
+</ul>
+<p>警告</p>
+<p>尽管与glob输出声明匹配的输入文件不包括在结果输出通道中，但是这些文件仍可以从任务暂存目录传输到目标任务工作目录。因此，为避免不必要的文件复制，建议在定义输出文件时避免使用宽松的通配符，例如。而是使用前缀或后缀命名符号将匹配文件集限制为仅预期文件，例如。<code>file &#39;*&#39;``file &#39;prefix_*.sorted.bam&#39;</code></p>
+<p>默认情况下，与指定的glob模式匹配的所有文件都作为唯一（列表）项由通道发出。通过在输出文件声明中添加属性，还可以将每个文件作为唯一项发出。<code>mode flatten</code></p>
+<p>通过使用该<code>mode</code>属性，可以如下所示重写前面的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process splitLetters &#123;<br><br>    output:<br>    file &#x27;chunk_*&#x27; into letters mode flatten<br><br>    &#x27;&#x27;&#x27;<br>    printf &#x27;Hola&#x27; | split -b 1 - chunk_<br>    &#x27;&#x27;&#x27;<br>&#125;<br><br>letters .subscribe &#123; println "File: $&#123;it.name&#125; => $&#123;it.text&#125;" &#125;<br></code></pre></td></tr></table></figure>
+
+<p>警告</p>
+<p>从<code>mode</code>19.10.0版开始不推荐使用该选项。 而是在下游过程中使用操作员<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/operator.html#operator-collect">收集</a>。</p>
+<p>在以下链接中了解有关glob语法的更多信息。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">什么是glob？</a></p>
+<h3 id="动态输出文件名"><a href="#动态输出文件名" class="headerlink" title="动态输出文件名"></a>动态输出文件名</h3><p>当需要动态表达输出文件名时，可以使用动态评估字符串来定义它，</p>
+<p>该字符串引用在输入声明块或脚本全局上下文中定义的值。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process align &#123;<br>  input:<br>  val x from species<br>  file seq from sequences<br><br>  output:<br>  file "$&#123;x&#125;.aln" into genomes<br><br>  """<br>  t_coffee -in $seq > $&#123;x&#125;.aln<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，每次执行该过程时，都会生成一个对齐文件，其名称取决于<code>x</code>输入的实际值。</p>
+<p>小费</p>
+<p>使用Nextflow时，输出文件的管理是一个非常普遍的误解。使用其他工具，通常需要将输出文件组织成某种目录结构或保证唯一的文件名方案，以使结果文件不会相互覆盖，并且下游任务可以唯一地引用它们。</p>
+<p>使用Nextflow，在大多数情况下，您无需为输出文件命名，因为每个任务都在其自己的唯一临时目录中执行，因此由不同任务生成的文件永远不会相互覆盖。通过使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#process-out-tuple">元组输出</a>限定符，也可以将元数据与输出关联，而不是将它们包含在输出文件名中。</p>
+<p>综上所述，在可能的情况下，最好使用具有静态名称而不是动态名称的输出文件，因为这将导致代码更简单，更可移植。</p>
+<h3 id="输出路径"><a href="#输出路径" class="headerlink" title="输出路径"></a>输出路径</h3><p>的<code>path</code>输出限定符被Nextflow版本19.10.0引入，这是一个简易替换为<code>file</code>输出限定符，因此它是后向兼容的语法和用于输入语义<code>file</code>如上所述。</p>
+<p><code>path</code>over <code>file</code>qualifier 的主要优点在于，它允许指定多个输出来精细控制输出文件。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>glob</td>
+<td>当<code>true</code>指定的名称被解释为glob模式（默认值：<code>true</code>）</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>当<code>true</code>隐藏的文件包含在配套的输出文件（默认：<code>false</code>）</td>
+</tr>
+<tr>
+<td>followLinks</td>
+<td>当<code>true</code>目标文件放在任何匹配的符号链接的回报（默认值：<code>true</code>）</td>
+</tr>
+<tr>
+<td>type</td>
+<td>返回的路径类型，或者<code>file</code>，<code>dir</code>或者<code>any</code>（默认值：<code>any</code>，或者<code>file</code>如果指定的文件名模式包含** -双星-符号）</td>
+</tr>
+<tr>
+<td>maxDepth</td>
+<td>要访问的最大目录级别数（默认值：无限制）</td>
+</tr>
+<tr>
+<td>includeInputs</td>
+<td>当<code>true</code>包含与输出文件全局模式匹配的任何输入文件时。</td>
+</tr>
+</tbody></table>
+<p>Nextflow 19.10.0 重大更新：<code>file</code>限定符解释<code>:</code>为路径分隔符，因此<code>file &#39;foo:bar&#39;</code>  捕获文件<code>foo</code>  和<code>bar </code>。在<code>path</code>  限定符解释中，它只是一个普通的文件名字符，因此<code>path &#39;foo:bar&#39; </code>输出定义捕获与名称的输出文件<code>foo:bar</code>。</p>
+<p>使用Nextflow 19.10.0或更高版本时，路径限定符应优先于文件，以处理进程输出文件。 </p>
+<h3 id="输出stdout"><a href="#输出stdout" class="headerlink" title="输出stdout"></a>输出<code>stdout</code></h3><p>在<code>stdout</code>限定词中，您可以捕捉的标准输出的执行过程中的输出和发送过来的输出参数声明中指定的通道。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process echoSomething &#123;<br>    output:<br>    stdout hello<br><br>    """<br>    echo Hello world!<br>    """<br>&#125;<br><br>hello.subscribe &#123; print "I say..  $it" &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="输出env"><a href="#输出env" class="headerlink" title="输出env"></a>输出<code>env</code></h3><p><code>env</code>限定符允许您捕获在处理执行环境中定义的变量，并发送过来的输出参数声明中指定的信道：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process myTask &#123;<br>    output:<br>    env FOO into target<br>    script:<br>    &#x27;&#x27;&#x27;<br>    FOO=$(ls -la)<br>    &#x27;&#x27;&#x27;<br>&#125;<br><br>target.view &#123; "directory content: $it" &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="输出tuple"><a href="#输出tuple" class="headerlink" title="输出tuple"></a>输出<code>tuple</code></h3><p><code>tuple</code>限定符允许多个值发送到单一的 channel。</p>
+<p>当需要将同一流程的多次执行的结果分组在一起时，此功能很有用，示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">query_ch = Channel.fromPath &#x27;*.fa&#x27;<br>species_ch = Channel.from &#x27;human&#x27;, &#x27;cow&#x27;, &#x27;horse&#x27;<br><br>process blast &#123;<br><br>input:<br>  val species from query_ch<br>  file query from species_ch<br><br>output:<br>  tuple val(species), file(&#x27;result&#x27;) into blastOuts<br><br>script:<br>  """<br>  blast -db nr -query $query > result<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，对 <code>species</code>  和<code>query</code>  的每对执行BLAST任务。当任务完成时，一个新的元组（包含<code>species</code> 和 <code>result</code> 文件）将文件发送到<code>blastOuts</code>  通道 。</p>
+<p>元组声明可以包含以下限定符及组合：<code>val</code>，<code>file</code>和<code>stdout</code>。</p>
+<blockquote>
+<p> 默认情况下，<strong>变量标识符被解释为值，而字符串文字则被解释为文件</strong>，因此可以使用如下所示的短符号重写上述输出元组。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">output:<br>    tuple species, &#x27;result&#x27; into blastOuts<br></code></pre></td></tr></table></figure>
+
+<p>可以按照动态方式定义文件名，如<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#process-dynoutname">动态输出文件名</a>部分所述。</p>
+<h3 id="可选输出"><a href="#可选输出" class="headerlink" title="可选输出"></a>可选输出</h3><p>在大多数情况下，需要一个 process  来生成输出，并将其添加到输出通道。</p>
+<p>但是，在某些情况下，process  不生成输出的。可以添加<code>optional true</code>到输出声明中，告诉Nextflow如果未创建声明的输出，则不要使进程失败。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">output:<br>    file("output.txt") optional true into outChannel<br></code></pre></td></tr></table></figure>
+
+<p>在此示例中，希望该过程生成<code>output.txt</code>文件，但是在合法丢失文件的情况下，该过程不会失败。<code>outChannel</code>仅由确实生成的那些进程填充<code>output.txt</code>。</p>
+<h2 id="When-声明"><a href="#When-声明" class="headerlink" title="When 声明"></a>When 声明</h2><p>该<code>when</code>声明允许您定义必须按顺序执行的过程进行验证的条件。这可以是任何评估布尔值的表达式。</p>
+<p>根据各种输入和参数的状态启用&#x2F;禁用过程执行非常有用。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process find &#123;<br>  input:<br>  file proteins<br>  val type from dbtype<br><br>  when:<br>  proteins.name =~ /^BB11.*/ && type == &#x27;nr&#x27;<br><br>  script:<br>  """<br>  blastp -query $proteins -db nr<br>  """<br><br>&#125;<br></code></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/43064/">https://ziptop.top/posts/43064/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a><a class="post-meta__tags" href="/tags/Nextflow/">Nextflow</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E7%A8%8B%E8%87%AA%E5%8A%A8%E5%8C%96/">流程自动化</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img04.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/59212/"><img class="prev-cover" src="/assert/img/background/img05.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">生信自动化流程搭建 05 | 通道 Channels</div></div></a></div><div class="next-post pull-right"><a href="/posts/9930/"><img class="next-cover" src="/assert/img/background/img19.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生信自动化流程搭建 03 | 输入 input</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/9930/" title="生信自动化流程搭建 03 | 输入 input"><img class="cover" src="/assert/img/background/img19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 03 | 输入 input</div></div></a></div><div><a href="/posts/35968/" title="生信自动化流程搭建 07 | 配置文件"><img class="cover" src="/assert/img/background/img15.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 07 | 配置文件</div></div></a></div><div><a href="/posts/15984/" title="生信自动化流程搭建 02 | 脚本"><img class="cover" src="/assert/img/background/img18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 02 | 脚本</div></div></a></div><div><a href="/posts/59212/" title="生信自动化流程搭建 05 | 通道 Channels"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 05 | 通道 Channels</div></div></a></div><div><a href="/posts/40556/" title="生信自动化流程搭建 06 | 指令"><img class="cover" src="/assert/img/background/img16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 06 | 指令</div></div></a></div><div><a href="/posts/12151/" title="生信自动化流程搭建 01 | Nextflow的介绍与安装"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 01 | Nextflow的介绍与安装</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-text">输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E5%80%BC"><span class="toc-text">输出值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6"><span class="toc-text">输出文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6"><span class="toc-text">多个输出文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-text">动态输出文件名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%B7%AF%E5%BE%84"><span class="toc-text">输出路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BAstdout"><span class="toc-text">输出stdout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BAenv"><span class="toc-text">输出env</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BAtuple"><span class="toc-text">输出tuple</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E8%BE%93%E5%87%BA"><span class="toc-text">可选输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#When-%E5%A3%B0%E6%98%8E"><span class="toc-text">When 声明</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

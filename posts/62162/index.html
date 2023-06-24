@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>搭建 Python 高效开发环境： Pycharm + Anaconda | 白墨</title><meta name="keywords" content="Python,anaconda,生信情报站,大数据,爬虫技术,数据分析,开发环境"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="介绍先来介绍下两位主角： Pycharm：目前一款主流的 Python 集成开发环境，它带有一整套帮助我们在Python开发时提高效率的工具，比如调试、语法高亮、Project管理、代码跳转、智能提示、自动完成、单元测试、版本控制。 总的来说，Pycharm 会极大地提高我们 Python 开发的效率和体验，用过都说好。 Anaconda：主要针对 Python 的数据科学整合包，包括有 Num">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建 Python 高效开发环境： Pycharm + Anaconda">
+<meta property="og:url" content="https://ziptop.top/posts/62162/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="介绍先来介绍下两位主角： Pycharm：目前一款主流的 Python 集成开发环境，它带有一整套帮助我们在Python开发时提高效率的工具，比如调试、语法高亮、Project管理、代码跳转、智能提示、自动完成、单元测试、版本控制。 总的来说，Pycharm 会极大地提高我们 Python 开发的效率和体验，用过都说好。 Anaconda：主要针对 Python 的数据科学整合包，包括有 Num">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img03.png">
+<meta property="article:published_time" content="2020-05-03T04:30:20.000Z">
+<meta property="article:modified_time" content="2020-05-03T04:30:20.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="anaconda">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="爬虫技术">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="开发环境">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img03.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/62162/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '搭建 Python 高效开发环境： Pycharm + Anaconda',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-05-03 12:30:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img03.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">搭建 Python 高效开发环境： Pycharm + Anaconda</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-05-03T04:30:20.000Z" title="发表于 2020-05-03 12:30:20">2020-05-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">编程基础</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/Python/">Python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="搭建 Python 高效开发环境： Pycharm + Anaconda"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvQXRpbVAyQVhzbFVULnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>先来介绍下两位主角：</p>
+<p><strong>Pycharm</strong>：目前一款主流的 Python 集成开发环境，它带有一整套帮助我们在Python开发时提高效率的工具，比如调试、语法高亮、Project管理、代码跳转、智能提示、自动完成、单元测试、版本控制。</p>
+<p>总的来说，Pycharm 会极大地提高我们 Python 开发的效率和体验，用过都说好。</p>
+<p><strong>Anaconda</strong>：主要针对 Python 的数据科学整合包，包括有 Numpy，Pandas，Sklearn等。重要的是，自带管理软件 conda，它拥有安装，更新，删除，解决包依赖关系的包管理功能。同时，conda拥有环境管理功能，能创建独立运行环境， 使各项目间包环境和版本互不冲突和影响。另外，Conda 还可以管理包括 Bowtie2，FastQC 等软件环境，甚至 R 包环境。</p>
+<p>总之，Anaconda 就是我们在编程时的管家，一切麻烦事扔给他，我们只要关注项目本身就行。</p>
+<h3 id="安装-Pycharm"><a href="#安装-Pycharm" class="headerlink" title="安装 Pycharm"></a>安装 Pycharm</h3><p>1.网址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jetbrains.com/pycharm/download/#section=windows">https://www.jetbrains.com/pycharm/download/#section=windows</a></p>
+<ul>
+<li>Professional：收费，专业版会提供扩展，比如远程调试，插件支持，版本控制等</li>
+<li>Community：免费，会包含常用的基础功能</li>
+</ul>
+<p>这里选择专业版为例，可以先试用30天。有的学校会购买，可以咨询下学校图书馆或计算机学院。也可以去官网购买，当然网上有许多方法可以获得，自行搜索。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvaXBvYjBZR3M4Q2p5LnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>2.开始安装</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvanc4cXVHVkhMd3pnLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>3.选择安装位置，Next</p>
+<blockquote>
+<p>如果有固态硬盘，可以把 Pycharm 放进去，这样会极大的减少项目构建索引，载入导入时间。</p>
+</blockquote>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvdHQ4YkRkRWNHRUk0LnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>4.可以根据需要来选择配置，建议全选</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvMnJRQjRDb0o3RTRlLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>5.安装</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvR2E1dGRKSnJ5TjBnLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>6.安装完成后，点击刚刚在桌面上的快捷方式</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvVmdxOE42YnpQajEwLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>7.同意协议</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvQVFGVm4xeGMxUXRGLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>8.数据是否分享，根据情况来看</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvWTk1Y25XRXdPU1c3LnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>9.选择主题，我这里选择浅色</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvcUZyMUlZQWI1RE9xLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>10.根据需要安装插件</p>
+<ul>
+<li>IdeaVim：vim是Linux系统常用的编辑器，如果之前已经习惯用vim，可以安装</li>
+<li>R：统计学编程语言，因为学习生物信息的原因，这里选择安装</li>
+<li>AWS Tookit：是亚马逊云服务的扩增</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvVkl6RGRnOHpDNzlGLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>11.激活</p>
+<p>因为这里安装的是专业版，可以先选择试用。点击<code>Evaluate</code></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvVVlibFJmN3JBQWdiLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h3 id="安装-Anaconda"><a href="#安装-Anaconda" class="headerlink" title="安装 Anaconda"></a>安装 Anaconda</h3><p>1.根据系统选择合适的安装包，这里建议选择 Python 3.7 版本下载</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.anaconda.com/products/individual#Downloads">https://www.anaconda.com/products/individual#Downloads</a></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvOEcyR3RSSEdJem9tLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>2.安装</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvVXdMT0dsYnFKcTRSLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>2.同意协议</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvMEROTkNVbVBJUU91LnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>3.Next</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvRkVrZWFMdmcwenR3LnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>4.选择安装路径</p>
+<p>这里路径最后放在非系统盘，后续anaconda的操作会占用硬盘空间</p>
+<p>我平时会为每种语言建立独立的安装目录，工作目录。这样的好处是在版本更新，和项目依赖关系清晰，后续更新也方便。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvcU44VEpZTGhtbG1nLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>4.开始安装</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvNzlodXVnS1ZHa0NDLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>5.Next</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvRWg3UUttdWNWMUROLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>6.Next</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvMHVnWTU4TkYwN09HLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>7.安装完成</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvbzh0cnVwa3d0WVRmLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h3 id="新建包含-Anaconda-的项目"><a href="#新建包含-Anaconda-的项目" class="headerlink" title="新建包含 Anaconda 的项目"></a>新建包含 Anaconda 的项目</h3><p>1.第一次进入Pycharm，先新建项目，进入配置界面</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvTUpvSjdKQzdqaTlCLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>2.配置 Python 解释器</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvTzc1Uk41UWs1aVJiLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>为了方便管理，这里 <code>Location</code> 配置项目存放目录，该目录与 Anaconda 在同一目录下。当然，不按照这样的目录结构也可以。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvSkhzd3k4YW1oWHYyLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>3.切换到 <code>Conda Environment</code> ，找到我们刚刚安装 Anaconda 的目录并设置，同时勾选为所有项目应用该配置</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvY2JWbnFBbTExdWptLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>4.配置完成后，解释器被 Pycharm 识别，点击创建</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvaW9qUDBqcTlrQUpoLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>5.第一次创建项目，Pycharm 有初始化工作要做，耐心等待即可</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvTUJGTkpqamFuY0lMLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h3 id="Anaconda-环境的使用示例"><a href="#Anaconda-环境的使用示例" class="headerlink" title="Anaconda 环境的使用示例"></a>Anaconda 环境的使用示例</h3><p>0.工作区介绍</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvc0w3Y2lUelRTSUcxLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>1.右键项目名，新建 Python 脚本</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvYlFOaWJXQzhNS3JBLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>2.输入名字，注意这里不需要添加 <code>.py</code>后缀，回车后创建</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MDMvaml6S1MwMHlHR3QzLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>3.编写脚本</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>dates = pd.date_range(<span class="hljs-string">&#x27;20200501&#x27;</span>, periods=<span class="hljs-number">6</span>)<br>df = pd.DataFrame(np.random.randn(<span class="hljs-number">6</span>,<span class="hljs-number">4</span>), index=dates, columns=<span class="hljs-built_in">list</span>(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>dates = pd.date_range(<span class="hljs-string">&#x27;20200501&#x27;</span>, periods=<span class="hljs-number">6</span>)<br>df = pd.DataFrame(np.random.randn(<span class="hljs-number">6</span>,<span class="hljs-number">4</span>), index=dates, columns=<span class="hljs-built_in">list</span>(<span class="hljs-string">&#x27;ABCD&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<p>4.右键脚本名，运行，测试配置是否成功</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvMDdubUlDaFZqYllwLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>5.运行这个脚本，会自动激活<code>Scientific Mode</code>，界面就像这样：</p>
+<p>在左下输入<code>df.head()</code>，可以直接在控制台查看数据框内容，也可以在右边点击查看。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvdHJYMHpVRHZBVGxsLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<h3 id="Conda-环境的使用示例"><a href="#Conda-环境的使用示例" class="headerlink" title="Conda 环境的使用示例"></a>Conda 环境的使用示例</h3><p>有了 Anaconda 的支持，为什么还要 Conda 环境？</p>
+<p>前面新建的 Anaconda 环境包含各种数据分析，机器学习等包，可以直接拿来用，并不需要再安装一遍，方便实用。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvRkN5cW56N1ZyZzMwLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>但是，有时候，我们并不需要这么多的包，而是需要特定版本的 Python 或者 Python 包，或是依赖冲突等问题，这就要求有一个独立运行的环境。而 Conda 建立的环境正好满足了这个需求。</p>
+<p>1.新建包含有 Conda 环境的项目</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvbFFPUVdYZHZScVJRLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>2.查看启用的环境</p>
+<p>点击 Pycharm 下面的 <code>Termianl</code> 可以直接控制 Windows 的 CMD 命令行（这里不得不吐槽微软的 CMD 和 PowerShell 界面丑还超难用）。如果你的 Pycharm 运行在 Linux 下，这个工具会接管 Shell。</p>
+<p>可以看到在最前面多了一个 <code>(example)</code> ，这个代表激活的 conda 环境</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvT0wzWTB6WGFLVkpNLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>3.查看 conda 环境里有哪些包</p>
+<p>输入命令 <code>conda list</code>，可以查看我们建立的环境里包含哪些包。</p>
+<blockquote>
+<p>学习更多 conda 的包管理，环境管理和渠道管理等技巧可以参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/88828229">https://blog.csdn.net/u011262253/article/details/88828229</a></p>
+</blockquote>
+<p>可以看到，相对 Anaconda 整合了数以百记的包不同，这里只有几个最基础的 Python 包，之后按需添加即可。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvamFJaklmRWkwRndoLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>4.切换环境</p>
+<p>点击右下角的 conda 环境名，可以切换环境。</p>
+<p>这里切换后，代表我们项目目录中所有的脚本都要依赖于这个环境。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvTjdQazNPTTAzS2NHLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>但是，需要注意，一些老鸟已经会熟练操作 Conda 了，比如像下面这样来切换环境：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvU2FtVVdTYU1mN2JiLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>不幸的是，虽然命令行<code>conda activate base</code> 可以将当前环境 <code>example</code> 切换为 <code>base</code>，但是这里只是将命令行的环境切换了，我们 Pycharm 项目的 conda 环境纹丝不动。</p>
+<p>所以想切换当前项目的环境，最好点击右下角图标</p>
+<p>5.使用 Conda 环境</p>
+<p>这里以绘制一张热图为例来简单使用下配置好的环境</p>
+<p>安装<code>matplotlib</code>包</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvdUoxS3VwejdvNldKLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>写代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-comment"># 准备数据</span><br><span class="hljs-comment"># 定义横纵坐标</span><br>xLabel = [<span class="hljs-string">&#x27;geneA&#x27;</span>, <span class="hljs-string">&#x27;geneB&#x27;</span>, <span class="hljs-string">&#x27;geneC&#x27;</span>, <span class="hljs-string">&#x27;geneD&#x27;</span>, <span class="hljs-string">&#x27;geneE&#x27;</span>]<br>yLabel = [<span class="hljs-string">&#x27;sample1&#x27;</span>, <span class="hljs-string">&#x27;sample2&#x27;</span>, <span class="hljs-string">&#x27;sample3&#x27;</span>, <span class="hljs-string">&#x27;sample4&#x27;</span>, <span class="hljs-string">&#x27;sample5&#x27;</span>]<br><span class="hljs-comment"># 定义填充数据</span><br>data = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    temp = []<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>        k = random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>)<br>        temp.append(k)<br>    data.append(temp)<br><br><span class="hljs-comment"># 开始作图</span><br>fig = plt.figure()<br><span class="hljs-comment"># 画布</span><br>ax = fig.add_subplot(<span class="hljs-number">111</span>)<br><span class="hljs-comment"># 坐标刻度</span><br>ax.set_yticks(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(yLabel)))<br>ax.set_xticks(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(xLabel)))<br>ax.set_xticklabels(xLabel)<br>ax.set_yticklabels(yLabel)<br><span class="hljs-comment"># 作图</span><br>im = ax.imshow(data)<br><span class="hljs-comment"><code class="language-hljs python"><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-comment"># 准备数据</span><br><span class="hljs-comment"># 定义横纵坐标</span><br>xLabel = [<span class="hljs-string">&#x27;geneA&#x27;</span>, <span class="hljs-string">&#x27;geneB&#x27;</span>, <span class="hljs-string">&#x27;geneC&#x27;</span>, <span class="hljs-string">&#x27;geneD&#x27;</span>, <span class="hljs-string">&#x27;geneE&#x27;</span>]<br>yLabel = [<span class="hljs-string">&#x27;sample1&#x27;</span>, <span class="hljs-string">&#x27;sample2&#x27;</span>, <span class="hljs-string">&#x27;sample3&#x27;</span>, <span class="hljs-string">&#x27;sample4&#x27;</span>, <span class="hljs-string">&#x27;sample5&#x27;</span>]<br><span class="hljs-comment"># 定义填充数据</span><br>data = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    temp = []<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>        k = random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>)<br>        temp.append(k)<br>    data.append(temp)<br><br><span class="hljs-comment"># 开始作图</span><br>fig = plt.figure()<br><span class="hljs-comment"># 画布</span><br>ax = fig.add_subplot(<span class="hljs-number">111</span>)<br><span class="hljs-comment"># 坐标刻度</span><br>ax.set_yticks(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(yLabel)))<br>ax.set_xticks(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(xLabel)))<br>ax.set_xticklabels(xLabel)<br>ax.set_yticklabels(yLabel)<br><span class="hljs-comment"># 作图</span><br>im = ax.imshow(data)<br><span class="hljs-comment"># 图例</span><br>plt.colorbar(im)<br>plt.show()<br></code></pre></td></tr></table></figure>
+
+<p>出图</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvU3ZyYXR3bHRDV2wwLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>这里同样也可以激活<code>Scientific Mode</code>，可以这么来设置</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvaWs3ZTM1a3JGME1tLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>效果是这样的：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvZElheUdEaGdnM2JhLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>如果想在 Pycharm 中使用 R 语言，可以参考这篇：</p>
+<p>在Pycharm 中使用 R 时，效果是这样的：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2JhaW1vYy56aXB0b3AudG9wL2Jsb2cvMjAyMDA1MTMvMVRVc3VEOFhxbjMyLnBuZw?x-oss-process=image/format,png" alt="mark"></p>
+<p>接下来，享受搭建好的环境吧</p>
+<h2 id="其他使用技巧"><a href="#其他使用技巧" class="headerlink" title="其他使用技巧"></a>其他使用技巧</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/105155581">Pycharm 中安装及使用 Jupyter （图文详解）</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/105068542">如何在 Pycharm 中高效使用 R 语言 （图文详解） </a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/62162/">https://ziptop.top/posts/62162/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/anaconda/">anaconda</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="post-meta__tags" href="/tags/%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/">爬虫技术</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a><a class="post-meta__tags" href="/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">开发环境</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img03.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/37172/"><img class="prev-cover" src="/assert/img/background/img11.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">新冠病毒的自我修养</div></div></a></div><div class="next-post pull-right"><a href="/posts/35258/"><img class="next-cover" src="/assert/img/background/img03.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">一步一步安装及配置 Node.js 与 NPM</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/21265/" title="Pandas 修改单列，多列，Dataframe 数据类型方法汇总"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">Pandas 修改单列，多列，Dataframe 数据类型方法汇总</div></div></a></div><div><a href="/posts/11749/" title="Python 中变量的多种复制方法（常规拷贝，浅拷贝，深拷贝）"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-10</div><div class="title">Python 中变量的多种复制方法（常规拷贝，浅拷贝，深拷贝）</div></div></a></div><div><a href="/posts/64515/" title="如何在 Pycharm 中高效使用 R 语言 （图文详解）"><img class="cover" src="/assert/img/background/img01.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-24</div><div class="title">如何在 Pycharm 中高效使用 R 语言 （图文详解）</div></div></a></div><div><a href="/posts/15351/" title="生物信息学导师推荐（持续更新）"><img class="cover" src="/assert/img/background/img16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-05</div><div class="title">生物信息学导师推荐（持续更新）</div></div></a></div><div><a href="/posts/42356/" title="从零开始统计学 01 | 假设检验"><img class="cover" src="/assert/img/background/img16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-04</div><div class="title">从零开始统计学 01 | 假设检验</div></div></a></div><div><a href="/posts/25294/" title="Conda 安装使用图文详解（2022版）"><img class="cover" src="/assert/img/background/img18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-26</div><div class="title">Conda 安装使用图文详解（2022版）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Pycharm"><span class="toc-text">安装 Pycharm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Anaconda"><span class="toc-text">安装 Anaconda</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%8C%85%E5%90%AB-Anaconda-%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="toc-text">新建包含 Anaconda 的项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Anaconda-%E7%8E%AF%E5%A2%83%E7%9A%84%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-text">Anaconda 环境的使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conda-%E7%8E%AF%E5%A2%83%E7%9A%84%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-text">Conda 环境的使用示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="toc-text">其他使用技巧</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

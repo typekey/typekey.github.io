@@ -1,0 +1,944 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>生信自动化流程搭建 06 | 指令 | 白墨</title><meta name="keywords" content="生信情报站,生物信息学,生信流程,Nextflow,流程自动化,指令"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用指令声明块，可以提供将影响当前进程执行的可选设置。 他们必须在过程的顶部进入人体，在任何其他声明块（即input，output等），并具有以下语法： name value [, value2 [,..]]  一些指令通常可用于所有进程，另一些则取决于当前定义的执行器。 指令是： acceleratorse该accelerator指令允许指定任务执行的硬件加速器要求，例如GPU处理器。例如： p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生信自动化流程搭建 06 | 指令">
+<meta property="og:url" content="https://ziptop.top/posts/40556/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="使用指令声明块，可以提供将影响当前进程执行的可选设置。 他们必须在过程的顶部进入人体，在任何其他声明块（即input，output等），并具有以下语法： name value [, value2 [,..]]  一些指令通常可用于所有进程，另一些则取决于当前定义的执行器。 指令是： acceleratorse该accelerator指令允许指定任务执行的硬件加速器要求，例如GPU处理器。例如： p">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img16.png">
+<meta property="article:published_time" content="2020-08-10T10:49:08.000Z">
+<meta property="article:modified_time" content="2020-08-10T10:49:08.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="生信流程">
+<meta property="article:tag" content="Nextflow">
+<meta property="article:tag" content="流程自动化">
+<meta property="article:tag" content="指令">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img16.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/40556/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '生信自动化流程搭建 06 | 指令',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-10 18:49:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img16.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">生信自动化流程搭建 06 | 指令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-08-10T10:49:08.000Z" title="发表于 2020-08-10 18:49:08">2020-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="生信自动化流程搭建 06 | 指令"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>使用指令声明块，可以提供将影响当前进程执行的可选设置。</p>
+<p>他们必须在过程的顶部进入人体，在任何其他声明块（即<code>input</code>，<code>output</code>等），并具有以下语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">name value [, value2 [,..]]<br></code></pre></td></tr></table></figure>
+
+<p>一些指令通常可用于所有进程，另一些则取决于当前定义的执行器。</p>
+<p>指令是：</p>
+<h3 id="acceleratorse"><a href="#acceleratorse" class="headerlink" title="acceleratorse"></a>acceleratorse</h3><p>该<code>accelerator</code>指令允许指定任务执行的硬件加速器要求，例如<em>GPU</em>处理器。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br>    accelerator 4, type: &#x27;nvidia-tesla-k80&#x27;<br><br>    script:<br>    """<br>    your_gpu_enabled --command --line<br>    """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的示例将请求4个nvidia-tesla-k80类型的GPU 。</p>
+<blockquote>
+<p>该指令仅受<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#awsbatch-executor">AWS Batch</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#google-lifesciences-executor">Google Life Sciences</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#k8s-executor">Kubernetes</a>执行程序支持。</p>
+<p>加速器<code>type</code>选项值取决于目标执行平台。有关可用加速器的详细信息，请参阅目标平台文档。<a target="_blank" rel="noopener external nofollow noreferrer" href="https://aws.amazon.com/batch/faqs/#GPU_Scheduling_">AWS </a><a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.google.com/compute/docs/gpus/">Google </a><a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#clusters-containing-different-types-of-gpus">Kubernetes</a>。</p>
+</blockquote>
+<h3 id="afterScript"><a href="#afterScript" class="headerlink" title="afterScript"></a>afterScript</h3><p><code>afterScript</code>指令允许在主进程运行<strong>后</strong>立即执行自定义（Bash）代码段。这对于清理暂存区可能很有用。</p>
+<h3 id="beforeScript"><a href="#beforeScript" class="headerlink" title="beforeScript"></a>beforeScript</h3><p>该<code>beforeScript</code>指令允许在运行主流程脚本<strong>之前</strong>执行自定义（Bash）代码段。这对于初始化基础群集环境或其他自定义初始化可能很有用。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br><br>  beforeScript &#x27;source /cluster/bin/setup&#x27;<br><br>  """<br>  echo bar<br>  """<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><p><code>cache</code>指令允许将过程结果存储到本地缓存中。启用高速缓存并使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/getstarted.html#getstart-resume">resume</a>选项启动管道.</p>
+<p>随后执行该过程的任何尝试以及相同的输入都会导致该过程的执行被跳过。</p>
+<p>默认情况下已启用缓存，可以通过将<code>cache</code> 指令设置为来禁用特定进程的缓存<code>false</code>。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process noCacheThis &#123;<br>  cache false<br><br>  script:<br>  <your command string here><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>该<code>cache</code>指令可能值列于下表中：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>false</code></td>
+<td>禁用缓存功能。</td>
+</tr>
+<tr>
+<td><code>true</code> （默认）</td>
+<td>启用缓存。创建高速缓存键，以索引输入文件的元数据信息（名称，大小和最后更新时间戳记属性）。</td>
+</tr>
+<tr>
+<td><code>&#39;deep&#39;</code></td>
+<td>启用缓存。创建高速缓存键，为输入文件的内容建立索引。</td>
+</tr>
+<tr>
+<td><code>&#39;lenient&#39;</code></td>
+<td>启用缓存。将创建索引索引输入文件路径和大小属性的缓存键（此策略提供了一种变通方法，用于解决由于文件时间戳不一致而导致在共享文件系统上观察到的不正确的缓存失效；需要版本0.32.x或更高版本）。</td>
+</tr>
+</tbody></table>
+<h3 id="conda"><a href="#conda" class="headerlink" title="conda"></a>conda</h3><p><code>conda</code>指令允许使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://conda.io/">Conda</a> 包管理器定义流程依赖项。</p>
+<p>Nextflow自动为<code>conda</code>指令中列出的给定包名称设置环境。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br>  conda &#x27;bwa=0.7.15&#x27;<br><br>  &#x27;&#x27;&#x27;<br>  your_command --here<br>  &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以指定多个软件包，用空格分隔它们，比如<code>bwa=0.7.15 fastqc=0.11.5</code>。</p>
+<p>可以使用通常的Conda表示法指定需要从中下载特定软件包的频道名称，即在软件包前面加上频道名称，比如，<code>bioconda::bwa=0.7.15</code></p>
+<p>该<code>conda</code>目录还允许指定Conda环境文件路径或现有环境目录的路径。有关更多详细信息，请参见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/conda.html#conda-page">Conda环境</a>页面。</p>
+<h3 id="container"><a href="#container" class="headerlink" title="container"></a>container</h3><p><code>container</code>指令允许在<a target="_blank" rel="noopener external nofollow noreferrer" href="http://docker.io/">Docker</a>容器中执行流程脚本。</p>
+<p>它要求Docker守护程序必须在执行管道的计算机中运行，即在使用本地执行器的本地计算机 或在通过<em>网格</em>执行器部署管道的群集节点中运行。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process runThisInDocker &#123;<br><br>  container &#x27;dockerbox:tag&#x27;<br><br>  """<br>  <your holy script here><br>  """<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>只需在上面的脚本<code>dockerbox:tag</code>中用要使用的Docker映像名称替换即可。</p>
+<blockquote>
+<p>这对于在可复制的独立环境中执行脚本或在云中部署管道非常有用。</p>
+<p>对于<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#process-native">本地执行</a>的进程，将忽略此伪指令。</p>
+</blockquote>
+<h3 id="containerOptions"><a href="#containerOptions" class="headerlink" title="containerOptions"></a>containerOptions</h3><p><code>containerOptions</code>指令允许指定基础容器引擎支持的任何容器执行选项（即Docker，Singularity等）。这对于仅为特定进程提供容器设置非常有用，例如，安装自定义路径：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process runThisWithDocker &#123;<br><br>    container &#x27;busybox:latest&#x27;<br>    containerOptions &#x27;--volume /data/db:/db&#x27;<br><br>    output: file &#x27;output.txt&#x27;<br><br>    &#x27;&#x27;&#x27;<br>    your_command --data /db > output.txt<br>    &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#awsbatch-executor">AWS Batch</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#k8s-executor">Kubernetes</a>执行程序不支持此功能。</p>
+</blockquote>
+<h3 id="cpus"><a href="#cpus" class="headerlink" title="cpus"></a>cpus</h3><p><code>cpus</code>指令允许定义进程任务所需的（逻辑）CPU数量。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process big_job &#123;<br><br>  cpus 8<br>  executor &#x27;sge&#x27;<br><br>  """<br>  blastp -query input_sequence -num_threads $&#123;task.cpus&#125;<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>执行多进程或多线程命令&#x2F;工具的任务需要此伪指令，并且当通过集群资源管理器执行管道任务时，该伪指令旨在保留足够的CPU。</p>
+<h3 id="clusterOptions"><a href="#clusterOptions" class="headerlink" title="clusterOptions"></a>clusterOptions</h3><p><code>clusterOptions</code>指令允许使用群集提交命令接受的任何本机配置选项。可以使用它来请求非标准资源，也可以使用特定于群集且不受Nextflow即时支持的设置。</p>
+<blockquote>
+<p>仅当使用基于网格的执行程序时才考虑此指令： <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#sge-executor">SGE</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#lsf-executor">LSF</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#slurm-executor">SLURM</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#pbs-executor">PBS &#x2F; Torque</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#pbspro-executor">PBS Pro</a>， <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#moab-executor">Moab</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#condor-executor">HTCondor</a>执行程序。</p>
+</blockquote>
+<h3 id="disk"><a href="#disk" class="headerlink" title="disk"></a>disk</h3><p><code>disk</code>指令允许定义允许该进程使用多少本地磁盘存储。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process big_job &#123;<br><br>    disk &#x27;2 GB&#x27;<br>    executor &#x27;cirrus&#x27;<br><br>    """<br>    your task script here<br>    """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>指定磁盘值时，可以使用以下存储单元后缀：</p>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B</td>
+<td>Bytes</td>
+</tr>
+<tr>
+<td>KB</td>
+<td>Kilobytes</td>
+</tr>
+<tr>
+<td>MB</td>
+<td>Megabytes</td>
+</tr>
+<tr>
+<td>GB</td>
+<td>Gigabytes</td>
+</tr>
+<tr>
+<td>TB</td>
+<td>Terabytes</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>当前，只有<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#ignite-executor">Ignite</a> 和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#condor-executor">HTCondor</a>执行程序才考虑使用此指令。</p>
+</blockquote>
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>默认情况下，将忽略所有进程中执行的命令所产生的标准输出。将<code>echo</code>指令设置为<code>true</code>可以将进程stdout转发到当前运行最频繁的进程stdout文件，并在shell终端中显示该文件。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process sayHello &#123;<br>  echo true<br><br>  script:<br>  "echo Hello"<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">Hello<br></code></pre></td></tr></table></figure>
+
+<p>如果不指定<code>echo true</code>，执行以上示例时将看不到打印出的字符串<code>Hello</code>。</p>
+<h3 id="errorStrategy"><a href="#errorStrategy" class="headerlink" title="errorStrategy"></a>errorStrategy</h3><p><code>errorStrategy</code>指令允许定义流程如何管理错误条件。</p>
+<p>默认情况下，当执行的脚本返回错误状态时，该过程将立即停止。会使整个管道终止。</p>
+<p>可用的错误策略表：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>Executor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>terminate</code></td>
+<td>报告错误情况后立即终止执行。待处理的作业被杀死（默认）</td>
+</tr>
+<tr>
+<td><code>finish</code></td>
+<td>当出现错误情况时，启动有序的管道关闭，等待任何提交的作业的完成。</td>
+</tr>
+<tr>
+<td><code>ignore</code></td>
+<td>忽略进程执行错误。</td>
+</tr>
+<tr>
+<td><code>retry</code></td>
+<td>重新提交执行以返回错误条件的进程。</td>
+</tr>
+</tbody></table>
+<p><strong>ignore</strong></p>
+<p>当将<code>errorStrategy</code>指令设置为<code>ignore</code>进程不会在错误情况下停止，它只会报告一条消息，通知错误事件。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process ignoreAnyError &#123;<br>   errorStrategy &#x27;ignore&#x27;<br><br>   script:<br>   <your command string here><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>根据定义，命令脚本以非零退出状态结束时会失败。要更改此行为，请参见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#validexitstatus">validExitStatus</a>。</p>
+</blockquote>
+<p><strong>retry</strong></p>
+<p><code>retry</code> 错误策略，让你重新提交以供执行的过程返回一个错误条件。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process retryIfFail &#123;<br>   errorStrategy &#x27;retry&#x27;<br><br>   script:<br>   <your command string here><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>重新执行失败进程的次数由<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#maxretries">maxRetries</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#maxerrors">maxErrors</a>指令定义。</p>
+<blockquote>
+<p>可以使用动态<code>errorStrategy</code> 指令定义取决于任务退出状态或其他参数值的更复杂的策略。有关详细信息，请参见“ <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#dynamic-directives">动态指令”</a>部分。</p>
+</blockquote>
+<h3 id="executor"><a href="#executor" class="headerlink" title="executor"></a>executor</h3><p><code>executor</code> 定义执行 processes 的基础系统。默认情况下，进程使用<code>nextflow.config</code>文件中全局定义的 executor。</p>
+<p><code>executor</code>指令允许配置进程必须使用的执行程序，可以使用以下值：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>执行者</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>local</code></td>
+<td>在启动Nextflow的计算机中执行该过程</td>
+</tr>
+<tr>
+<td><code>sge</code></td>
+<td>该过程使用Sun Grid Engine &#x2F; <a target="_blank" rel="noopener external nofollow noreferrer" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>执行</td>
+</tr>
+<tr>
+<td><code>uge</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Univa_Grid_Engine/">Univa Grid Engine</a>作业计划程序执行的</td>
+</tr>
+<tr>
+<td><code>lsf</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a>作业计划程序执行的</td>
+</tr>
+<tr>
+<td><code>slurm</code></td>
+<td>该过程使用SLURM作业调度程序执行</td>
+</tr>
+<tr>
+<td><code>pbs</code></td>
+<td>使用<a target="_blank" rel="noopener external nofollow noreferrer" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS &#x2F; Torque</a>作业计划程序执行该过程</td>
+</tr>
+<tr>
+<td><code>pbspro</code></td>
+<td>该过程使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.pbsworks.com/">PBS Pro</a>作业计划程序执行</td>
+</tr>
+<tr>
+<td><code>moab</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.adaptivecomputing.com/moab-hpc-basic-edition/">Moab</a>作业计划程序执行的</td>
+</tr>
+<tr>
+<td><code>condor</code></td>
+<td>使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a>作业计划程序执行该过程</td>
+</tr>
+<tr>
+<td><code>nqsii</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster">NQSII</a>作业计划程序执行的</td>
+</tr>
+<tr>
+<td><code>ignite</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://ignite.apache.org/">Apache Ignite</a>集群执行的</td>
+</tr>
+<tr>
+<td><code>k8s</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/">Kubernetes</a>集群执行的</td>
+</tr>
+<tr>
+<td><code>awsbatch</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://aws.amazon.com/batch/">AWS Batch</a>服务执行的</td>
+</tr>
+<tr>
+<td><code>google-pipelines</code></td>
+<td>该过程是使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.google.com/genomics/">Google Genomics Pipelines</a>服务执行的</td>
+</tr>
+</tbody></table>
+<p>以下示例显示如何设置流程的执行程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process doSomething &#123;<br><br>   executor &#x27;sge&#x27;<br><br>   script:<br>   <your script here><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>每个 executor 提供一组配置选项，可以在指令声明块中进行设置。请参阅<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#executor-page">执行程序</a>部分，以了解特定的执行程序指令。</p>
+</blockquote>
+<h3 id="ext"><a href="#ext" class="headerlink" title="ext"></a>ext</h3><p><code>ext</code>是作为一种特殊的指令，用于用户自定义过程指令的名称空间 。这对于高级配置选项很有用。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process mapping &#123;<br>  container "biocontainers/star:$&#123;task.ext.version&#125;"<br><br>  input:<br>  file genome from genome_file<br>  set sampleId, file(reads) from reads_ch<br><br>  """<br>  STAR --genomeDir $genome --readFilesIn $reads<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，该过程使用一个容器，其版本由<code>ext.version</code>属性控制。可以在<code>nextflow.config</code>文件中定义它，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process.ext.version = &#x27;2.5.3&#x27;<br></code></pre></td></tr></table></figure>
+
+<h3 id="machineType"><a href="#machineType" class="headerlink" title="machineType"></a>machineType</h3><p><code>machineType</code>可用于指定一个预定义的谷歌计算平台<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.google.com/compute/docs/machine-types">机型</a> 。</p>
+<p>该指令是可选的，如果指定，它将覆盖cpus和memory指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br>  machineType &#x27;n1-highmem-8&#x27;<br><br>  """<br>  <your script here><br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此功能需要Nextflow 19.07.0或更高版本。</p>
+</blockquote>
+<h3 id="maxErrors"><a href="#maxErrors" class="headerlink" title="maxErrors"></a>maxErrors</h3><p><code>maxErrors</code>指令允许指定使用<code>retry</code> 错误策略时进程失败的最大次数。默认情况下，此指令是禁用的，可以按以下示例所示进行设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process retryIfFail &#123;<br>  errorStrategy &#x27;retry&#x27;<br>  maxErrors 5<br><br>  """<br>  echo &#x27;do this as that .. &#x27;<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此设置考虑所有实例中给定进程累积的<strong>总</strong>错误。如果要控制流程<strong>实例</strong>（又称任务）失败的次数，请使用<code>maxRetries</code>。</p>
+</blockquote>
+<h3 id="maxForks"><a href="#maxForks" class="headerlink" title="maxForks"></a>maxForks</h3><p><code>maxForks</code>指令允许定义可以并行执行的最大流程实例数。默认情况下，该值等于可用CPU核心数减去1。</p>
+<p>如果要按顺序执行进程，请将此伪指令设置为一个。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process doNotParallelizeIt &#123;<br><br>   maxForks 1<br><br>   &#x27;&#x27;&#x27;<br>   <your script here><br>   &#x27;&#x27;&#x27;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="maxRetries"><a href="#maxRetries" class="headerlink" title="maxRetries"></a>maxRetries</h3><p><code>maxRetries</code>指令允许定义在发生故障时可以重新提交流程实例的最大次数。仅当使用<code>retry</code> 错误策略时才应用此值。默认情况下，只允许重试一次，可以如下所示增加此值：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process retryIfFail &#123;<br>    errorStrategy &#x27;retry&#x27;<br>    maxRetries 3<br><br>    """<br>    echo &#x27;do this as that .. &#x27;<br>    """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>maxRetries</code>和<code>maxErrors</code>指令之间有一个细微但重要的区别。后者定义了流程执行期间允许的错误总数（同一流程可以启动不同的执行实例），而<code>maxRetries</code>定义了在发生错误的情况下可以重试同一流程执行的最大次数。</p>
+</blockquote>
+<p>另请参见：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#errorstrategy">errorStrategy</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#maxerrors">maxErrors</a>。</p>
+<h3 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h3><p><code>memory</code>指令允许定义允许该进程使用多少内存。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process big_job &#123;<br><br>    memory &#x27;2 GB&#x27;<br>    executor &#x27;sge&#x27;<br><br>    """<br>    your task script here<br>    """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>指定存储值时，可以使用以下存储单元后缀：</p>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B</td>
+<td>Bytes</td>
+</tr>
+<tr>
+<td>KB</td>
+<td>Kilobytes</td>
+</tr>
+<tr>
+<td>MB</td>
+<td>Megabytes</td>
+</tr>
+<tr>
+<td>GB</td>
+<td>Gigabytes</td>
+</tr>
+<tr>
+<td>TB</td>
+<td>Terabytes</td>
+</tr>
+</tbody></table>
+<h3 id="module"><a href="#module" class="headerlink" title="module"></a>module</h3><p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://modules.sourceforge.net/">Environment Modules</a>是一个程序包管理器，它使可以动态配置执行环境，并轻松在同一软件工具的多个版本之间切换。</p>
+<p>如果系统中可用，则可以将其与Nextflow一起使用，以便在管道中配置流程执行环境。</p>
+<p>在流程定义中，可以使用<code>module</code>指令加载要在流程执行环境中使用的特定模块版本。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process basicExample &#123;<br><br>  module &#x27;ncbi-blast/2.2.27&#x27;<br><br>  """<br>  blastp -query <etc..><br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以<code>module</code>为需要加载的每个模块重复该指令。或者，可以<code>module</code>通过使用<code>:</code> （冒号）字符分隔所有模块名称，从而在一个指令中指定多个模块，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext"> process manyModules &#123;<br><br>   module &#x27;ncbi-blast/2.2.27:t_coffee/10.0:clustalw/2.1&#x27;<br><br>   """<br>   blastp -query <etc..><br>   """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="penv"><a href="#penv" class="headerlink" title="penv"></a>penv</h3><p>该<code>penv</code>指令允许定义将并行任务提交给<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#sge-executor">SGE</a>资源管理器时要使用的并行环境。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process big_job &#123;<br><br>  cpus 4<br>  penv &#x27;smp&#x27;<br>  executor &#x27;sge&#x27;<br><br>  """<br>  blastp -query input_sequence -num_threads $&#123;task.cpus&#125;<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>此配置取决于Grid Engine安装程序提供的并行环境。</p>
+<blockquote>
+<p>使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#sge-executor">SGE</a>执行程序时，此设置可用。</p>
+</blockquote>
+<h3 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h3><p><code>pod</code>使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#k8s-executor">Kubernetes</a>执行程序时，该指令允许定义Pod的特定设置。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process your_task &#123;<br>  pod env: &#x27;FOO&#x27;, value: &#x27;bar&#x27;<br><br>  &#x27;&#x27;&#x27;<br>  echo $FOO<br>  &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的片段定义了名为的环境变量<code>FOO</code>，其值是<code>bar</code>。</p>
+<p>该<code>pod</code>指令允许定义以下选项：</p>
+<table>
+<thead>
+<tr>
+<th><code>label: &lt;K&gt;, value: &lt;V&gt;</code></th>
+<th>用key <code>K</code>和value 定义一个pod标签<code>V</code>。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>annotation: &lt;K&gt;, value: &lt;V&gt;</code></td>
+<td>用key <code>K</code>和value 定义一个pod注解<code>V</code>。</td>
+</tr>
+<tr>
+<td><code>env: &lt;E&gt;, value: &lt;V&gt;</code></td>
+<td>用名称定义一个环境变量，<code>E</code>其值由<code>V</code>字符串给定。</td>
+</tr>
+<tr>
+<td><code>env: &lt;E&gt;, config: &lt;C/K&gt;</code></td>
+<td>用name定义一个环境变量，<code>E</code>其值由与name <code>K</code>中的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap中</a>与name 的键相关联的条目给出<code>C</code>。</td>
+</tr>
+<tr>
+<td><code>env: &lt;E&gt;, secret: &lt;S/K&gt;</code></td>
+<td>定义一个名称为name的环境变量，<code>E</code>其值由与名称<code>K</code>为<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret的Secret中</a>具有名称的键关联的条目给出<code>S</code>。</td>
+</tr>
+<tr>
+<td><code>config: &lt;C/K&gt;, mountPath: &lt;/absolute/path&gt;</code></td>
+<td>名称为key 的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a>的内容可用于该路径。当省略关键组件时，该路径将解释为目录，并且所有ConfigMap条目都将在该路径中显示。<code>C``K``/absolute/path</code></td>
+</tr>
+<tr>
+<td><code>secret: &lt;S/K&gt;, mountPath: &lt;/absolute/path&gt;</code></td>
+<td>带有名称和密钥的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a>的内容可用于该路径。当省略关键组件时，该路径将解释为目录，并且所有Secret条目都将在该路径中显示。<code>S``K``/absolute/path</code></td>
+</tr>
+<tr>
+<td><code>volumeClaim: &lt;V&gt;, mountPath: &lt;/absolute/path&gt;</code></td>
+<td>将名称为<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume的声明</a>挂载<code>V</code>到指定的路径位置。使用可选的subPath参数将目录挂载在引用的卷中，而不是其根目录中。</td>
+</tr>
+<tr>
+<td><code>imagePullPolicy: &lt;V&gt;</code></td>
+<td>指定用于拉出容器映像的策略，例如。<code>imagePullPolicy: &#39;Always&#39;</code></td>
+</tr>
+<tr>
+<td><code>imagePullSecret: &lt;V&gt;</code></td>
+<td>指定用于访问私有容器映像注册表的秘密名称。有关详细信息，请参见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">Kubernetes文档</a>。</td>
+</tr>
+<tr>
+<td><code>runAsUser: &lt;UID&gt;</code></td>
+<td>指定用于运行容器的用户标识。</td>
+</tr>
+<tr>
+<td><code>nodeSelector: &lt;V&gt;</code></td>
+<td>指定进程将在哪个节点上运行。有关详细信息，请参见<a target="_blank" rel="noopener external nofollow noreferrer" href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a>。</td>
+</tr>
+</tbody></table>
+<p>在Nextflow配置文件中定义时，可以使用规范的关联数组语法定义容器设置。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>  pod = [env: &#x27;FOO&#x27;, value: &#x27;bar&#x27;]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当需要提供多个设置时，必须将它们包含在列表定义中，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process &#123;<br>  pod = [ [env: &#x27;FOO&#x27;, value: &#x27;bar&#x27;], [secret: &#x27;my-secret/key1&#x27;, mountPath: &#x27;/etc/file.txt&#x27;] ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="publishDir"><a href="#publishDir" class="headerlink" title="publishDir"></a>publishDir</h3><p><code>publishDir</code>指令允许将流程输出文件发布到指定的文件夹。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br><br>    publishDir &#x27;/data/chunks&#x27;<br><br>    output:<br>    file &#x27;chunk_*&#x27; into letters<br><br>    &#x27;&#x27;&#x27;<br>    printf &#x27;Hola&#x27; | split -b 1 - chunk_<br>    &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的示例将字符串<code>Hola</code>分成单个字节的文件块。完成后，<code>chunk_*</code>输出文件将发布到该<code>/data/chunks</code>文件夹中。</p>
+<blockquote>
+<p><code>publishDir</code>可以多次指定该指令，以将输出文件发布到不同的目标目录。此功能需要0.29.0或更高版本。</p>
+</blockquote>
+<p>默认情况下，文件会发布到目标文件夹，为每个流程输出创建一个符号链接，该链接将生成的文件链接到流程工作目录中。可以使用<code>mode</code>参数修改此行为。</p>
+<p>可以与<code>publishDir</code>伪指令一起使用的可选参数表：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mode</td>
+<td>文件发布方法。请参阅下表以获取可能的值。</td>
+</tr>
+<tr>
+<td>overwrite</td>
+<td>当<code>true</code>指定文件夹中的任何现有文件都将被覆盖时（默认值：<code>true</code>， 在正常管道执行期间。在 恢复管道执行时 为<code>false</code>）。</td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>指定 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a>  文件模式，该模式可从整个输出文件集中选择要发布的文件。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>指定需要发布文件的目录。<strong>注意</strong>：语法是的快捷方式。<code>publishDir &#39;/some/dir&#39;</code>是<code>publishDir path: &#39;/some/dir&#39;</code>的快捷方式</td>
+</tr>
+<tr>
+<td>saveAs</td>
+<td>一个闭包，给定要发布的文件的名称，它返回实际的文件名或要求存储该文件的完整路径。<br />可以使用自定义策略来动态重命名或更改已发布文件的目标目录。<code>null</code>从闭包中返回值以不发布文件。当流程具有多个输出文件，但只希望发布其中一些输出文件时，此功能很有用。</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>允许根据指定的布尔值启用或禁用发布规则（默认值：）<code>true</code>。</td>
+</tr>
+</tbody></table>
+<p>发布方式表：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>symlink</td>
+<td>在发布的目录中为每个过程输出文件创建一个绝对的符号链接（默认）。</td>
+</tr>
+<tr>
+<td>rellink</td>
+<td>在发布目录中为每个过程输出文件创建一个相对的符号链接。</td>
+</tr>
+<tr>
+<td>link</td>
+<td>在发布的目录中为每个过程输出文件创建一个硬链接。</td>
+</tr>
+<tr>
+<td>copy</td>
+<td>将输出文件复制到发布的目录中。</td>
+</tr>
+<tr>
+<td>copyNoFollow</td>
+<td>将输出文件复制到发布的目录中，而无需遵循符号链接。复制链接本身。</td>
+</tr>
+<tr>
+<td>move</td>
+<td>将输出文件移动到发布的目录中。<strong>注意</strong>：仅应将其用于终止过程，即，其输出未被任何其他下游过程消耗的过程。</td>
+</tr>
+</tbody></table>
+<p>需要将模式值指定为字符串文字，即用引号引起来。多个参数需要用冒号分隔。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br><br>    publishDir &#x27;/data/chunks&#x27;, mode: &#x27;copy&#x27;, overwrite: false<br><br>    output:<br>    file &#x27;chunk_*&#x27; into letters<br><br>    &#x27;&#x27;&#x27;<br>    printf &#x27;Hola&#x27; | split -b 1 - chunk_<br>    &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>文件以<em>异步</em>方式复制到指定目录中，因此在执行过程结束时，它们可能不会立即在已发布目录中提供。因此，一个进程发布的文件不能被其他下游进程访问。</p>
+</blockquote>
+<h3 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h3><p><code>queue</code>目录使可以设置在管道中使用基于网格的执行程序时调度作业的队列。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process grid_job &#123;<br><br>    queue &#x27;long&#x27;<br>    executor &#x27;sge&#x27;<br><br>    """<br>    your task script here<br>    """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>多个队列可以通过用逗号分隔它们的名称来指定，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process grid_job &#123;<br><br>    queue &#x27;short,long,cn-el6&#x27;<br>    executor &#x27;sge&#x27;<br><br>    """<br>    your task script here<br>    """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>仅以下执行者会考虑此指令：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#sge-executor">SGE</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#lsf-executor">LSF</a>， <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#slurm-executor">SLURM</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#pbs-executor">PBS &#x2F; Torque</a>执行者。</p>
+</blockquote>
+<h3 id="label"><a href="#label" class="headerlink" title="label"></a>label</h3><p>该<code>label</code>指令允许使用选择的助记符标识符注释进程。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process bigTask &#123;<br><br>  label &#x27;big_mem&#x27;<br><br>  &#x27;&#x27;&#x27;<br>  <task script><br>  &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以使用同一<code>label</code>指令将同一标签应用于多个进程，并且可以将多个标签应用于同一进程多次。</p>
+<blockquote>
+<p>标签必须由字母数字字符或组成<code>_</code>，必须以字母字符开头并且必须以字母数字字符结尾。</p>
+<p>标签对于将工作流程过程组织成单独的组很有用，可以在配置文件中引用这些标签，以选择和配置具有类似计算要求的过程子集。</p>
+</blockquote>
+<h3 id="scratch"><a href="#scratch" class="headerlink" title="scratch"></a>scratch</h3><p><code>scratch</code>指令允许在执行节点本地的临时文件夹中执行流程。</p>
+<p>当使用网格执行器启动管道时，这很有用，因为它允许通过在实际执行节点的本地磁盘中的临时目录中运行管道进程来减少NFS开销。仅将在流程定义中声明为输出的文件复制到管道工作区中。</p>
+<p>基本形式只需<code>true</code>在指令值处指定即可，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process simpleTask &#123;<br><br>  scratch true<br><br>  output:<br>  file &#x27;data_out&#x27;<br><br>  &#x27;&#x27;&#x27;<br>  <task script><br>  &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过这样做，它尝试<code>$TMPDIR</code>在执行节点中的变量定义的目录中执行脚本。如果此变量不存在，它将使用Linux命令创建一个新的临时目录<code>mktemp</code>。</p>
+<p><code>$TMPDIR</code>可以通过简单地将其用作暂存值来指定除以外的自定义环境变量，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">scratch &#x27;$MY_GRID_TMP&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>注意，它必须用单引号引起来，否则变量将在管道脚本上下文中求值。</p>
+<p>还可以提供特定的文件夹路径作为暂存值，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">scratch &#x27;/tmp/my/path&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>这样，每次执行进程时，都会在指定的路径中创建一个新的临时目录。</p>
+<p>最后，当<code>ram-disk</code>字符串作为<code>scratch</code>值提供时，该过程将在节点RAM虚拟磁盘中执行。</p>
+<p>允许值的摘要：</p>
+<table>
+<thead>
+<tr>
+<th>刮</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>false</td>
+<td>不要使用临时文件夹。</td>
+</tr>
+<tr>
+<td>true</td>
+<td>在<code>$TMPDIR</code>变量定义的目录中创建一个暂存文件夹；退回至该变量不存在。<code>mktemp /tmp</code></td>
+</tr>
+<tr>
+<td>$YOUR_VAR</td>
+<td>在<code>$YOUR_VAR</code>环境变量定义的目录中创建一个临时文件夹；退回至该变量不存在。<code>mktemp /tmp</code></td>
+</tr>
+<tr>
+<td>&#x2F;my&#x2F;tmp</td>
+<td>在指定目录中创建临时文件夹。</td>
+</tr>
+<tr>
+<td>ram-disk</td>
+<td>在RAM磁盘中创建临时文件夹<code>/dev/shm/</code>（实验性）。</td>
+</tr>
+</tbody></table>
+<h3 id="storeDir"><a href="#storeDir" class="headerlink" title="storeDir"></a>storeDir</h3><p>该<code>storeDir</code>指令允许定义一个目录，该目录用作过程结果的永久缓存。</p>
+<p>更详细地说，它以两种主要方式影响流程执行：</p>
+<ol>
+<li>仅当output子句中声明的文件在<code>storeDir</code>指令指定的目录中不存在时，才执行该过程。这些文件存在时，将跳过过程执行，并将这些文件用作实际过程结果。</li>
+<li>每当一个过程成功完成时，输出声明块中列出的文件就会移动到该<code>storeDir</code>指令指定的目录中。</li>
+</ol>
+<p>以下示例显示如何使用<code>storeDir</code>指令为输入参数指定的每个物种创建一个包含BLAST数据库的目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">genomes = Channel.fromPath(params.genomes)<br><br>process formatBlastDatabases &#123;<br><br>  storeDir &#x27;/db/genomes&#x27;<br><br>  input:<br>  file species from genomes<br><br>  output:<br>  file "$&#123;dbName&#125;.*" into blastDb<br><br>  script:<br>  dbName = species.baseName<br>  """<br>  makeblastdb -dbtype nucl -in $&#123;species&#125; -out $&#123;dbName&#125;<br>  """<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>该<code>storeDir</code>指令用于长期的进程缓存，不应用于将进程产生的文件输出到特定文件夹或以语义目录结构组织结果数据。在这些情况下，可以改用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#publishdir">publishDir</a>指令。</p>
+<p>支持使用AWS S3路径，但是需要在目标计算节点中安装<a target="_blank" rel="noopener external nofollow noreferrer" href="https://aws.amazon.com/cli/">AWS CLI工具</a> （即<code>aws</code>）。</p>
+</blockquote>
+<h3 id="stageInMode"><a href="#stageInMode" class="headerlink" title="stageInMode"></a>stageInMode</h3><p><code>stageInMode</code>指令定义如何将输入文件切入到流程工作目录中。允许以下值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>copy</td>
+<td>通过创建副本将输入文件暂存到流程工作目录中。</td>
+</tr>
+<tr>
+<td>link</td>
+<td>通过为每个输入文件创建（硬）链接，将输入文件暂存到流程工作目录中。</td>
+</tr>
+<tr>
+<td>symlink</td>
+<td>输入文件通过创建带有每个文件的绝对路径的符号链接而在过程工作目录中暂存（默认）。</td>
+</tr>
+<tr>
+<td>rellink</td>
+<td>通过创建具有每个文件的相对路径的符号链接，将输入文件暂存到流程工作目录中。</td>
+</tr>
+</tbody></table>
+<h3 id="stageOutMode"><a href="#stageOutMode" class="headerlink" title="stageOutMode"></a>stageOutMode</h3><p>该<code>stageOutMode</code>指令定义如何从头开始目录将输出文件逐步淘汰到流程工作目录。允许以下值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>copy</td>
+<td>输出文件从临时目录复制到工作目录。</td>
+</tr>
+<tr>
+<td>move</td>
+<td>输出文件从暂存目录移动到工作目录。</td>
+</tr>
+<tr>
+<td>rsync</td>
+<td>使用该<code>rsync</code>实用程序将输出文件从临时目录复制到工作目录。</td>
+</tr>
+</tbody></table>
+<h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><p><code>tag</code>指令允许将每个流程执行与一个自定义标签相关联，以便在日志文件或跟踪执行报告中更容易识别它们。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br>  tag "$code"<br><br>  input:<br>  val code from &#x27;alpha&#x27;, &#x27;gamma&#x27;, &#x27;omega&#x27;<br><br>  """<br>  echo $code<br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码段将打印类似于以下内容的日志，其中进程名称包含标签值：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">[6e/28919b] Submitted process > foo (alpha)<br>[d2/1c6175] Submitted process > foo (gamma)<br>[1c/3ef220] Submitted process > foo (omega)<br></code></pre></td></tr></table></figure>
+
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><p><code>time</code>指令允许定义一个进程可以运行多长时间。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process big_job &#123;<br><br>    time &#x27;1h&#x27;<br><br>    """<br>    your task script here<br>    """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>指定持续时间值时，可以使用以下时间单位后缀：</p>
+<table>
+<thead>
+<tr>
+<th>单元</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>s</td>
+<td>秒</td>
+</tr>
+<tr>
+<td>m</td>
+<td>分钟</td>
+</tr>
+<tr>
+<td>h</td>
+<td>小时</td>
+</tr>
+<tr>
+<td>d</td>
+<td>天</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>仅在使用以下基于网格的执行程序之一时才考虑此指令： <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#sge-executor">SGE</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#lsf-executor">LSF</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#slurm-executor">SLURM</a>，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#pbs-executor">PBS &#x2F; Torque</a>， <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#condor-executor">HTCondor</a>和<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/executor.html#awsbatch-executor">AWS Batch</a>执行程序。</p>
+</blockquote>
+<h3 id="动态指令"><a href="#动态指令" class="headerlink" title="动态指令"></a>动态指令</h3><p>可以在流程执行期间<em>动态</em>分配指令，以便可以根据一个或多个流程输入值的值来评估其实际值。</p>
+<p>为了以动态方式定义该指令的值，需要使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/script.html#script-closure">闭包</a> 语句来表示，如以下示例所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br><br>  executor &#x27;sge&#x27;<br>  queue &#123; entries > 100 ? &#x27;long&#x27; : &#x27;short&#x27; &#125;<br><br>  input:<br>  set entries, file(x) from data<br><br>  script:<br>  """<br>  < your job here ><br>  """<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，根据输入值动态评估<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#queue">queue</a>指令<code>entries</code>。当它大于100时，作业将被提交到队列<code>long</code>，否则<code>short</code>将使用该作业。</p>
+<p>可以将所有指令分配给动态值，但以下各项除外：</p>
+<ul>
+<li>executor</li>
+<li>maxForks</li>
+</ul>
+<blockquote>
+<p>可以使用隐式变量来检索流程脚本中动态指令的当前值，该隐式变量<code>task</code> 包含当前流程实例中定义的指令值。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br><br>   queue &#123; entries > 100 ? &#x27;long&#x27; : &#x27;short&#x27; &#125;<br><br>   input:<br>   set entries, file(x) from data<br><br>   script:<br>   """<br>   echo Current queue: $&#123;task.queue&#125;<br>   """<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="动态计算资源"><a href="#动态计算资源" class="headerlink" title="动态计算资源"></a>动态计算资源</h3><p>在相同的流程的不同实例对计算资源的需求可能非常不同的情况下，这是非常普遍的情况。例如，在这种情况下，请求的内存量太低会导致某些任务失败。相反，使用适合执行中所有任务的更高限制可能会大大降低作业的执行优先级。</p>
+<p>动态指令评分功能可被用来修改计算在处理失败的情况下请求的资源的量，并尝试使用更高的限制重新执行。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br><br>    memory &#123; 2.GB * task.attempt &#125;<br>    time &#123; 1.hour * task.attempt &#125;<br><br>    errorStrategy &#123; task.exitStatus in 137..140 ? &#x27;retry&#x27; : &#x27;terminate&#x27; &#125;<br>    maxRetries 3<br><br>    script:<br>    <your job here><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，内存和执行时间限制是动态定义的。第一次执行该过程时将<code>task.attempt</code>设置为<code>1</code>，因此它将请求2 GB的内存和一小时的最大执行时间。</p>
+<p>如果任务执行失败，报告退出状态在137到140之间，退出任务将被重新提交（否则立即终止）。此时的值<code>task.attempt</code>就是<code>2</code>，从而增加了存储器的量至四个GB和时间至2小时，并依此类推。</p>
+<h3 id="动态重试"><a href="#动态重试" class="headerlink" title="动态重试"></a>动态重试</h3><p>在某些情况下，所需的执行资源可能是暂时不可用的，例如网络拥塞。在这些情况下，立即重新执行任务可能会导致相同的错误。具有延迟的重试可以更好地恢复以下错误情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process foo &#123;<br>  errorStrategy &#123; sleep(Math.pow(2, task.attempt) * 200 as long); return &#x27;retry&#x27; &#125;<br>  maxRetries 5<br>  script:<br>  &#x27;&#x27;&#x27;<br>  your_command --here<br>  &#x27;&#x27;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/40556/">https://ziptop.top/posts/40556/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a><a class="post-meta__tags" href="/tags/Nextflow/">Nextflow</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E7%A8%8B%E8%87%AA%E5%8A%A8%E5%8C%96/">流程自动化</a><a class="post-meta__tags" href="/tags/%E6%8C%87%E4%BB%A4/">指令</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img16.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/35968/"><img class="prev-cover" src="/assert/img/background/img15.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">生信自动化流程搭建 07 | 配置文件</div></div></a></div><div class="next-post pull-right"><a href="/posts/59212/"><img class="next-cover" src="/assert/img/background/img05.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生信自动化流程搭建 05 | 通道 Channels</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/15984/" title="生信自动化流程搭建 02 | 脚本"><img class="cover" src="/assert/img/background/img18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 02 | 脚本</div></div></a></div><div><a href="/posts/43064/" title="生信自动化流程搭建 04 | 输出 output"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 04 | 输出 output</div></div></a></div><div><a href="/posts/59212/" title="生信自动化流程搭建 05 | 通道 Channels"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 05 | 通道 Channels</div></div></a></div><div><a href="/posts/9930/" title="生信自动化流程搭建 03 | 输入 input"><img class="cover" src="/assert/img/background/img19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 03 | 输入 input</div></div></a></div><div><a href="/posts/35968/" title="生信自动化流程搭建 07 | 配置文件"><img class="cover" src="/assert/img/background/img15.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 07 | 配置文件</div></div></a></div><div><a href="/posts/12151/" title="生信自动化流程搭建 01 | Nextflow的介绍与安装"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 01 | Nextflow的介绍与安装</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#acceleratorse"><span class="toc-text">acceleratorse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#afterScript"><span class="toc-text">afterScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#beforeScript"><span class="toc-text">beforeScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cache"><span class="toc-text">cache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#conda"><span class="toc-text">conda</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#container"><span class="toc-text">container</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#containerOptions"><span class="toc-text">containerOptions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpus"><span class="toc-text">cpus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#clusterOptions"><span class="toc-text">clusterOptions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disk"><span class="toc-text">disk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#echo"><span class="toc-text">echo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#errorStrategy"><span class="toc-text">errorStrategy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#executor"><span class="toc-text">executor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ext"><span class="toc-text">ext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#machineType"><span class="toc-text">machineType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maxErrors"><span class="toc-text">maxErrors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maxForks"><span class="toc-text">maxForks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maxRetries"><span class="toc-text">maxRetries</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#memory"><span class="toc-text">memory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#module"><span class="toc-text">module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#penv"><span class="toc-text">penv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pod"><span class="toc-text">pod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#publishDir"><span class="toc-text">publishDir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#queue"><span class="toc-text">queue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#label"><span class="toc-text">label</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scratch"><span class="toc-text">scratch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#storeDir"><span class="toc-text">storeDir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stageInMode"><span class="toc-text">stageInMode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stageOutMode"><span class="toc-text">stageOutMode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#time"><span class="toc-text">time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%8C%87%E4%BB%A4"><span class="toc-text">动态指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%AE%A1%E7%AE%97%E8%B5%84%E6%BA%90"><span class="toc-text">动态计算资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E9%87%8D%E8%AF%95"><span class="toc-text">动态重试</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

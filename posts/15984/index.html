@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>生信自动化流程搭建 02 | 脚本 | 白墨</title><meta name="keywords" content="生信情报站,生物信息学,生信流程,Nextflow,流程自动化,流程"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="脚本脚本是字符串声明，它定义了由过程执行到执行任务的命令。 一个进程仅包含一个脚本块，并且当该进程包含输入和输出声明时，它必须是最后一个语句。 输入的字符串在主机系统中作为Bash脚本执行。它可以是通常在终端 shell 程序或通用Bash脚本中使用的任何命令，脚本或它们的组合。 可以在脚本语句中使用的命令的唯一限制是目标执行系统中这些程序的可用性。 脚本可以是简单字符串或多行字符串，例如： pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生信自动化流程搭建 02 | 脚本">
+<meta property="og:url" content="https://ziptop.top/posts/15984/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="脚本脚本是字符串声明，它定义了由过程执行到执行任务的命令。 一个进程仅包含一个脚本块，并且当该进程包含输入和输出声明时，它必须是最后一个语句。 输入的字符串在主机系统中作为Bash脚本执行。它可以是通常在终端 shell 程序或通用Bash脚本中使用的任何命令，脚本或它们的组合。 可以在脚本语句中使用的命令的唯一限制是目标执行系统中这些程序的可用性。 脚本可以是简单字符串或多行字符串，例如： pr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img18.png">
+<meta property="article:published_time" content="2020-08-10T10:42:45.000Z">
+<meta property="article:modified_time" content="2020-08-10T10:42:45.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="生信流程">
+<meta property="article:tag" content="Nextflow">
+<meta property="article:tag" content="流程自动化">
+<meta property="article:tag" content="流程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img18.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/15984/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '生信自动化流程搭建 02 | 脚本',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-10 18:42:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img18.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">生信自动化流程搭建 02 | 脚本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-08-10T10:42:45.000Z" title="发表于 2020-08-10 18:42:45">2020-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="生信自动化流程搭建 02 | 脚本"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><p>脚本是字符串声明，它定义了由过程执行到执行任务的命令。</p>
+<p>一个进程仅包含一个脚本块，并且当该进程包含输入和输出声明时，它必须是最后一个语句。</p>
+<p>输入的字符串在主机系统中作为<a target="_blank" rel="noopener external nofollow noreferrer" href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>脚本执行。它可以是通常在终端 shell 程序或通用Bash脚本中使用的任何命令，脚本或它们的组合。</p>
+<p>可以在脚本语句中使用的命令的唯一限制是目标执行系统中这些程序的可用性。</p>
+<p>脚本可以是简单字符串或多行字符串，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process doMoreThings &#123;<br><br>  """<br>  blastp -db $db -query query.fa -outfmt 6 > blast_result<br>  cat blast_result | head -n 10 | cut -f 2 > top_hits<br>  blastdbcmd -db $db -entry_batch top_hits > sequences<br>  """<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以使用单引号或双引号定义字符串，并使用三个单引号或三个双引号字符定义多行字符串。</p>
+<p>需要注意，在Bash中，以字符分隔的字符串<code>&quot;</code>支持变量替换，而以字符分隔的字符串<code>&#39;</code>则不支持。</p>
+<p>在上面的代码片段中，<code>$db</code>变量被替换为管道脚本中已经定义的实际值。</p>
+<p>需要在脚本中访问系统环境变量时，有两个选择。</p>
+<ul>
+<li>首选就像使用单引号字符串定义脚本块一样容易。例如：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process printPath &#123;<br><br>   &#x27;&#x27;&#x27;<br>   echo The path is: $PATH<br>   &#x27;&#x27;&#x27;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>该解决方案的缺点是，您将无法在脚本中访问在管道脚本上下文中定义的变量。</p>
+<ul>
+<li>要解决此问题，请使用双引号字符串定义脚本，并通过在系统环境变量前添加反斜杠字符来对其进行转义<code>\</code>，如以下示例所示：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process doOtherThings &#123;<br><br>  """<br>  blastp -db \$DB -query query.fa -outfmt 6 > blast_result<br>  cat blast_result | head -n $MAX | cut -f 2 > top_hits<br>  blastdbcmd -db \$DB -entry_batch top_hits > sequences<br>  """<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在此示例中，<code>$MAX</code>必须在<strong>管道脚本定义变量</strong>。 在执行脚本之前，<strong>Nextflow</strong>用实际值替换它。</p>
+<p><code>$DB</code>变量必须存在于<strong>脚本执行环境</strong>中，并且<strong>Bash解释器</strong>将其替换为实际值。</p>
+<p>另外，可以使用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#process-shell">Shell</a>块定义，该定义允许脚本包含Bash和Nextflow变量，而不必转义第一个。</p>
+<h3 id="使用其他语言的脚本"><a href="#使用其他语言的脚本" class="headerlink" title="使用其他语言的脚本"></a>使用其他语言的脚本</h3><p>默认情况下，Nextflow流程脚本为Bash脚本，但您不仅限于此。</p>
+<p>您可以使用自己喜欢的脚本语言（例如Perl，Python，Ruby，R等），甚至可以将它们混合在同一管道中。</p>
+<p>管道可以由执行不同的任务的进程组成。使用Nextflow，您可以选择更适合指定进程执行的任务的脚本语言。</p>
+<p>例如，对于某些进程，R可能比Perl有用，在其他进程中，您可能需要使用Python，因为它提供了对库或API等的更好访问。</p>
+<p>要使用<strong>Bash以外的脚本</strong>，只需使用相应的<a target="_blank" rel="noopener external nofollow noreferrer" href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>声明启动流程脚本 。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process perlStuff &#123;<br><br>    """<br>    #!/usr/bin/perl<br><br>    print &#x27;Hi there!&#x27; . &#x27;\n&#x27;;<br>    """<br><br>&#125;<br><br>process pyStuff &#123;<br><br>    """<br>    #!/usr/bin/python<br><br>    x = &#x27;Hello&#x27;<br>    y = &#x27;world!&#x27;<br>    print "%s - %s" % (x,y)<br>    """<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>由于解释器二进制文件的实际位置可以在各个平台上变化，因此为了使脚本更易于移植，在声明时，使用<code>#!/usr/bin/env perl</code>。这是使用<code>env</code>shell命令，后跟解释器的名称，而不是其绝对路径。</p>
+<h3 id="根据条件执行不同脚本"><a href="#根据条件执行不同脚本" class="headerlink" title="根据条件执行不同脚本"></a>根据条件执行不同脚本</h3><p>复杂的过程脚本可能需要评估对输入参数的条件，或使用传统的流量控制语句（即<code>if</code>，<code>switch</code>等），根据当前输入的配置，以执行特定的脚本命令。</p>
+<p>流程脚本可以通过简单地在脚本块前面加上关键字来包含条件语句<code>script:</code>。</p>
+<p>然后，解释器将评估以下所有语句作为必须返回要执行的脚本字符串的代码块。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">seq_to_align = ...<br>mode = &#x27;tcoffee&#x27;<br><br>process align &#123;<br>    input:<br>    file seq_to_aln from sequences<br><br>    script:<br>    if( mode == &#x27;tcoffee&#x27; )<br>        """<br>        t_coffee -in $seq_to_aln > out_file<br>        """<br><br>    else if( mode == &#x27;mafft&#x27; )<br>        """<br>        mafft --anysymbol --parttree --quiet $seq_to_aln > out_file<br>        """<br><br>    else if( mode == &#x27;clustalo&#x27; )<br>        """<br>        clustalo -i $seq_to_aln -o out_file<br>        """<br><br>    else<br>        error "Invalid alignment mode: $&#123;mode&#125;"<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的示例中，该过程将根据<code>mode</code>参数的值执行脚本片段。默认情况下它将执行<code>tcoffee</code>命令，将<code>mode</code>变量更改为<code>mafft</code>or <code>clustalo</code>值，其他分支将被执行。</p>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>可以使用模板文件将流程脚本外部化，该模板文件可以在不同的流程之间重复使用，并且可以通过整体管道执行独立地进行测试。</p>
+<p>模板只是Nextflow可以通过使用如下<code>template</code>功能执行的shell脚本文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process template_example &#123;<br><br>    input:<br>    val STR from &#x27;this&#x27;, &#x27;that&#x27;<br><br>    script:<br>    template &#x27;my_script.sh&#x27;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Nextflow <code>my_script.sh</code>在目录<code>templates</code>中寻找模板文件，该目录必须存在于Nextflow脚本文件所在的文件夹中（可以使用绝对模板路径提供任何其他位置）。</p>
+<p>模板脚本可以包含基础系统可以执行的任何代码。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">#!/bin/bash<br>echo "process started at `date`"<br>echo $STR<br>:<br>echo "process completed"<br></code></pre></td></tr></table></figure>
+
+<p>注意<code>$</code>，当脚本作为Nextflow模板运行时，<code>$</code>被解释为Nextflow变量占位符，而单独运行时，被评估为Bash变量。这对于自主地（即独立于Nextflow执行）测试脚本非常有用。</p>
+<p>您只需为脚本中存在的每个Nextflow变量提供一个Bash环境变量。例如，可以在shell终端中输入以下命令来执行上述脚本：<code>STR=&#39;foo&#39; bash templates/my_script.sh</code></p>
+<h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><p>该<code>shell</code>块是一个字符串语句，用于定义由进程执行以执行其任务的<em>shell</em>命令。它是<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#process-script">Script</a>定义的替代方案，但有重要区别，它使用感叹号<code>!</code>字符作为Nextflow变量的变量占位符，代替了通常的美元字符。</p>
+<p>这样，可以在同一段代码中同时使用Nextflow和Bash变量，而不必逃避后者，并使流程脚本更具可读性和易于维护。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">process myTask &#123;<br><br>    input:<br>    val str from &#x27;Hello&#x27;, &#x27;Hola&#x27;, &#x27;Bonjour&#x27;<br><br>    shell:<br>    &#x27;&#x27;&#x27;<br>    echo User $USER says !&#123;str&#125;<br>    &#x27;&#x27;&#x27;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的琐碎示例中，<code>$USER</code>变量由Bash解释器管理，而<code>!&#123;str&#125;</code>作为由Nextflow管理的流程输入变量进行处理。</p>
+<p>注意</p>
+<ul>
+<li>Shell脚本定义要求使用单引号<code>&#39;</code>分隔的字符串。使用双引号<code>&quot;</code> 分隔的字符串时，美元变量照常解释为Nextflow变量。请参阅<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/script.html#string-interpolation">字符串插值</a>。</li>
+<li>感叹号前缀变量始终需要用大括号括起来，即被忽略<code>!&#123;str&#125;</code>时<code>!str</code>是有效变量。</li>
+<li>Shell脚本支持使用文件<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nextflow.io/docs/latest/process.html#process-template">模板</a>机制。相同的规则适用于脚本模板中定义的变量。</li>
+</ul>
+<h3 id="本机执行"><a href="#本机执行" class="headerlink" title="本机执行"></a>本机执行</h3><p>Nextflow进程可以执行除系统脚本以外的本机代码，如前几段所示。</p>
+<p>这意味着，您无需指定要作为字符串脚本执行的process命令，而是可以提供一种或多种语言语句来定义它，就像在其余管道脚本中一样。只需使用<code>exec:</code>关键字启动脚本定义块，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">x = Channel.from( &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;)<br><br>process simpleSum &#123;<br>    input:<br>    val x<br><br>    exec:<br>    println "Hello Mr. $x"<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>将显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">Hello Mr. b<br>Hello Mr. a<br>Hello Mr. c<br></code></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/15984/">https://ziptop.top/posts/15984/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%B5%81%E7%A8%8B/">生信流程</a><a class="post-meta__tags" href="/tags/Nextflow/">Nextflow</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E7%A8%8B%E8%87%AA%E5%8A%A8%E5%8C%96/">流程自动化</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E7%A8%8B/">流程</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img18.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/9930/"><img class="prev-cover" src="/assert/img/background/img19.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">生信自动化流程搭建 03 | 输入 input</div></div></a></div><div class="next-post pull-right"><a href="/posts/12151/"><img class="next-cover" src="/assert/img/background/img11.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生信自动化流程搭建 01 | Nextflow的介绍与安装</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/43064/" title="生信自动化流程搭建 04 | 输出 output"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 04 | 输出 output</div></div></a></div><div><a href="/posts/59212/" title="生信自动化流程搭建 05 | 通道 Channels"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 05 | 通道 Channels</div></div></a></div><div><a href="/posts/40556/" title="生信自动化流程搭建 06 | 指令"><img class="cover" src="/assert/img/background/img16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 06 | 指令</div></div></a></div><div><a href="/posts/9930/" title="生信自动化流程搭建 03 | 输入 input"><img class="cover" src="/assert/img/background/img19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 03 | 输入 input</div></div></a></div><div><a href="/posts/35968/" title="生信自动化流程搭建 07 | 配置文件"><img class="cover" src="/assert/img/background/img15.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 07 | 配置文件</div></div></a></div><div><a href="/posts/12151/" title="生信自动化流程搭建 01 | Nextflow的介绍与安装"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-10</div><div class="title">生信自动化流程搭建 01 | Nextflow的介绍与安装</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC"><span class="toc-text">脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="toc-text">使用其他语言的脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E6%89%A7%E8%A1%8C%E4%B8%8D%E5%90%8C%E8%84%9A%E6%9C%AC"><span class="toc-text">根据条件执行不同脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-text">模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell"><span class="toc-text">shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E6%9C%BA%E6%89%A7%E8%A1%8C"><span class="toc-text">本机执行</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

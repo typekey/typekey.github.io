@@ -1,0 +1,404 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>生物信息中的Python 03 | 自动化操作NCBI | 白墨</title><meta name="keywords" content="Python,生物信息,基因,序列,NCBI"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="相信大家在上一文中下载fasta的时候还没有感觉到下载是多么复杂，但是对于分析比对多个序列文件时，这个工作量说多了都是泪。比如，老板让你比对自己测定序列与 NCBI 库中序列，并构建相应的进化树，而这个序列需要大于100条。我想你的心情不会和下载一条序列时那么平静，那么，接下来通过BioPython提供的接口来实现快速的自动化序列下载。 一、Entrez 库1.1 Entrez 介绍 Entrez">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生物信息中的Python 03 | 自动化操作NCBI">
+<meta property="og:url" content="https://ziptop.top/posts/64681/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="相信大家在上一文中下载fasta的时候还没有感觉到下载是多么复杂，但是对于分析比对多个序列文件时，这个工作量说多了都是泪。比如，老板让你比对自己测定序列与 NCBI 库中序列，并构建相应的进化树，而这个序列需要大于100条。我想你的心情不会和下载一条序列时那么平静，那么，接下来通过BioPython提供的接口来实现快速的自动化序列下载。 一、Entrez 库1.1 Entrez 介绍 Entrez">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img03.png">
+<meta property="article:published_time" content="2019-03-13T14:12:15.000Z">
+<meta property="article:modified_time" content="2019-03-13T14:12:15.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="生物信息">
+<meta property="article:tag" content="基因">
+<meta property="article:tag" content="序列">
+<meta property="article:tag" content="NCBI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img03.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/64681/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '生物信息中的Python 03 | 自动化操作NCBI',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-03-13 22:12:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img03.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">生物信息中的Python 03 | 自动化操作NCBI</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-03-13T14:12:15.000Z" title="发表于 2019-03-13 22:12:15">2019-03-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/">生信分析</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="生物信息中的Python 03 | 自动化操作NCBI"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>相信大家在上一文中下载fasta的时候还没有感觉到下载是多么复杂，但是对于分析比对多个序列文件时，这个工作量说多了都是泪。比如，老板让你比对自己测定序列与 NCBI 库中序列，并构建相应的进化树，而这个序列需要大于100条。我想你的心情不会和下载一条序列时那么平静，那么，接下来通过BioPython提供的接口来实现快速的自动化序列下载。</p>
+<h3 id="一、Entrez-库"><a href="#一、Entrez-库" class="headerlink" title="一、Entrez 库"></a>一、Entrez 库</h3><h4 id="1-1-Entrez-介绍"><a href="#1-1-Entrez-介绍" class="headerlink" title="1.1 Entrez 介绍"></a>1.1 Entrez 介绍</h4><blockquote>
+<p>Entrez 在线资源检索器是一组服务器端程序，为国家生物技术信息中心（NCBI）的Entrez查询和数据库系统提供稳定的接口。使用固定的URL语法，将一组标准输入参数转换为各种NCBI软件组件搜索和检索所请求数据所需的值。目前包括38个数据库，涵盖各种生物医学数据，包括核苷酸和蛋白质序列，基因记录，三维分子结构和生物医学文献。该在线资源检索器可以使用任何计算机语言（Perl，Python，Java和C ++等）将URL发送到应用程序服务器并解析响应。</p>
+</blockquote>
+<h4 id="1-2-注意事项"><a href="#1-2-注意事项" class="headerlink" title="1.2 注意事项"></a>1.2 注意事项</h4><ul>
+<li><h5 id="最小化请求数"><a href="#最小化请求数" class="headerlink" title="最小化请求数"></a>最小化请求数</h5><ul>
+<li>如果任务需要搜索和&#x2F;或下载大量记录，则使用Entrez历史记录批量上载和&#x2F;或检索这些记录而不是对每条记录使用单独的请求会更有效</li>
+<li>可以使用单个EPost请求上载数千个ID</li>
+<li>可以使用一个EFetch请求下载数百个记录</li>
+</ul>
+</li>
+<li><h5 id="访问限制"><a href="#访问限制" class="headerlink" title="访问限制"></a>访问限制</h5><ul>
+<li>为了不使服务器过载，NCBI建议用户每秒发布不超过三个URL请求 </li>
+<li>将大型作业限制在工作日的周末或东部时间晚上9:00到凌晨5:00之间</li>
+</ul>
+</li>
+<li><h5 id="设置邮箱"><a href="#设置邮箱" class="headerlink" title="设置邮箱"></a>设置邮箱</h5><ul>
+<li>使用email参数，这样如果遇到什么问题，NCBI可以通过邮件联系到你</li>
+<li>邮件的参数从2010年6月1日是强制的参数，所以每次必须告诉 NCBI 是谁在访问</li>
+</ul>
+</li>
+<li><h5 id="URL字符处理"><a href="#URL字符处理" class="headerlink" title="URL字符处理"></a>URL字符处理</h5><ul>
+<li>所有参数使用小写字符 </li>
+<li>参数没有必需的顺序，通常会忽略空值或不适当的参数 </li>
+<li>避免在URL中放置空格，尤其是在查询中。如果需要空格，请使用加号（+）代替空格 </li>
+<li>其他特殊字符（例如引号（“）或用于引用历史记录服务器上的查询键的＃符号）应由其URL编码表示（％22表示”;％23表示＃）</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、基本操作"><a href="#二、基本操作" class="headerlink" title="二、基本操作"></a>二、基本操作</h3><h4 id="2-1-参数设置"><a href="#2-1-参数设置" class="headerlink" title="2.1 参数设置"></a>2.1 参数设置</h4><figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># =====一般参数设置=====</span><br><span class="hljs-comment"># 设置 email 参数，为了方便 NCBI 的工作人员可以联系到你</span><br><span class="hljs-comment"># 邮件的参数从2010年6月1日是强制的参数，所以每次必须告诉 NCBI 是谁在访问</span><br>Entrez.email = <span class="hljs-string">&quot;example@163.com&quot;</span><br><span class="hljs-comment"># 如果你是通过其他脚本调用，可以设定 tool 的名字，默认为 `Biopython`</span><br>Entrez.tool = <span class="hljs-string">&quot;exampleScript&quot;</span><br><span class="hljs-comment"># 可选参数，使用代理，一般在无法正常访问时设置</span><br>os.environ[<span class="hljs-string">&quot;http_proxy&quot;</span>] = <span class="hljs-string"><code class="language-hljs python"><span class="hljs-comment"># =====一般参数设置=====</span><br><span class="hljs-comment"># 设置 email 参数，为了方便 NCBI 的工作人员可以联系到你</span><br><span class="hljs-comment"># 邮件的参数从2010年6月1日是强制的参数，所以每次必须告诉 NCBI 是谁在访问</span><br>Entrez.email = <span class="hljs-string">&quot;example@163.com&quot;</span><br><span class="hljs-comment"># 如果你是通过其他脚本调用，可以设定 tool 的名字，默认为 `Biopython`</span><br>Entrez.tool = <span class="hljs-string">&quot;exampleScript&quot;</span><br><span class="hljs-comment"># 可选参数，使用代理，一般在无法正常访问时设置</span><br>os.environ[<span class="hljs-string">&quot;http_proxy&quot;</span>] = <span class="hljs-string">"http://proxyhost.example.com:8080"</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-2-查看概况"><a href="#2-2-查看概况" class="headerlink" title="2.2 查看概况"></a>2.2 查看概况</h4><h5 id="2-2-1-查看目前-NCBI-所有数据库"><a href="#2-2-1-查看目前-NCBI-所有数据库" class="headerlink" title="2.2.1 查看目前 NCBI 所有数据库"></a>2.2.1 查看目前 NCBI 所有数据库</h5><figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====查看数据库概况=====</span><br><span class="hljs-comment"># 获取 Entrez 所有数据库的句柄</span><br>hd_info = Entrez.einfo()<br><span class="hljs-comment"># 获取所有数据库列表</span><br>read_info = Entrez.read(hd_info)<br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> read_info[<span class="hljs-string">&#x27;DbList&#x27;</span>]:<br>    <span class="hljs-built_in"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====查看数据库概况=====</span><br><span class="hljs-comment"># 获取 Entrez 所有数据库的句柄</span><br>hd_info = Entrez.einfo()<br><span class="hljs-comment"># 获取所有数据库列表</span><br>read_info = Entrez.read(hd_info)<br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> read_info[<span class="hljs-string">&#x27;DbList&#x27;</span>]:<br>    <span class="hljs-built_in">print</span> (db)<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-2-2-查看单个数据库概况"><a href="#2-2-2-查看单个数据库概况" class="headerlink" title="2.2.2 查看单个数据库概况"></a>2.2.2 查看单个数据库概况</h5><figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># 获取 Entrez 的 gene 数据库句柄</span><br>hd_info_gene = Entrez.einfo(db=<span class="hljs-string">&quot;gene&quot;</span>)<br>read_info_gene = Entrez.read(hd_info_gene)<br><span class="hljs-comment"># 数据库名</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;DbName     : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;DbName&quot;</span>])<br><span class="hljs-comment"># 在 NCBI 首页顶部下拉菜单栏中的命名</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;MenuName   : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;MenuName&quot;</span>])<br><span class="hljs-comment"># 数据库描述</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Description: &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;Description&quot;</span>])<br><span class="hljs-comment"># 数据库收录总数</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Count      : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;Count&quot;</span>])<br><span class="hljs-comment"># 最新更新时间</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;LastUpdate : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;LastUpdate&quot;</span>])<br><span class="hljs-comment"># Gene 数据库中可用的搜索关键字列表</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;FieldList  : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;FieldList&quot;</span>])<br><span class="hljs-comment"># 我们把它遍历下</span><br><span class="hljs-keyword">for</span> field <span class="hljs-keyword">in</span> read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;FieldList&quot;</span>]:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># 获取 Entrez 的 gene 数据库句柄</span><br>hd_info_gene = Entrez.einfo(db=<span class="hljs-string">&quot;gene&quot;</span>)<br>read_info_gene = Entrez.read(hd_info_gene)<br><span class="hljs-comment"># 数据库名</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;DbName     : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;DbName&quot;</span>])<br><span class="hljs-comment"># 在 NCBI 首页顶部下拉菜单栏中的命名</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;MenuName   : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;MenuName&quot;</span>])<br><span class="hljs-comment"># 数据库描述</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Description: &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;Description&quot;</span>])<br><span class="hljs-comment"># 数据库收录总数</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Count      : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;Count&quot;</span>])<br><span class="hljs-comment"># 最新更新时间</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;LastUpdate : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;LastUpdate&quot;</span>])<br><span class="hljs-comment"># Gene 数据库中可用的搜索关键字列表</span><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;FieldList  : &quot;</span>, read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;FieldList&quot;</span>])<br><span class="hljs-comment"># 我们把它遍历下</span><br><span class="hljs-keyword">for</span> field <span class="hljs-keyword">in</span> read_info_gene[<span class="hljs-string">&quot;DbInfo&quot;</span>][<span class="hljs-string">&quot;FieldList&quot;</span>]:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">"%(Name)s\t %(FullName)s\t %(Description)s"</span> % field)<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-3-查询"><a href="#2-3-查询" class="headerlink" title="2.3 查询"></a>2.3 查询</h4><h5 id="2-3-1-全局搜索-EGQuery"><a href="#2-3-1-全局搜索-EGQuery" class="headerlink" title="2.3.1 全局搜索 | EGQuery"></a>2.3.1 全局搜索 | EGQuery</h5><blockquote>
+<p>EGQuery：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary">https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary</a></p>
+<p> 这里只关注搜索关键字在数据库中所有的个数，而不关注它的具体内容</p>
+<p>在实际使用中我们可以通过在这里得到的数字来确定下载策略</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====全局搜索=====</span><br>hd_egquery = Entrez.egquery(term=<span class="hljs-string">&quot;oct4&quot;</span>)<br>read_egquery = Entrez.read(hd_egquery)<br><span class="hljs-built_in">print</span>(read_egquery)<br><span class="hljs-keyword">for</span> ele <span class="hljs-keyword">in</span> read_egquery[<span class="hljs-string">&quot;eGQueryResult&quot;</span>]:<br>    <span class="hljs-built_in">print</span> (ele[<span class="hljs-string">&quot;DbName&quot;</span>], ele[<span class="hljs-string">&quot;Count&quot;</span>], ele[<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====全局搜索=====</span><br>hd_egquery = Entrez.egquery(term=<span class="hljs-string">&quot;oct4&quot;</span>)<br>read_egquery = Entrez.read(hd_egquery)<br><span class="hljs-built_in">print</span>(read_egquery)<br><span class="hljs-keyword">for</span> ele <span class="hljs-keyword">in</span> read_egquery[<span class="hljs-string">&quot;eGQueryResult&quot;</span>]:<br>    <span class="hljs-built_in">print</span> (ele[<span class="hljs-string">&quot;DbName&quot;</span>], ele[<span class="hljs-string">&quot;Count&quot;</span>], ele[<span class="hljs-string">"Status"</span>])<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-3-2-查询单个数据库中的基因-ESearch"><a href="#2-3-2-查询单个数据库中的基因-ESearch" class="headerlink" title="2.3.2 查询单个数据库中的基因 | ESearch"></a>2.3.2 查询单个数据库中的基因 | ESearch</h5><blockquote>
+<p>关于 ESearch 的官方文档 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch">https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====在数据库搜索基因=====</span><br><span class="hljs-comment"># 搜索 Xenopus laevis 物种中名为 oct4 的基因</span><br>handle = Entrez.esearch(db=<span class="hljs-string">&quot;gene&quot;</span>, term=<span class="hljs-string">&quot;oct4[Gene] AND Xenopus laevis[ORGN]&quot;</span>)<br>read_gene = Entrez.read(handle)<br><span class="hljs-built_in"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====在数据库搜索基因=====</span><br><span class="hljs-comment"># 搜索 Xenopus laevis 物种中名为 oct4 的基因</span><br>handle = Entrez.esearch(db=<span class="hljs-string">&quot;gene&quot;</span>, term=<span class="hljs-string">&quot;oct4[Gene] AND Xenopus laevis[ORGN]&quot;</span>)<br>read_gene = Entrez.read(handle)<br><span class="hljs-built_in">print</span>(read_gene)<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-3-3-查询基因详细描述信息-Esummary"><a href="#2-3-3-查询基因详细描述信息-Esummary" class="headerlink" title="2.3.3 查询基因详细描述信息 | Esummary"></a>2.3.3 查询基因详细描述信息 | Esummary</h5><blockquote>
+<p>ESummary ：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary">https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====获取摘要=====</span><br><span class="hljs-comment"># 通过 id 来获取 item 的详细信息</span><br>hd_esummary = Entrez.esummary(db=<span class="hljs-string">&quot;gene&quot;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>)<br>read_esummary = Entrez.read(hd_esummary)<br><span class="hljs-comment"># 获取该基因的详细描述</span><br><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> read_esummary[<span class="hljs-string">&#x27;DocumentSummarySet&#x27;</span>][<span class="hljs-string">&#x27;DocumentSummary&#x27;</span>][<span class="hljs-number">0</span>].items():<br>    <span class="hljs-built_in"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====获取摘要=====</span><br><span class="hljs-comment"># 通过 id 来获取 item 的详细信息</span><br>hd_esummary = Entrez.esummary(db=<span class="hljs-string">&quot;gene&quot;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>)<br>read_esummary = Entrez.read(hd_esummary)<br><span class="hljs-comment"># 获取该基因的详细描述</span><br><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> read_esummary[<span class="hljs-string">&#x27;DocumentSummarySet&#x27;</span>][<span class="hljs-string">&#x27;DocumentSummary&#x27;</span>][<span class="hljs-number">0</span>].items():<br>    <span class="hljs-built_in">print</span>(key, value)<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-3-4-查询交叉引用条目-Elink"><a href="#2-3-4-查询交叉引用条目-Elink" class="headerlink" title="2.3.4 查询交叉引用条目 | Elink"></a>2.3.4 查询交叉引用条目 | Elink</h5><blockquote>
+<p>Elink：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ELink">https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ELink</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====搜索交叉引用条目=====</span><br><span class="hljs-comment"># 接下来我们看看 id 为 5460 的基因相关的文献资料</span><br>read_elink = Entrez.read(Entrez.elink(dbfrom=<span class="hljs-string">&quot;gene&quot;</span>, db=<span class="hljs-string">&quot;pubmed&quot;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;5460&quot;</span>))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;LinkSetDb: &quot;</span>, read_elink[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;LinkSetDb&quot;</span>])<br><span class="hljs-comment"># 查看所有相关的目标库</span><br><span class="hljs-keyword">for</span> lsd <span class="hljs-keyword">in</span> read_elink[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;LinkSetDb&quot;</span>]:<br>    <span class="hljs-built_in">print</span> (lsd[<span class="hljs-string">&quot;DbTo&quot;</span>], lsd[<span class="hljs-string">&quot;LinkName&quot;</span>], <span class="hljs-built_in">len</span>(lsd[<span class="hljs-string">&quot;Link&quot;</span>]))<br><span class="hljs-comment"># 查看相关的所有文献 Id</span><br><span class="hljs-keyword">for</span> link <span class="hljs-keyword">in</span> read_elink[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;LinkSetDb&quot;</span>][<span class="hljs-number">0</span>][<span class="hljs-string">&quot;Link&quot;</span>]:<br>    <span class="hljs-built_in">print</span> (link[<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====搜索交叉引用条目=====</span><br><span class="hljs-comment"># 接下来我们看看 id 为 5460 的基因相关的文献资料</span><br>read_elink = Entrez.read(Entrez.elink(dbfrom=<span class="hljs-string">&quot;gene&quot;</span>, db=<span class="hljs-string">&quot;pubmed&quot;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;5460&quot;</span>))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;LinkSetDb: &quot;</span>, read_elink[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;LinkSetDb&quot;</span>])<br><span class="hljs-comment"># 查看所有相关的目标库</span><br><span class="hljs-keyword">for</span> lsd <span class="hljs-keyword">in</span> read_elink[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;LinkSetDb&quot;</span>]:<br>    <span class="hljs-built_in">print</span> (lsd[<span class="hljs-string">&quot;DbTo&quot;</span>], lsd[<span class="hljs-string">&quot;LinkName&quot;</span>], <span class="hljs-built_in">len</span>(lsd[<span class="hljs-string">&quot;Link&quot;</span>]))<br><span class="hljs-comment"># 查看相关的所有文献 Id</span><br><span class="hljs-keyword">for</span> link <span class="hljs-keyword">in</span> read_elink[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;LinkSetDb&quot;</span>][<span class="hljs-number">0</span>][<span class="hljs-string">&quot;Link&quot;</span>]:<br>    <span class="hljs-built_in">print</span> (link[<span class="hljs-string">"Id"</span>])<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-4-其他操作"><a href="#2-4-其他操作" class="headerlink" title="2.4 其他操作"></a>2.4 其他操作</h4><h5 id="2-4-1-上传id列表到服务器-EPost"><a href="#2-4-1-上传id列表到服务器-EPost" class="headerlink" title="2.4.1 上传id列表到服务器 | EPost"></a>2.4.1 上传id列表到服务器 | EPost</h5><blockquote>
+<p>EPost ：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost">https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost</a></p>
+<p><strong>为什么要上传列表到服务器？</strong></p>
+<p>你要上传的 id 的列表会以 url 的形式上传到服务器，这里有一个问题，如果 id 很多，就会导致url很长。但是在 HTTP 的协议中，上传一般以 GET 形式，这种方式会限制 url 的长度，也就是说如果用户上传的 URL 太长就会只能局限在一定的长度内，而不能完整的上传到服务器。 为了解决这个问题，只能使用 POST 方式上传，它没有限制文本长度，随后以 HTTP 头文件的形式上传服务器，并以历史记录的形式存储在服务器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====上传历史记录=====</span><br><span class="hljs-comment"># EPost ：https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost</span><br><span class="hljs-comment"># </span><br>id_list = [<span class="hljs-string">&#x27;379522&#x27;</span>, <span class="hljs-string">&#x27;397784&#x27;</span>, <span class="hljs-string">&#x27;398336&#x27;</span>]<br>hd_epost = Entrez.epost(<span class="hljs-string">&quot;gene&quot;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;,&quot;</span>.join(id_list))<br>read_epost = Entrez.read(hd_epost)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;web_env: &quot;</span>, read_epost[<span class="hljs-string">&quot;WebEnv&quot;</span>])<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;query_key: &quot;</span>, read_epost[<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====上传历史记录=====</span><br><span class="hljs-comment"># EPost ：https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost</span><br><span class="hljs-comment"># </span><br>id_list = [<span class="hljs-string">&#x27;379522&#x27;</span>, <span class="hljs-string">&#x27;397784&#x27;</span>, <span class="hljs-string">&#x27;398336&#x27;</span>]<br>hd_epost = Entrez.epost(<span class="hljs-string">&quot;gene&quot;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;,&quot;</span>.join(id_list))<br>read_epost = Entrez.read(hd_epost)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;web_env: &quot;</span>, read_epost[<span class="hljs-string">&quot;WebEnv&quot;</span>])<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;query_key: &quot;</span>, read_epost[<span class="hljs-string">"QueryKey"</span>])<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-4-2-拼写建议与纠正-Espell"><a href="#2-4-2-拼写建议与纠正-Espell" class="headerlink" title="2.4.2 拼写建议与纠正 | Espell"></a>2.4.2 拼写建议与纠正 | Espell</h5><blockquote>
+<p>这个模块用来纠正输入的查询词条</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====拼写建议=====</span><br>hd_espell = Entrez.espell(term=<span class="hljs-string">&quot;steem cell&quot;</span>)<br>read_espell = Entrez.read(hd_espell)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Query: &quot;</span>, read_espell[<span class="hljs-string">&quot;Query&quot;</span>])<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;CorrectedQuery: &quot;</span>, read_espell[<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====拼写建议=====</span><br>hd_espell = Entrez.espell(term=<span class="hljs-string">&quot;steem cell&quot;</span>)<br>read_espell = Entrez.read(hd_espell)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Query: &quot;</span>, read_espell[<span class="hljs-string">&quot;Query&quot;</span>])<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;CorrectedQuery: &quot;</span>, read_espell[<span class="hljs-string">"CorrectedQuery"</span>])<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-4-3-下载-EFetch"><a href="#2-4-3-下载-EFetch" class="headerlink" title="2.4.3 下载 | EFetch"></a>2.4.3 下载 | EFetch</h5><blockquote>
+<p>EFetch：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch">https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch</a><br>所有参数组合：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly">https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====下载=====</span><br>hd_efetch_gb = Entrez.efetch(db=<span class="hljs-string">&#x27;nucleotide&#x27;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>, rettype=<span class="hljs-string">&#x27;gb&#x27;</span>, retmode=<span class="hljs-string">&#x27;text&#x27;</span>)<br>hd_efetch_fa = Entrez.efetch(db=<span class="hljs-string">&#x27;nucleotide&#x27;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>, rettype=<span class="hljs-string">&#x27;fasta&#x27;</span>)<br><span class="hljs-built_in">print</span> (hd_efetch_gb.read())<br><span class="hljs-built_in">print</span> (hd_efetch_fa.read())<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;res/397784.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> file:<br>    hd_efetch_ml = Entrez.efetch(db=<span class="hljs-string">&#x27;pubmed&#x27;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>, rettype=<span class="hljs-string">&#x27;medline&#x27;</span>, retmode=<span class="hljs-string">&#x27;text&#x27;</span>)<br>    file.write(hd_efetch_ml.read())<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;res/397784.txt&quot;</span>) <span class="hljs-keyword">as</span> file:<br>    read_medline = Medline.read(file)<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;PMID&quot;</span>, read_medline[<span class="hljs-string">&quot;PMID&quot;</span>])<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;TI&quot;</span>, read_medline[<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====下载=====</span><br>hd_efetch_gb = Entrez.efetch(db=<span class="hljs-string">&#x27;nucleotide&#x27;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>, rettype=<span class="hljs-string">&#x27;gb&#x27;</span>, retmode=<span class="hljs-string">&#x27;text&#x27;</span>)<br>hd_efetch_fa = Entrez.efetch(db=<span class="hljs-string">&#x27;nucleotide&#x27;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>, rettype=<span class="hljs-string">&#x27;fasta&#x27;</span>)<br><span class="hljs-built_in">print</span> (hd_efetch_gb.read())<br><span class="hljs-built_in">print</span> (hd_efetch_fa.read())<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;res/397784.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> file:<br>    hd_efetch_ml = Entrez.efetch(db=<span class="hljs-string">&#x27;pubmed&#x27;</span>, <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;397784&quot;</span>, rettype=<span class="hljs-string">&#x27;medline&#x27;</span>, retmode=<span class="hljs-string">&#x27;text&#x27;</span>)<br>    file.write(hd_efetch_ml.read())<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;res/397784.txt&quot;</span>) <span class="hljs-keyword">as</span> file:<br>    read_medline = Medline.read(file)<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;PMID&quot;</span>, read_medline[<span class="hljs-string">&quot;PMID&quot;</span>])<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;TI&quot;</span>, read_medline[<span class="hljs-string">"TI"</span>])<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-4-4-解析大文件-parse"><a href="#2-4-4-解析大文件-parse" class="headerlink" title="2.4.4 解析大文件| parse"></a>2.4.4 解析大文件| parse</h5><blockquote>
+<p>一般在 NCBI 中的资源会有较大的内存占用，</p>
+<p>这里的parse使用迭代器的方式，而不是像列表全部加载，因此了避免了大文件读取时占满内存</p>
+</blockquote>
+<ul>
+<li>Linux 系统下准备工作</li>
+</ul>
+<blockquote>
+<p>下载实例文件：<a href="ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/ASN_BINARY/Mammalia/Homo_sapiens.ags.gz" rel="external nofollow noreferrer">ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/ASN_BINARY/Mammalia/Homo_sapiens.ags.gz</a></p>
+<p>下载格式转换工具：<a href="ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools/converters/by_program/gene2xml/linux64.gene2xml.gz" rel="external nofollow noreferrer">ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools/converters/by_program/gene2xml/linux64.gene2xml.gz</a></p>
+</blockquote>
+<ul>
+<li>在终端依次运行下列命令</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext">mkdir ncbi<br>cd ncbi<br>mkdir ags<br>mkdir tool<br>cd tool<br>wget ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools/converters/by_program/gene2xml/linux64.gene2xml.gz<br>gunzip linux64.gene2xml.gz<br>mv linux64.gene2xml gene2xml<br>cd ../ags<br>wget ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/ASN_BINARY/Mammalia/Homo_sapiens.ags.gz<br>gunzip Homo_sapiens.ags.gz<br>../tool/gene2xml -b T -i Homo_sapiens.ags -o Homo_sapiens.xml<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>下载你的目录结构类似这样，这里的Homo_sapiens.xml 大约有15G（2018.09）</li>
+</ul>
+<p><img src="http://baimoc.ziptop.top/blog/180912/7a788i6Hf1.png?imageslim" alt="mark"></p>
+<ul>
+<li>使用 BioPython 解析</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====解析大文件=====</span><br>hd_parse = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;Homo_sapiens.xml&quot;</span>)<br>res_parse = Entrez.parse(hd_parse)<br><span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> res_parse:<br>     status = record[<span class="hljs-string">&#x27;Entrezgene_track-info&#x27;</span>][<span class="hljs-string">&#x27;Gene-track&#x27;</span>][<span class="hljs-string">&#x27;Gene-track_status&#x27;</span>]<br>     <span class="hljs-keyword">if</span> status.attributes[<span class="hljs-string">&#x27;value&#x27;</span>]==<span class="hljs-string">&#x27;discontinued&#x27;</span>:<br>         <span class="hljs-keyword">continue</span><br>     geneid = record[<span class="hljs-string">&#x27;Entrezgene_track-info&#x27;</span>][<span class="hljs-string">&#x27;Gene-track&#x27;</span>][<span class="hljs-string">&#x27;Gene-track_geneid&#x27;</span>]<br>     genename = record[<span class="hljs-string">&#x27;Entrezgene_gene&#x27;</span>][<span class="hljs-string">&#x27;Gene-ref&#x27;</span>][<span class="hljs-string">&#x27;Gene-ref_locus&#x27;</span>]<br>     <span class="hljs-built_in"><code class="language-hljs python"><span class="hljs-keyword">from</span> Bio <span class="hljs-keyword">import</span> Entrez<br><span class="hljs-comment"># =====解析大文件=====</span><br>hd_parse = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;Homo_sapiens.xml&quot;</span>)<br>res_parse = Entrez.parse(hd_parse)<br><span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> res_parse:<br>     status = record[<span class="hljs-string">&#x27;Entrezgene_track-info&#x27;</span>][<span class="hljs-string">&#x27;Gene-track&#x27;</span>][<span class="hljs-string">&#x27;Gene-track_status&#x27;</span>]<br>     <span class="hljs-keyword">if</span> status.attributes[<span class="hljs-string">&#x27;value&#x27;</span>]==<span class="hljs-string">&#x27;discontinued&#x27;</span>:<br>         <span class="hljs-keyword">continue</span><br>     geneid = record[<span class="hljs-string">&#x27;Entrezgene_track-info&#x27;</span>][<span class="hljs-string">&#x27;Gene-track&#x27;</span>][<span class="hljs-string">&#x27;Gene-track_geneid&#x27;</span>]<br>     genename = record[<span class="hljs-string">&#x27;Entrezgene_gene&#x27;</span>][<span class="hljs-string">&#x27;Gene-ref&#x27;</span>][<span class="hljs-string">&#x27;Gene-ref_locus&#x27;</span>]<br>     <span class="hljs-built_in">print</span> (geneid, genename)<br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="生物信息中的Python-01-从零开始处理基因序列"><a href="#生物信息中的Python-01-从零开始处理基因序列" class="headerlink" title="生物信息中的Python 01 | 从零开始处理基因序列"></a><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/88542804">生物信息中的Python 01 | 从零开始处理基因序列</a></h2><h2 id="生物信息中的Python-02-用biopython解析序列"><a href="#生物信息中的Python-02-用biopython解析序列" class="headerlink" title="生物信息中的Python 02 | 用biopython解析序列"></a><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/88542836">生物信息中的Python 02 | 用biopython解析序列</a></h2><h2 id="生物信息中的Python-04-批量下载基因与文献"><a href="#生物信息中的Python-04-批量下载基因与文献" class="headerlink" title="生物信息中的Python 04 | 批量下载基因与文献"></a><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/88542910">生物信息中的Python 04 | 批量下载基因与文献</a></h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/64681/">https://ziptop.top/posts/64681/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><a class="post-meta__tags" href="/tags/%E5%9F%BA%E5%9B%A0/">基因</a><a class="post-meta__tags" href="/tags/%E5%BA%8F%E5%88%97/">序列</a><a class="post-meta__tags" href="/tags/NCBI/">NCBI</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img03.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/64993/"><img class="prev-cover" src="/assert/img/background/img07.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">生物信息中的Python 04 | 批量下载基因与文献</div></div></a></div><div class="next-post pull-right"><a href="/posts/50324/"><img class="next-cover" src="/assert/img/background/img08.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生物信息中的Python 02 | 用biopython解析序列</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/50324/" title="生物信息中的Python 02 | 用biopython解析序列"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-13</div><div class="title">生物信息中的Python 02 | 用biopython解析序列</div></div></a></div><div><a href="/posts/64993/" title="生物信息中的Python 04 | 批量下载基因与文献"><img class="cover" src="/assert/img/background/img07.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-13</div><div class="title">生物信息中的Python 04 | 批量下载基因与文献</div></div></a></div><div><a href="/posts/29665/" title="Python 自动化提取基因的 CDS"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Python 自动化提取基因的 CDS</div></div></a></div><div><a href="/posts/9206/" title="生物信息中的Python 01 | 从零开始处理基因序列"><img class="cover" src="/assert/img/background/img15.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-13</div><div class="title">生物信息中的Python 01 | 从零开始处理基因序列</div></div></a></div><div><a href="/posts/25294/" title="Conda 安装使用图文详解（2022版）"><img class="cover" src="/assert/img/background/img18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-26</div><div class="title">Conda 安装使用图文详解（2022版）</div></div></a></div><div><a href="/posts/64515/" title="如何在 Pycharm 中高效使用 R 语言 （图文详解）"><img class="cover" src="/assert/img/background/img01.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-24</div><div class="title">如何在 Pycharm 中高效使用 R 语言 （图文详解）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Entrez-%E5%BA%93"><span class="toc-text">一、Entrez 库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-Entrez-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.1 Entrez 介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">1.2 注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%96%E8%AF%B7%E6%B1%82%E6%95%B0"><span class="toc-text">最小化请求数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6"><span class="toc-text">访问限制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%82%AE%E7%AE%B1"><span class="toc-text">设置邮箱</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#URL%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86"><span class="toc-text">URL字符处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">二、基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-text">2.1 参数设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%9F%A5%E7%9C%8B%E6%A6%82%E5%86%B5"><span class="toc-text">2.2 查看概况</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-%E6%9F%A5%E7%9C%8B%E7%9B%AE%E5%89%8D-NCBI-%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">2.2.1 查看目前 NCBI 所有数据库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-%E6%9F%A5%E7%9C%8B%E5%8D%95%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%86%B5"><span class="toc-text">2.2.2 查看单个数据库概况</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%9F%A5%E8%AF%A2"><span class="toc-text">2.3 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-1-%E5%85%A8%E5%B1%80%E6%90%9C%E7%B4%A2-EGQuery"><span class="toc-text">2.3.1 全局搜索 | EGQuery</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-2-%E6%9F%A5%E8%AF%A2%E5%8D%95%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%9F%BA%E5%9B%A0-ESearch"><span class="toc-text">2.3.2 查询单个数据库中的基因 | ESearch</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-%E6%9F%A5%E8%AF%A2%E5%9F%BA%E5%9B%A0%E8%AF%A6%E7%BB%86%E6%8F%8F%E8%BF%B0%E4%BF%A1%E6%81%AF-Esummary"><span class="toc-text">2.3.3 查询基因详细描述信息 | Esummary</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-4-%E6%9F%A5%E8%AF%A2%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E6%9D%A1%E7%9B%AE-Elink"><span class="toc-text">2.3.4 查询交叉引用条目 | Elink</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-text">2.4 其他操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-1-%E4%B8%8A%E4%BC%A0id%E5%88%97%E8%A1%A8%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8-EPost"><span class="toc-text">2.4.1 上传id列表到服务器 | EPost</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-2-%E6%8B%BC%E5%86%99%E5%BB%BA%E8%AE%AE%E4%B8%8E%E7%BA%A0%E6%AD%A3-Espell"><span class="toc-text">2.4.2 拼写建议与纠正 | Espell</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-3-%E4%B8%8B%E8%BD%BD-EFetch"><span class="toc-text">2.4.3 下载 | EFetch</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-4-%E8%A7%A3%E6%9E%90%E5%A4%A7%E6%96%87%E4%BB%B6-parse"><span class="toc-text">2.4.4 解析大文件| parse</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E4%B8%AD%E7%9A%84Python-01-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%A4%84%E7%90%86%E5%9F%BA%E5%9B%A0%E5%BA%8F%E5%88%97"><span class="toc-text">生物信息中的Python 01 | 从零开始处理基因序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E4%B8%AD%E7%9A%84Python-02-%E7%94%A8biopython%E8%A7%A3%E6%9E%90%E5%BA%8F%E5%88%97"><span class="toc-text">生物信息中的Python 02 | 用biopython解析序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E4%B8%AD%E7%9A%84Python-04-%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%9F%BA%E5%9B%A0%E4%B8%8E%E6%96%87%E7%8C%AE"><span class="toc-text">生物信息中的Python 04 | 批量下载基因与文献</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

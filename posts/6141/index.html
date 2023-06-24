@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>一文读懂 ChIPseq | 白墨</title><meta name="keywords" content="生信情报站,生物信息学,表观遗传学,ChIPseq,转录因子,组蛋白"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、介绍 ChIP-seq，测序方法 ChIP 指染色质免疫共沉淀技术（Chromatin Immunoprecipitation，ChIP）， seq 指的是二代测序方法   作用：识别蛋白质与DNA互相作用情况 原理：染色质免疫共沉淀 + 二代测序 应用：常用于转录因子结合位点和组蛋白修饰位点的研究  二、测序原理1、使用甲醛将目标蛋白（组蛋白，转录因子等）与染色质交联固定起来  2、从细胞裂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文读懂 ChIPseq">
+<meta property="og:url" content="https://ziptop.top/posts/6141/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="一、介绍 ChIP-seq，测序方法 ChIP 指染色质免疫共沉淀技术（Chromatin Immunoprecipitation，ChIP）， seq 指的是二代测序方法   作用：识别蛋白质与DNA互相作用情况 原理：染色质免疫共沉淀 + 二代测序 应用：常用于转录因子结合位点和组蛋白修饰位点的研究  二、测序原理1、使用甲醛将目标蛋白（组蛋白，转录因子等）与染色质交联固定起来  2、从细胞裂">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img05.png">
+<meta property="article:published_time" content="2020-11-22T08:39:35.000Z">
+<meta property="article:modified_time" content="2020-11-22T08:39:35.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="表观遗传学">
+<meta property="article:tag" content="ChIPseq">
+<meta property="article:tag" content="转录因子">
+<meta property="article:tag" content="组蛋白">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img05.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/6141/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一文读懂 ChIPseq',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-22 16:39:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img05.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一文读懂 ChIPseq</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-11-22T08:39:35.000Z" title="发表于 2020-11-22 16:39:35">2020-11-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E6%B5%8B%E5%BA%8F%E6%8A%80%E6%9C%AF/">测序技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一文读懂 ChIPseq"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h3><ul>
+<li>ChIP-seq，测序方法<ul>
+<li><code>ChIP</code> 指染色质免疫共沉淀技术（Chromatin Immunoprecipitation，ChIP），</li>
+<li><code>seq</code> 指的是二代测序方法</li>
+</ul>
+</li>
+<li>作用：识别蛋白质与DNA互相作用情况</li>
+<li>原理：染色质免疫共沉淀 + 二代测序</li>
+<li>应用：常用于转录因子结合位点和组蛋白修饰位点的研究</li>
+</ul>
+<h3 id="二、测序原理"><a href="#二、测序原理" class="headerlink" title="二、测序原理"></a>二、测序原理</h3><p>1、使用甲醛将目标蛋白（组蛋白，转录因子等）与染色质交联固定起来</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9ffe0e50908be642659417f14f73af6b.png" alt="mark"></p>
+<p>2、从细胞裂解液分离基因组DNA，通过超声打断DNA为一定长度的小片段</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7a4787a3456b8073d7cb656e994ee5bd.png" alt="mark"></p>
+<p>3、添加与目标蛋白质特异的抗体，该抗体会与目标蛋白形成免疫结合复合体沉淀，收集这些沉淀</p>
+<p><strong>免疫结合复合体 &#x3D; 靶蛋白 + 抗体 + 靶蛋白结合的DNA</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7ffbc26f28f72b73c9f82a4f2005515a.png" alt="mark"></p>
+<p>4、去交联，分开蛋白与DNA，纯化DNA即可得到染色质免疫沉淀的DNA样本</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/88cd3869d752b550c6887a0ef1a74db9.png" alt="mark"></p>
+<p>5、建立好文库，用测序仪进行测序</p>
+<p>详细测序过程可以参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/58708887">https://zhuanlan.zhihu.com/p/58708887</a></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/55fcb1e7f3d9fbec17670d29261d7f1c.png" alt="mark"></p>
+<h3 id="三、检测蛋白质与DNA序列的结合峰"><a href="#三、检测蛋白质与DNA序列的结合峰" class="headerlink" title="三、检测蛋白质与DNA序列的结合峰"></a>三、检测蛋白质与DNA序列的结合峰</h3><h5 id="1、测序片段匹配到参考基因组"><a href="#1、测序片段匹配到参考基因组" class="headerlink" title="1、测序片段匹配到参考基因组"></a>1、测序片段匹配到参考基因组</h5><p>将测序得到的 DNA 片段（sequenced fragments）匹配到参考基因组。</p>
+<p>很显然，如果在基因组的某个位置蛋白质结合的概率越大，那么在该位置检测到 DNA 片段堆叠就会越高。反之，如果没有蛋白结合，在该位置就会几乎没有DNA 片段堆叠。为了研究方便，我们将这些DNA片段堆叠叫做峰 (Peak)。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d6fd4a931008e47fbd34425c413fd61f.png" alt="mark"></p>
+<h5 id="2、检测峰"><a href="#2、检测峰" class="headerlink" title="2、检测峰"></a>2、检测峰</h5><p>将覆盖到参考基因组的DNA片段堆叠用柱状图画出来，就会看到峰。</p>
+<p>这里需要知道，ChIPseq是利用抗体去结合特异的靶蛋白，进而去沉淀靶蛋白结合的DNA。理论上，只要抗体设计的好，与蛋白质结合的 DNA 的都可以检测到。</p>
+<p>我们一般用 ChIPseq 检测转录因子的结合，以及检测组蛋白修饰，二者有着截然不同的峰形：</p>
+<p>转录因子结合的特征峰，峰型高，而且窄：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/623d805123d6151be649d65a0aef1019.png" alt="mark"></p>
+<p>组蛋白修饰结合的特征峰，峰型起伏，而且分布广泛：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/199cb684e32b8d883c6d7be9b74233aa.png" alt="mark"></p>
+<p>当然我们也可以使用，UCSC基因组浏览器显示。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9c450f82a161fb93c3fab4e0b6368795.png" alt="mark"></p>
+<h5 id="3、提高峰质量"><a href="#3、提高峰质量" class="headerlink" title="3、提高峰质量"></a>3、提高峰质量</h5><p>一般在做ChIPseq时，会加入一组空白对照（control），提高峰质量，那么为什么？</p>
+<ul>
+<li>一般检测出的峰值会有背景噪音，也就是文库会夹渣一些没有用抗体捕获的DNA片段也被测序了。</li>
+<li>开放的染色质区域比封闭的区域更容易断裂</li>
+<li>序列在基因组中分布不均</li>
+<li>允许我们在比对的控件中与相同区域进行比较</li>
+<li>消除 ENCODE 的 Black list的影响</li>
+</ul>
+<p>所以会准备空白对照，排除假阳性，对照组有有两种类型：</p>
+<ul>
+<li>input DNA：不用任何抗体捕获的DNA；</li>
+<li>mock IP DNA：用不含有抗体的DNA</li>
+</ul>
+<p>这样一来，就会让我们检测到的峰更明显更接近真实的生物学特征。</p>
+<h3 id="四、影响ChIPseq测序结果的因素"><a href="#四、影响ChIPseq测序结果的因素" class="headerlink" title="四、影响ChIPseq测序结果的因素"></a>四、影响ChIPseq测序结果的因素</h3><h5 id="1、免疫共沉淀的影响"><a href="#1、免疫共沉淀的影响" class="headerlink" title="1、免疫共沉淀的影响"></a>1、免疫共沉淀的影响</h5><ul>
+<li>高效特异性抗体</li>
+<li>起始样本量</li>
+<li>ChIP DNA 产量<ul>
+<li>细胞类型</li>
+<li>标记或蛋白质丰富程度（组蛋白比TF具有更高的结合覆盖率）</li>
+<li>抗体质量</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>对于组蛋白，使用来自T细胞的20ug染色质DNA作为起始材料，总共会得到15-50ng DNA。 </p>
+<p>对于TF，通常从2500万个细胞（200ug染色质）中得到5-25ng。 </p>
+<p>-Subhash Tripathi，ResearchGate</p>
+</blockquote>
+<ul>
+<li>染色质片段<ul>
+<li>片段大小：影响ChIP-seq中的信噪比</li>
+<li>因细胞类型而异</li>
+<li>偏向启动子区域的片段会在ChIP 和对照样品中的启动子上引起ChIP-seq富集</li>
+</ul>
+</li>
+</ul>
+<h5 id="2、测序的影响"><a href="#2、测序的影响" class="headerlink" title="2、测序的影响"></a>2、测序的影响</h5><ul>
+<li>Reads 长度<ul>
+<li>较长的 Reads 和双末端 Reads 可提高匹配率</li>
+<li>对于等位基因特异性染色质事件，转座因子研究是必需的</li>
+</ul>
+</li>
+<li>避免分批次</li>
+<li>序列输入对照的深度等于或大于IP样本</li>
+<li>测序深度<ul>
+<li>对于转录因子：最小5-10M</li>
+<li>对于组蛋白修饰宽谱图则更高：标准为20-40M</li>
+</ul>
+</li>
+</ul>
+<h5 id="测序深度的对组蛋白修饰检测的影响"><a href="#测序深度的对组蛋白修饰检测的影响" class="headerlink" title="测序深度的对组蛋白修饰检测的影响"></a>测序深度的对组蛋白修饰检测的影响</h5><p>下面是在不同测序深度下检测人的 H3K4me3 组蛋白修饰ChIP图谱。 </p>
+<p>绿色框对应于基于SPP宽峰检测方法得到的显著富集区域。</p>
+<p>在 5M (500 Reads) 中，未检测到突出显示的富集区域。 </p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3e8264fefc23beca40a028d4f186298a.png" alt="mark"></p>
+<p>同样，我们换成 H3K27me3 组蛋白修饰。</p>
+<p>这时在3.5M和10M 的低深度处未检测到突出显示的HOXD11和HOXD-AS1基因座处的富集区域（蓝色框）。 <img src="https://img-blog.csdnimg.cn/img_convert/ad7e74c6685c004f776d752f8c133323.png" alt="mark"></p>
+<p>从每个子样本中H3K4me3，H3K36me3和H3K27me3回收的全部数据中获得的显著富集区域的百分比<img src="https://img-blog.csdnimg.cn/img_convert/be0d0f9562efad03027d6b1fccc56885.png" alt="mark"></p>
+<p>总的来说，随着测序深度增加，组蛋白修饰检测比例开始会快速增加，随后达到平稳。测序深度饱和点取决于组蛋白修饰和所研究的物种基因组。</p>
+<h5 id="3、重复样和重现性"><a href="#3、重复样和重现性" class="headerlink" title="3、重复样和重现性"></a>3、重复样和重现性</h5><ul>
+<li>重复多次通常比更高的深度更有效</li>
+<li>最好是低深度测序高质量样本，而不是高深度低质量样本</li>
+</ul>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://academic.oup.com/nar/article/42/9/e74/1248114">https://academic.oup.com/nar/article/42/9/e74/1248114</a></p>
+<p><a href="https://link.zhihu.com/?target=https://en.wikipedia.org/wiki/ChIP_sequencing%23/media/File:Chromatin_immunoprecipitation_sequencing.svg" rel="external nofollow noreferrer">https://en.wikipedia.org/wiki/ChIP_sequencing#&#x2F;media&#x2F;File:Chromatin_immunoprecipitation_sequencing.svg</a></p>
+<p><a href="https://link.zhihu.com/?target=https://www.abcam.com/epigenetics/studying-epigenetics-using-chip" rel="external nofollow noreferrer">https://www.abcam.com/epigenetics/studying-epigenetics-using-chip</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/6141/">https://ziptop.top/posts/6141/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/%E8%A1%A8%E8%A7%82%E9%81%97%E4%BC%A0%E5%AD%A6/">表观遗传学</a><a class="post-meta__tags" href="/tags/ChIPseq/">ChIPseq</a><a class="post-meta__tags" href="/tags/%E8%BD%AC%E5%BD%95%E5%9B%A0%E5%AD%90/">转录因子</a><a class="post-meta__tags" href="/tags/%E7%BB%84%E8%9B%8B%E7%99%BD/">组蛋白</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img05.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/11562/"><img class="prev-cover" src="/assert/img/background/img08.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">图解表观遗传学 | 组蛋白修饰</div></div></a></div><div class="next-post pull-right"><a href="/posts/35496/"><img class="next-cover" src="/assert/img/background/img12.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Sublime 究极技巧3 - 在线安装插件包及常用插件</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/11562/" title="图解表观遗传学 | 组蛋白修饰"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-22</div><div class="title">图解表观遗传学 | 组蛋白修饰</div></div></a></div><div><a href="/posts/34675/" title="Hi-C 测序技术（图解详解）"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-06</div><div class="title">Hi-C 测序技术（图解详解）</div></div></a></div><div><a href="/posts/29665/" title="Python 自动化提取基因的 CDS"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Python 自动化提取基因的 CDS</div></div></a></div><div><a href="/posts/50931/" title="Seurat | 不同单细胞转录组的整合方法"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-15</div><div class="title">Seurat | 不同单细胞转录组的整合方法</div></div></a></div><div><a href="/posts/21265/" title="Pandas 修改单列，多列，Dataframe 数据类型方法汇总"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">Pandas 修改单列，多列，Dataframe 数据类型方法汇总</div></div></a></div><div><a href="/posts/60574/" title="UCSC 基因组浏览器配置详解"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-29</div><div class="title">UCSC 基因组浏览器配置详解</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B5%8B%E5%BA%8F%E5%8E%9F%E7%90%86"><span class="toc-text">二、测序原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%A3%80%E6%B5%8B%E8%9B%8B%E7%99%BD%E8%B4%A8%E4%B8%8EDNA%E5%BA%8F%E5%88%97%E7%9A%84%E7%BB%93%E5%90%88%E5%B3%B0"><span class="toc-text">三、检测蛋白质与DNA序列的结合峰</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E6%B5%8B%E5%BA%8F%E7%89%87%E6%AE%B5%E5%8C%B9%E9%85%8D%E5%88%B0%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84"><span class="toc-text">1、测序片段匹配到参考基因组</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E6%A3%80%E6%B5%8B%E5%B3%B0"><span class="toc-text">2、检测峰</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81%E6%8F%90%E9%AB%98%E5%B3%B0%E8%B4%A8%E9%87%8F"><span class="toc-text">3、提高峰质量</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BD%B1%E5%93%8DChIPseq%E6%B5%8B%E5%BA%8F%E7%BB%93%E6%9E%9C%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="toc-text">四、影响ChIPseq测序结果的因素</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E5%85%8D%E7%96%AB%E5%85%B1%E6%B2%89%E6%B7%80%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">1、免疫共沉淀的影响</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E6%B5%8B%E5%BA%8F%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">2、测序的影响</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8B%E5%BA%8F%E6%B7%B1%E5%BA%A6%E7%9A%84%E5%AF%B9%E7%BB%84%E8%9B%8B%E7%99%BD%E4%BF%AE%E9%A5%B0%E6%A3%80%E6%B5%8B%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">测序深度的对组蛋白修饰检测的影响</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81%E9%87%8D%E5%A4%8D%E6%A0%B7%E5%92%8C%E9%87%8D%E7%8E%B0%E6%80%A7"><span class="toc-text">3、重复样和重现性</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

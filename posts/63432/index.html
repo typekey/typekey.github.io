@@ -1,0 +1,399 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>图解机器学习：分类模型性能评估指标 | 白墨</title><meta name="keywords" content="机器学习,人工智能,分类模型,性能评估,算法"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="人间出现一种怪病，患病人群平时正常，但偶尔暴饮暴食，这种病从外观和现有医学手段无法分辨。 为了应对疫情，准备派齐天大圣去下界了解情况。事先神官从人间挑选了一些健康人和患病者来对大圣的业务能力进行测试，按下面规则来区分人群：  健康人站在绿色区域 患病者站在橙色区域   齐天大圣出场用他的火眼金睛识别哪些是健康人，哪些又是患病者。 随后画一个圈，告诉神官：圈里的是我认为健康的人，圈外的就是患病者。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图解机器学习：分类模型性能评估指标">
+<meta property="og:url" content="https://ziptop.top/posts/63432/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="人间出现一种怪病，患病人群平时正常，但偶尔暴饮暴食，这种病从外观和现有医学手段无法分辨。 为了应对疫情，准备派齐天大圣去下界了解情况。事先神官从人间挑选了一些健康人和患病者来对大圣的业务能力进行测试，按下面规则来区分人群：  健康人站在绿色区域 患病者站在橙色区域   齐天大圣出场用他的火眼金睛识别哪些是健康人，哪些又是患病者。 随后画一个圈，告诉神官：圈里的是我认为健康的人，圈外的就是患病者。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img18.png">
+<meta property="article:published_time" content="2022-05-05T04:48:34.000Z">
+<meta property="article:modified_time" content="2022-05-05T04:48:34.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="分类模型">
+<meta property="article:tag" content="性能评估">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img18.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/63432/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '图解机器学习：分类模型性能评估指标',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-05 12:48:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img18.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">图解机器学习：分类模型性能评估指标</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="图解机器学习：分类模型性能评估指标"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>人间出现一种怪病，患病人群平时正常，但偶尔暴饮暴食，这种病从外观和现有医学手段无法分辨。</p>
+<p>为了应对疫情，准备派齐天大圣去下界了解情况。事先神官从人间挑选了一些健康人和患病者来对大圣的业务能力进行测试，按下面规则来区分人群：</p>
+<ul>
+<li>健康人站在绿色区域</li>
+<li>患病者站在橙色区域</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/50347f3475e2817ccf2db54ff3b37997.png" alt="img"></p>
+<p>齐天大圣出场用他的火眼金睛识别哪些是健康人，哪些又是患病者。</p>
+<p>随后画一个圈，告诉神官：圈里的是我认为健康的人，圈外的就是患病者。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e708c855164be4cdaf9054ba4cd111c8.png" alt="img"></p>
+<p>接下来，我们画个图来看看大圣火眼金睛的识别效果：</p>
+<p>为了区分识别是否正确，我们让大圣识别正确的人站在深色区域，错误的站浅色区域，也就是：</p>
+<ul>
+<li>深绿色（TP）：正确识别为健康人</li>
+<li>深橙色（TN）：正确识别为患病者</li>
+<li>浅绿色（FN）：健康人错误识别为患者</li>
+<li>浅橙色（FP）：患者错误识别为健康人</li>
+</ul>
+<p>我们发现大圣画的圈里大部分是正确的，但是也有少量错误。话说应该是大圣年纪大了。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/40d945fc762dd7ff170fa75269f1dfec.png" alt="img"></p>
+<h2 id="一、混淆矩阵-Confusion-Matrix"><a href="#一、混淆矩阵-Confusion-Matrix" class="headerlink" title="一、混淆矩阵 Confusion Matrix"></a>一、混淆矩阵 <em><strong>Confusion Matrix</strong></em></h2><p>现在回到机器学习的监督学习中，为了方便绘制和展示，我们常用表格形式的<strong>混淆矩阵</strong>（<strong>Confusion Matrix</strong>）作为评估模式。这在无监督学习中一般叫做匹配矩阵。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3475b4df36a1413bae79e6326d2c66e7.png" alt="img"></p>
+<p>其中，</p>
+<ul>
+<li>行代表真实数据：包含真实的健康者和患病者数目</li>
+<li>列代表预测数据：包含预测的健康者和患病者数目</li>
+</ul>
+<p>为了方便理解记忆，这里将健康者称为 Positive，患病者称为 Negative：</p>
+<ul>
+<li>True Positive（TP）：本身为健康，预测为健康 （对健康人拿捏了）</li>
+<li>False Negative（FN）：本身为健康，预测为患病（老倒霉蛋了）</li>
+<li>False positive（FP）：本身为患病，预测为健康 （漏网之鱼了属于是）</li>
+<li>True Negative（TN）：本身为患病，预测为患病 （对患病者拿捏了）</li>
+</ul>
+<h2 id="二、准确率-Accuracy"><a href="#二、准确率-Accuracy" class="headerlink" title="二、准确率 Accuracy"></a>二、准确率 <em>Accuracy</em></h2><p><strong>Accuracy</strong>：指模型识别正确的样本数占样本总数的比例。</p>
+<p>也就是，正确识别的健康人和患者占全部人群的比例。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/dde6bf6fdcfff0368937dbd5dc13ac7a.png" alt="img"></p>
+<p>用公式表示：</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-rxkqere4-1651725986989)(<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.nlark.com/yuque/__latex/148a7f222cf675c78eb886c0b9215065.svg)]">https://cdn.nlark.com/yuque/__latex/148a7f222cf675c78eb886c0b9215065.svg)]</a></p>
+<p>Accuracy 是最常用的评估指标，可以总体上衡量一个预测的性能。</p>
+<p>一般情况在数据类别均衡的情况下，模型的精度越高，说明模型的效果越好。</p>
+<p>需要注意的是，但是在严重不平衡的数据中，这个评估指标并不合理。比如这个病毒的发病率为 0.1％，模型可以把所有人判定为健康人，模型 Accuracy 直接高达99.9%，但这个模型并不适用。</p>
+<p>为了更好地应对上述问题，衍生出了一系列其他评估指标。</p>
+<h2 id="三、精度-Precision"><a href="#三、精度-Precision" class="headerlink" title="三、精度 Precision"></a>三、精度 <em>Precision</em></h2><p>Precision：在模型识别为 Positive 的样本中，真正为 Positive 的样本所占的比例。</p>
+<p>也就是说，在识别为的健康人群中，有多少是真正健康的。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/ddd9e1cfdc86277713cfc6f2bcf26d2b.png" alt="img"></p>
+<p>公式表示为：</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-XoZbeWBo-1651725986990)(<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.nlark.com/yuque/__latex/cb23f4ec83e30b7e91bb509abe4e2353.svg)]">https://cdn.nlark.com/yuque/__latex/cb23f4ec83e30b7e91bb509abe4e2353.svg)]</a></p>
+<p>如果模型目标是：<strong>宁愿漏掉，不可错杀</strong>，我们应该更关注 Precision 指标。一般情况下，Precision 越高，说明模型的效果越好。</p>
+<p>在识别垃圾邮件时，为了避免正常邮件被误杀，就需要模型有较高的 Percision。</p>
+<h2 id="四、召回率-Recall"><a href="#四、召回率-Recall" class="headerlink" title="四、召回率 Recall"></a>四、召回率 <em>Recall</em></h2><p>Recall：模型正确识别出为 Positive 的样本数量占 Positive 数量的比值。</p>
+<p>也就是说，在实际的健康人中，识别出的健康人比值。</p>
+<p>Recall越高，代表模型从健康人群中识别出的健康人的比例越高。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3a7316a361bd0e32a60b869827860192.png" alt="img"></p>
+<p>公式表示：</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-79ZNhZbE-1651725986992)(<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.nlark.com/yuque/__latex/9f557d7c881df224be1389a6c9408b8f.svg)]">https://cdn.nlark.com/yuque/__latex/9f557d7c881df224be1389a6c9408b8f.svg)]</a></p>
+<p>如果模型目标是：<strong>宁愿错杀，不可漏掉</strong>，我们应该更关注 Recall 指标。一般情况下，Recall 越高，说明模型的效果越好。</p>
+<p>在金融风控领域中，目标是尽可能筛选出所有的风险行为或用户，避免造成灾难性后果。因此，需要更高的 Recall 值。</p>
+<h2 id="五、Fβ-Score-与-F1-Score"><a href="#五、Fβ-Score-与-F1-Score" class="headerlink" title="五、Fβ-Score 与 F1-Score"></a>五、Fβ-Score 与 F1-Score</h2><p>Precision和Recall都是越高越好，但这个两个指标间相互矛盾，此消彼长，因此无法保证二者都很高。</p>
+<p>为了综合考虑 Precision 与 Recall，需要引入一个新指标 <strong>Fβ-Score</strong>：</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-NcEPCqwP-1651725986993)(<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.nlark.com/yuque/__latex/25c96bc728f2420cafa058166dbba944.svg)]">https://cdn.nlark.com/yuque/__latex/25c96bc728f2420cafa058166dbba944.svg)]</a></p>
+<p>更具不同的场景来调整 β值。</p>
+<ul>
+<li>β&lt;1 时，更关注Precision。</li>
+<li>β&gt;1 时，更关注Recall。</li>
+<li>β&#x3D;1 时，Fβ-Score 就是 <strong>F1-Score</strong>，</li>
+</ul>
+<p>当 <strong>F1-Score</strong> 值较高时则说明模型性能较好。</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-WdhLC3Bq-1651725986994)(<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.nlark.com/yuque/__latex/55e3ddf7d2665455579f509c02dff962.svg)]">https://cdn.nlark.com/yuque/__latex/55e3ddf7d2665455579f509c02dff962.svg)]</a></p>
+<h2 id="六、真正例率-True-Positive-Rate，TPR"><a href="#六、真正例率-True-Positive-Rate，TPR" class="headerlink" title="六、真正例率 True Positive Rate，TPR"></a>六、真正例率 <em>True Positive Rate，TPR</em></h2><p><strong>TPR：</strong>在实际的 Positive 样本中，识别出的 Positive 样本比值。</p>
+<p>也就是说，大圣在实际的健康人群中，识别出的健康人比值。</p>
+<p>TPR 越高，代表模型从健康人群中识别出的健康人的比例越高。</p>
+<p>TPR 值越高，模型性能越好。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/584a393100b6c51b0aac1e9457ac477a.png" alt="img"></p>
+<p>公式表示：</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-2fKZGuug-1651725986998)(<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.nlark.com/yuque/__latex/edb477ff28540cb8ca888b131e5f901f.svg)]">https://cdn.nlark.com/yuque/__latex/edb477ff28540cb8ca888b131e5f901f.svg)]</a></p>
+<h2 id="七、假正例率-False-Positive-Rate，FPR"><a href="#七、假正例率-False-Positive-Rate，FPR" class="headerlink" title="七、假正例率 False Positive Rate，FPR"></a>七、假正例率 <em>False Positive Rate，FPR</em></h2><p><strong>FPR：</strong>在实际的 Negative 样本中，错误识别为 Positive 的比值。</p>
+<p>也就是说，在实际的患者中，错误识别为健康人的比值。</p>
+<p>FPR 越高，代表模型从患病人群中识别出的健康人的比例越高。</p>
+<p>FPR 越低，代表模型性能越好。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/8cf9d81d0ca6f6f1bdaa07b9dff165fa.png" alt="img"></p>
+<p>公式表示：</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-MHYZKdSw-1651725987000)(<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.nlark.com/yuque/__latex/9edd061fecffd6f8d702216f2cecd33b.svg)]">https://cdn.nlark.com/yuque/__latex/9edd061fecffd6f8d702216f2cecd33b.svg)]</a></p>
+<h2 id="八、ROC-曲线"><a href="#八、ROC-曲线" class="headerlink" title="八、ROC 曲线"></a><strong>八、ROC 曲线</strong></h2><p><strong>ROC曲线</strong>（<strong>Receiver Operating Characteristic Curve</strong>）通过 True Positive Rate（TPR，真正例率）和False Positive Rate（FPR，假正例率）两个指标的反映模型综合性能。</p>
+<p>接下来，我们利用 TPR 和 FPR 绘制 ROC 曲线：</p>
+<ul>
+<li>ROC 不同颜色的曲线代表不同的模型</li>
+<li>对角线的虚线代表随机分类，如果ROC位于左上角代表比随机分类好的模型，右下角为比随机分类差的模型</li>
+<li>四个角分别代表不同的分类效果</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f7a752c6f69d33aa830d4e18bc1c985f.png" alt="img"></p>
+<h2 id="九、AUC-面积"><a href="#九、AUC-面积" class="headerlink" title="九、AUC 面积"></a>九、AUC 面积</h2><p>ROC 曲线可以直观的反应模型性能，但是难以比较不同模型的差异。</p>
+<p>计算ROC曲线右下角面积得到AUC，该指标可以实现对模型性能的定量化描述。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/70a780189a3122da7f20fcf3fb58e4c0.png" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/63432/">https://ziptop.top/posts/63432/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B/">分类模型</a><a class="post-meta__tags" href="/tags/%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0/">性能评估</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img18.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/57043/"><img class="prev-cover" src="/assert/img/background/img19.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据库涉及大量数据查询时的注意事项</div></div></a></div><div class="next-post pull-right"><a href="/posts/11749/"><img class="next-cover" src="/assert/img/background/img05.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python 中变量的多种复制方法（常规拷贝，浅拷贝，深拷贝）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img class="cover" src="/assert/img/background/img12.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-03</div><div class="title">图解机器学习之回归模型性能评估指标</div></div></a></div><div><a href="/posts/56013/" title="归一化与标准化"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-07</div><div class="title">归一化与标准化</div></div></a></div><div><a href="/posts/41005/" title="生命可以用更少的氨基酸编码蛋白质吗？"><img class="cover" src="/assert/img/background/img15.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-17</div><div class="title">生命可以用更少的氨基酸编码蛋白质吗？</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5-Confusion-Matrix"><span class="toc-text">一、混淆矩阵 Confusion Matrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%87%86%E7%A1%AE%E7%8E%87-Accuracy"><span class="toc-text">二、准确率 Accuracy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%B2%BE%E5%BA%A6-Precision"><span class="toc-text">三、精度 Precision</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8F%AC%E5%9B%9E%E7%8E%87-Recall"><span class="toc-text">四、召回率 Recall</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81F%CE%B2-Score-%E4%B8%8E-F1-Score"><span class="toc-text">五、Fβ-Score 与 F1-Score</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%9C%9F%E6%AD%A3%E4%BE%8B%E7%8E%87-True-Positive-Rate%EF%BC%8CTPR"><span class="toc-text">六、真正例率 True Positive Rate，TPR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%81%87%E6%AD%A3%E4%BE%8B%E7%8E%87-False-Positive-Rate%EF%BC%8CFPR"><span class="toc-text">七、假正例率 False Positive Rate，FPR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81ROC-%E6%9B%B2%E7%BA%BF"><span class="toc-text">八、ROC 曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81AUC-%E9%9D%A2%E7%A7%AF"><span class="toc-text">九、AUC 面积</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

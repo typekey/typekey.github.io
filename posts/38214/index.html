@@ -1,0 +1,491 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>单细胞分析的 Python 包 Scanpy（图文详解） | 白墨</title><meta name="keywords" content="python,生信情报站,生物信息学,单细胞分析,Scanpy"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、安装如果没有conda 基础，参考： Conda 安装使用图文详解（2021版）  pip install scanpyconda install -y -c conda-forge leidenalg  二、使用1、准备工作# 载入包import numpy as npimport pandas as pdimport scanpy as sc# 设置sc.settings.verbosit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单细胞分析的 Python 包 Scanpy（图文详解）">
+<meta property="og:url" content="https://ziptop.top/posts/38214/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="一、安装如果没有conda 基础，参考： Conda 安装使用图文详解（2021版）  pip install scanpyconda install -y -c conda-forge leidenalg  二、使用1、准备工作# 载入包import numpy as npimport pandas as pdimport scanpy as sc# 设置sc.settings.verbosit">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img09.png">
+<meta property="article:published_time" content="2021-07-14T10:00:30.000Z">
+<meta property="article:modified_time" content="2021-07-14T10:00:30.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="生物信息学">
+<meta property="article:tag" content="单细胞分析">
+<meta property="article:tag" content="Scanpy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img09.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/38214/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '单细胞分析的 Python 包 Scanpy（图文详解）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-14 18:00:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img09.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">单细胞分析的 Python 包 Scanpy（图文详解）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2021-07-14T10:00:30.000Z" title="发表于 2021-07-14 18:00:30">2021-07-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/">生物信息</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/">生信分析</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="单细胞分析的 Python 包 Scanpy（图文详解）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>如果没有conda 基础，参考： <a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/88828229">Conda 安装使用图文详解（2021版）</a> </p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><code class="language-hljs python">pip install scanpy<br>conda install -y -c conda-forge leidenalg<br></code></pre></td></tr></table></figure>
+
+<h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><h3 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h3><figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 载入包</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> scanpy <span class="hljs-keyword">as</span> sc<br><br><span class="hljs-comment"># 设置</span><br>sc.settings.verbosity = <span class="hljs-number">3</span>             <span class="hljs-comment"># 设置日志等级: errors (0), warnings (1), info (2), hints (3)</span><br>sc.logging.print_header()<br>sc.settings.set_figure_params(dpi=<span class="hljs-number">80</span>, facecolor=<span class="hljs-string">&#x27;white&#x27;</span>)<br><br><span class="hljs-comment"># 用于存储分析结果文件的路径</span><br>results_file = <span class="hljs-string">&#x27;write/pbmc3k.h5ad&#x27;</span><br><br><span class="hljs-comment"># 载入文件</span><br>adata = sc.read_10x_mtx(<br>    <span class="hljs-string">&#x27;./filtered_gene_bc_matrices/hg19/&#x27;</span>,  <span class="hljs-comment"># mtx 文件目录</span><br>    var_names=<span class="hljs-string">&#x27;gene_symbols&#x27;</span>,             <span class="hljs-comment"># 使用 gene_symbols 作为变量名</span><br>    cache=<span class="hljs-literal">True</span>)                           <span class="hljs-comment"><code class="language-hljs python"><span class="hljs-comment"># 载入包</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> scanpy <span class="hljs-keyword">as</span> sc<br><br><span class="hljs-comment"># 设置</span><br>sc.settings.verbosity = <span class="hljs-number">3</span>             <span class="hljs-comment"># 设置日志等级: errors (0), warnings (1), info (2), hints (3)</span><br>sc.logging.print_header()<br>sc.settings.set_figure_params(dpi=<span class="hljs-number">80</span>, facecolor=<span class="hljs-string">&#x27;white&#x27;</span>)<br><br><span class="hljs-comment"># 用于存储分析结果文件的路径</span><br>results_file = <span class="hljs-string">&#x27;write/pbmc3k.h5ad&#x27;</span><br><br><span class="hljs-comment"># 载入文件</span><br>adata = sc.read_10x_mtx(<br>    <span class="hljs-string">&#x27;./filtered_gene_bc_matrices/hg19/&#x27;</span>,  <span class="hljs-comment"># mtx 文件目录</span><br>    var_names=<span class="hljs-string">&#x27;gene_symbols&#x27;</span>,             <span class="hljs-comment"># 使用 gene_symbols 作为变量名</span><br>    cache=<span class="hljs-literal">True</span>)                           <span class="hljs-comment"># 写入缓存，可以更快的读取文件</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2、预处理"><a href="#2、预处理" class="headerlink" title="2、预处理"></a>2、预处理</h3><p><strong>显示在所有细胞中在每个单细胞中产生最高计数分数的基因</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.highest_expr_genes(adata, n_top=<span class="hljs-number"><code class="language-hljs python">sc.pl.highest_expr_genes(adata, n_top=<span class="hljs-number">20</span>, )<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/ccb384e0df583dd3a9723662482d1ce7.png" alt="image.png"></p>
+<h4 id="过滤低质量细胞样本"><a href="#过滤低质量细胞样本" class="headerlink" title="过滤低质量细胞样本"></a>过滤低质量细胞样本</h4><p>过滤在少于三个细胞中表达，或一个细胞中表达少于200个基因的细胞样本</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pp.filter_cells(adata, min_genes=<span class="hljs-number">200</span>)<br>sc.pp.filter_genes(adata, min_cells=<span class="hljs-number"><code class="language-hljs python">sc.pp.filter_cells(adata, min_genes=<span class="hljs-number">200</span>)<br>sc.pp.filter_genes(adata, min_cells=<span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>过滤包含线粒体基因和表达基因过多的细胞</strong></p>
+<p>线粒体基因的转录本比单个转录物分子大，并且不太可能通过细胞膜逃逸。因此，检测出高比例的线粒体基因，表明细胞质量差（Islam et al. 2014; Ilicic et al. 2016）。</p>
+<p>表达基因过多可能是由于一个油滴包裹多个细胞，从而检测出比正常检测要多的基因数，因此要过滤这些细胞。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">adata.var[<span class="hljs-string">&#x27;mt&#x27;</span>] = adata.var_names.<span class="hljs-built_in">str</span>.startswith(<span class="hljs-string">&#x27;MT-&#x27;</span>)  <span class="hljs-comment"># 将线粒体基因标记为 mt</span><br>sc.pp.calculate_qc_metrics(adata, qc_vars=[<span class="hljs-string">&#x27;mt&#x27;</span>], percent_top=<span class="hljs-literal">None</span>, log1p=<span class="hljs-literal">False</span>, inplace=<span class="hljs-literal">True</span>)<br>sc.pl.violin(adata, [<span class="hljs-string">&#x27;n_genes_by_counts&#x27;</span>, <span class="hljs-string">&#x27;total_counts&#x27;</span>, <span class="hljs-string">&#x27;pct_counts_mt&#x27;</span>],<br>             jitter=<span class="hljs-number">0.4</span>, multi_panel=<span class="hljs-literal"><code class="language-hljs python">adata.var[<span class="hljs-string">&#x27;mt&#x27;</span>] = adata.var_names.<span class="hljs-built_in">str</span>.startswith(<span class="hljs-string">&#x27;MT-&#x27;</span>)  <span class="hljs-comment"># 将线粒体基因标记为 mt</span><br>sc.pp.calculate_qc_metrics(adata, qc_vars=[<span class="hljs-string">&#x27;mt&#x27;</span>], percent_top=<span class="hljs-literal">None</span>, log1p=<span class="hljs-literal">False</span>, inplace=<span class="hljs-literal">True</span>)<br>sc.pl.violin(adata, [<span class="hljs-string">&#x27;n_genes_by_counts&#x27;</span>, <span class="hljs-string">&#x27;total_counts&#x27;</span>, <span class="hljs-string">&#x27;pct_counts_mt&#x27;</span>],<br>             jitter=<span class="hljs-number">0.4</span>, multi_panel=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/35b0d7d405f47da9e81aa50327f75722.png" alt="image.png"></p>
+<p>生成的三张小提琴图代表：表达基因的数量，每个细胞包含的表达量，线粒体基因表达量的百分比。</p>
+<p>过滤</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.scatter(adata, x=<span class="hljs-string">&#x27;total_counts&#x27;</span>, y=<span class="hljs-string">&#x27;pct_counts_mt&#x27;</span>)<br>sc.pl.scatter(adata, x=<span class="hljs-string">&#x27;total_counts&#x27;</span>, y=<span class="hljs-string"><code class="language-hljs python">sc.pl.scatter(adata, x=<span class="hljs-string">&#x27;total_counts&#x27;</span>, y=<span class="hljs-string">&#x27;pct_counts_mt&#x27;</span>)<br>sc.pl.scatter(adata, x=<span class="hljs-string">&#x27;total_counts&#x27;</span>, y=<span class="hljs-string">&#x27;n_genes_by_counts&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/fb77729c38ef08aa595a50b7b2fa1abb.png" alt="image.png"></p>
+<p>过滤线粒体基因表达过多或总数过多的细胞，也就是红框标识的样本。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 获取线粒体基因占比在 5% 以下的细胞样本</span><br>adata = adata[adata.obs.pct_counts_mt &lt; <span class="hljs-number">5</span>, :]<br><span class="hljs-comment"># 获取表达基因数在 2500 以下的细胞样本</span><br>adata = adata[adata.obs.n_genes_by_counts &lt; <span class="hljs-number"><code class="language-hljs python"><span class="hljs-comment"># 获取线粒体基因占比在 5% 以下的细胞样本</span><br>adata = adata[adata.obs.pct_counts_mt &lt; <span class="hljs-number">5</span>, :]<br><span class="hljs-comment"># 获取表达基因数在 2500 以下的细胞样本</span><br>adata = adata[adata.obs.n_genes_by_counts &lt; <span class="hljs-number">2500</span>, :]<br></code></pre></td></tr></table></figure>
+
+<h3 id="3、检测特异性基因"><a href="#3、检测特异性基因" class="headerlink" title="3、检测特异性基因"></a>3、检测特异性基因</h3><p><strong>归一化</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 归一化，使得不同细胞样本间可比</span><br>sc.pp.normalize_total(adata, target_sum=<span class="hljs-number"><code class="language-hljs python"><span class="hljs-comment"># 归一化，使得不同细胞样本间可比</span><br>sc.pp.normalize_total(adata, target_sum=<span class="hljs-number">1e4</span>)<br>sc.pp.log1p(adata)<br></code></pre></td></tr></table></figure>
+
+<p><strong>存储数据</strong></p>
+<p>将 AnnData 对象的 .raw 属性设置为归一化和对数化的原始基因表达，以便以后用于基因表达的差异测试和可视化。这只是冻结了 AnnData 对象的状态。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><code class="language-hljs python">adata.raw = adata<br></code></pre></td></tr></table></figure>
+
+<p><strong>识别特异性基因</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre class=" language-hljs plaintext"><code class="language-hljs plaintext"># 计算<br>sc.pp.highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)<br># 绘制特异性基因散点图<br>sc.pl.highly_variable_genes(adata)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/bad51d40d3206ae25d099c87d955d0db.png" alt="image.png"></p>
+<p><strong>获取只有特异性基因的数据集</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 获取只有特异性基因的数据集</span><br>adata = adata[:, adata.var.highly_variable]<br><span class="hljs-comment"># 回归每个细胞的总计数和表达的线粒体基因的百分比的影响。</span><br>sc.pp.regress_out(adata, [<span class="hljs-string">&#x27;total_counts&#x27;</span>, <span class="hljs-string">&#x27;pct_counts_mt&#x27;</span>])<br><span class="hljs-comment"># 将每个基因缩放到单位方差。阈值超过标准偏差 10。</span><br>sc.pp.scale(adata, max_value=<span class="hljs-number"><code class="language-hljs python"><span class="hljs-comment"># 获取只有特异性基因的数据集</span><br>adata = adata[:, adata.var.highly_variable]<br><span class="hljs-comment"># 回归每个细胞的总计数和表达的线粒体基因的百分比的影响。</span><br>sc.pp.regress_out(adata, [<span class="hljs-string">&#x27;total_counts&#x27;</span>, <span class="hljs-string">&#x27;pct_counts_mt&#x27;</span>])<br><span class="hljs-comment"># 将每个基因缩放到单位方差。阈值超过标准偏差 10。</span><br>sc.pp.scale(adata, max_value=<span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="4、主成分分析（Principal-component-analysis）"><a href="#4、主成分分析（Principal-component-analysis）" class="headerlink" title="4、主成分分析（Principal component analysis）"></a>4、主成分分析（Principal component analysis）</h3><p>通过运行主成分分析 (PCA) 来降低数据的维数，可以对数据进行去噪并揭示不同分群的主因素。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 绘制 PCA 图</span><br>sc.tl.pca(adata, svd_solver=<span class="hljs-string">&#x27;arpack&#x27;</span>)<br>sc.pl.pca(adata, color=<span class="hljs-string"><code class="language-hljs python"><span class="hljs-comment"># 绘制 PCA 图</span><br>sc.tl.pca(adata, svd_solver=<span class="hljs-string">&#x27;arpack&#x27;</span>)<br>sc.pl.pca(adata, color=<span class="hljs-string">&#x27;CST3&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d720be5662e63db031fd08aeabb59405.png" alt="image.png"></p>
+<p>检查单个 PC 对数据总方差的贡献，这可以提供给我们应该考虑多少个 PC 以计算细胞的邻域关系的信息，例如用于后续的聚类函数 sc.tl.louvain() 或 tSNE 聚类 sc.tl.tsne()。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.pca_variance_ratio(adata, log=<span class="hljs-literal"><code class="language-hljs python">sc.pl.pca_variance_ratio(adata, log=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6aaaba49e4f3dd2c36f915ac77d0081d.png" alt="image.png"></p>
+<h3 id="5、领域图，聚类图（Neighborhood-graph）"><a href="#5、领域图，聚类图（Neighborhood-graph）" class="headerlink" title="5、领域图，聚类图（Neighborhood graph）"></a>5、领域图，聚类图（Neighborhood graph）</h3><p>使用数据矩阵的 PCA 表示来计算细胞的邻域图。为了重现 Seurat 的结果，我们采用以下值。</p>
+<p>建议使用 UMAP ，它可能比 tSNE 更忠实于流形的全局连通性，因此能更好地保留轨迹。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pp.neighbors(adata, n_neighbors=<span class="hljs-number">10</span>, n_pcs=<span class="hljs-number">40</span>)<br>sc.tl.umap(adata)<br><span class="hljs-comment"># 如果设置了 adata 的 .raw 属性时，下图显示了“raw”（标准化、对数化但未校正）基因表达矩阵。</span><br>sc.pl.umap(adata, color=[<span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string"><code class="language-hljs python">sc.pp.neighbors(adata, n_neighbors=<span class="hljs-number">10</span>, n_pcs=<span class="hljs-number">40</span>)<br>sc.tl.umap(adata)<br><span class="hljs-comment"># 如果设置了 adata 的 .raw 属性时，下图显示了“raw”（标准化、对数化但未校正）基因表达矩阵。</span><br>sc.pl.umap(adata, color=[<span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string">&#x27;PPBP&#x27;</span>])<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c6698f89e430e9bd18a3e5ed198c5665.png" alt="image.png"></p>
+<p>为了绘制缩放矫正的基因表达聚类图，需要使用 use_raw&#x3D;False 参数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.umap(adata, color=[<span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string">&#x27;PPBP&#x27;</span>], use_raw=<span class="hljs-literal"><code class="language-hljs python">sc.pl.umap(adata, color=[<span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string">&#x27;PPBP&#x27;</span>], use_raw=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e44ee97e0dc6278b92ad8d144462dd6a.png" alt="image.png"></p>
+<p>目前还没有计算出各个细胞类群，下面进行聚类</p>
+<p><strong>Leiden 图聚类</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 计算</span><br>sc.tl.leiden(adata)<br><span class="hljs-comment"># 绘制</span><br>sc.pl.umap(adata, color=[<span class="hljs-string"><code class="language-hljs python"><span class="hljs-comment"># 计算</span><br>sc.tl.leiden(adata)<br><span class="hljs-comment"># 绘制</span><br>sc.pl.umap(adata, color=[<span class="hljs-string">&#x27;leiden&#x27;</span>])<br></code></pre></td></tr></table></figure>
+
+<h3 id="6、检索标记基因"><a href="#6、检索标记基因" class="headerlink" title="6、检索标记基因"></a>6、检索标记基因</h3><p>先计算每个 leiden 分群中高度差异基因的排名，取排名前 25 的基因。</p>
+<p>默认情况下，使用 AnnData 的 .raw 属性。</p>
+<p><strong>T-test</strong></p>
+<p>最简单和最快的方法是 t 检验。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, method=<span class="hljs-string">&#x27;t-test&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, n_genes=<span class="hljs-number">25</span>, sharey=<span class="hljs-literal"><code class="language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, method=<span class="hljs-string">&#x27;t-test&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, n_genes=<span class="hljs-number">25</span>, sharey=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5749da2aee0b774e074fb6f2e3e0a096.png" alt="image.png"></p>
+<p><strong>Wilcoxon rank-sum</strong></p>
+<p>Wilcoxon rank-sum (Mann-Whitney-U) 检验的结果非常相似，还可以使用其他的差异分析包，如 MAST、limma、DESeq2 和 diffxpy。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, method=<span class="hljs-string">&#x27;wilcoxon&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, n_genes=<span class="hljs-number">25</span>, sharey=<span class="hljs-literal">False</span>)<br><span class="hljs-comment"><code class="language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, method=<span class="hljs-string">&#x27;wilcoxon&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, n_genes=<span class="hljs-number">25</span>, sharey=<span class="hljs-literal">False</span>)<br><span class="hljs-comment"># 保存这次的数据结果</span><br>adata.write(results_file)<br></code></pre></td></tr></table></figure>
+
+<p><strong>逻辑回归</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, method=<span class="hljs-string">&#x27;logreg&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, n_genes=<span class="hljs-number">25</span>, sharey=<span class="hljs-literal"><code class="language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, method=<span class="hljs-string">&#x27;logreg&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, n_genes=<span class="hljs-number">25</span>, sharey=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<p>使用逻辑回归对基因进行排名 Natranos et al. (2018)，这里使用多变量方法，而传统的差异测试是单变量 Clark et al. (2014)</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/bb6e86b96f6370844c891463a59286b8.png" alt="image.png"></p>
+<p>除了仅由 t 检验发现的 IL7R 和由其他两种方法发现的 FCER1A 之外，所有标记基因都在所有方法中都得到了重现。</p>
+<table>
+<thead>
+<tr>
+<th>Louvain Group</th>
+<th>Markers</th>
+<th>Cell Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>IL7R</td>
+<td>CD4 T cells</td>
+</tr>
+<tr>
+<td>1</td>
+<td>CD14, LYZ</td>
+<td>CD14+ Monocytes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MS4A1</td>
+<td>B cells</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CD8A</td>
+<td>CD8 T cells</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GNLY, NKG7</td>
+<td>NK cells</td>
+</tr>
+<tr>
+<td>5</td>
+<td>FCGR3A, MS4A7</td>
+<td>FCGR3A+ Monocytes</td>
+</tr>
+<tr>
+<td>6</td>
+<td>FCER1A, CST3</td>
+<td>Dendritic Cells</td>
+</tr>
+<tr>
+<td>7</td>
+<td>PPBP</td>
+<td>Megakaryocytes</td>
+</tr>
+</tbody></table>
+<p>根据已知的标记基因，定义一个标记基因列表供以后参考：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">marker_genes = [<span class="hljs-string">&#x27;IL7R&#x27;</span>, <span class="hljs-string">&#x27;CD79A&#x27;</span>, <span class="hljs-string">&#x27;MS4A1&#x27;</span>, <span class="hljs-string">&#x27;CD8A&#x27;</span>, <span class="hljs-string">&#x27;CD8B&#x27;</span>, <span class="hljs-string">&#x27;LYZ&#x27;</span>, <span class="hljs-string">&#x27;CD14&#x27;</span>,<br>                <span class="hljs-string">&#x27;LGALS3&#x27;</span>, <span class="hljs-string">&#x27;S100A8&#x27;</span>, <span class="hljs-string">&#x27;GNLY&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string">&#x27;KLRB1&#x27;</span>,<br>                <span class="hljs-string">&#x27;FCGR3A&#x27;</span>, <span class="hljs-string">&#x27;MS4A7&#x27;</span>, <span class="hljs-string">&#x27;FCER1A&#x27;</span>, <span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string"><code class="language-hljs python">marker_genes = [<span class="hljs-string">&#x27;IL7R&#x27;</span>, <span class="hljs-string">&#x27;CD79A&#x27;</span>, <span class="hljs-string">&#x27;MS4A1&#x27;</span>, <span class="hljs-string">&#x27;CD8A&#x27;</span>, <span class="hljs-string">&#x27;CD8B&#x27;</span>, <span class="hljs-string">&#x27;LYZ&#x27;</span>, <span class="hljs-string">&#x27;CD14&#x27;</span>,<br>                <span class="hljs-string">&#x27;LGALS3&#x27;</span>, <span class="hljs-string">&#x27;S100A8&#x27;</span>, <span class="hljs-string">&#x27;GNLY&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string">&#x27;KLRB1&#x27;</span>,<br>                <span class="hljs-string">&#x27;FCGR3A&#x27;</span>, <span class="hljs-string">&#x27;MS4A7&#x27;</span>, <span class="hljs-string">&#x27;FCER1A&#x27;</span>, <span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string">&#x27;PPBP&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>载入数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"><code class="language-hljs python"><span class="hljs-comment"># 使用 Wilcoxon Rank-Sum 测试结果重新加载已保存的对象</span><br>adata = sc.read(results_file)<br></code></pre></td></tr></table></figure>
+
+<p>获取聚类分组和分数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">result = adata.uns[<span class="hljs-string">&#x27;rank_genes_groups&#x27;</span>]<br>groups = result[<span class="hljs-string">&#x27;names&#x27;</span>].dtype.names<br>pd.DataFrame(<br>    &#123;group + <span class="hljs-string">&#x27;_&#x27;</span> + key[:<span class="hljs-number">1</span>]: result[key][group]<br>    <span class="hljs-keyword">for</span> group <span class="hljs-keyword">in</span> groups <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;names&#x27;</span>, <span class="hljs-string">&#x27;pvals&#x27;</span>]&#125;).head(<span class="hljs-number"><code class="language-hljs python">result = adata.uns[<span class="hljs-string">&#x27;rank_genes_groups&#x27;</span>]<br>groups = result[<span class="hljs-string">&#x27;names&#x27;</span>].dtype.names<br>pd.DataFrame(<br>    &#123;group + <span class="hljs-string">&#x27;_&#x27;</span> + key[:<span class="hljs-number">1</span>]: result[key][group]<br>    <span class="hljs-keyword">for</span> group <span class="hljs-keyword">in</span> groups <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;names&#x27;</span>, <span class="hljs-string">&#x27;pvals&#x27;</span>]&#125;).head(<span class="hljs-number">5</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d6488b91572f511fb988bd08cf0898ac.png" alt="image.png"></p>
+<p><strong>Group 1 与 Group 2 比较，进行差异分析</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, groups=[<span class="hljs-string">&#x27;0&#x27;</span>], reference=<span class="hljs-string">&#x27;1&#x27;</span>, method=<span class="hljs-string">&#x27;wilcoxon&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, groups=[<span class="hljs-string">&#x27;0&#x27;</span>], n_genes=<span class="hljs-number"><code class="language-hljs python">sc.tl.rank_genes_groups(adata, <span class="hljs-string">&#x27;leiden&#x27;</span>, groups=[<span class="hljs-string">&#x27;0&#x27;</span>], reference=<span class="hljs-string">&#x27;1&#x27;</span>, method=<span class="hljs-string">&#x27;wilcoxon&#x27;</span>)<br>sc.pl.rank_genes_groups(adata, groups=[<span class="hljs-string">&#x27;0&#x27;</span>], n_genes=<span class="hljs-number">20</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/8935d2f5d522e9646e0fb8624970c834.png" alt="image.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.rank_genes_groups_violin(adata, groups=<span class="hljs-string">&#x27;0&#x27;</span>, n_genes=<span class="hljs-number"><code class="language-hljs python">sc.pl.rank_genes_groups_violin(adata, groups=<span class="hljs-string">&#x27;0&#x27;</span>, n_genes=<span class="hljs-number">8</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/256241c8c285944d164535f76f226023.png" alt="image.png"></p>
+<p><strong>Group 0 与其余组的比较进行差异分析</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">adata = sc.read(results_file)<br>sc.pl.rank_genes_groups_violin(adata, groups=<span class="hljs-string">&#x27;0&#x27;</span>, n_genes=<span class="hljs-number"><code class="language-hljs python">adata = sc.read(results_file)<br>sc.pl.rank_genes_groups_violin(adata, groups=<span class="hljs-string">&#x27;0&#x27;</span>, n_genes=<span class="hljs-number">8</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d5e4e3f2a0e2c92b4598db2d51b187f5.png" alt="image.png"></p>
+<p><strong>跨类群比较基因</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.violin(adata, [<span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string">&#x27;PPBP&#x27;</span>], groupby=<span class="hljs-string"><code class="language-hljs python">sc.pl.violin(adata, [<span class="hljs-string">&#x27;CST3&#x27;</span>, <span class="hljs-string">&#x27;NKG7&#x27;</span>, <span class="hljs-string">&#x27;PPBP&#x27;</span>], groupby=<span class="hljs-string">&#x27;leiden&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1cd9aa0d89d0e1166b1b11a6bde26224.png" alt="image.png"></p>
+<p><strong>根据已知的细胞标记，注释细胞类型</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">new_cluster_names = [<br>    <span class="hljs-string">&#x27;CD4 T&#x27;</span>, <span class="hljs-string">&#x27;CD14 Monocytes&#x27;</span>,<br>    <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;CD8 T&#x27;</span>,<br>    <span class="hljs-string">&#x27;NK&#x27;</span>, <span class="hljs-string">&#x27;FCGR3A Monocytes&#x27;</span>,<br>    <span class="hljs-string">&#x27;Dendritic&#x27;</span>, <span class="hljs-string">&#x27;Megakaryocytes&#x27;</span>]<br>adata.rename_categories(<span class="hljs-string">&#x27;leiden&#x27;</span>, new_cluster_names)<br>sc.pl.umap(adata, color=<span class="hljs-string">&#x27;leiden&#x27;</span>, legend_loc=<span class="hljs-string">&#x27;on data&#x27;</span>, title=<span class="hljs-string">&#x27;&#x27;</span>, frameon=<span class="hljs-literal">False</span>, save=<span class="hljs-string"><code class="language-hljs python">new_cluster_names = [<br>    <span class="hljs-string">&#x27;CD4 T&#x27;</span>, <span class="hljs-string">&#x27;CD14 Monocytes&#x27;</span>,<br>    <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;CD8 T&#x27;</span>,<br>    <span class="hljs-string">&#x27;NK&#x27;</span>, <span class="hljs-string">&#x27;FCGR3A Monocytes&#x27;</span>,<br>    <span class="hljs-string">&#x27;Dendritic&#x27;</span>, <span class="hljs-string">&#x27;Megakaryocytes&#x27;</span>]<br>adata.rename_categories(<span class="hljs-string">&#x27;leiden&#x27;</span>, new_cluster_names)<br>sc.pl.umap(adata, color=<span class="hljs-string">&#x27;leiden&#x27;</span>, legend_loc=<span class="hljs-string">&#x27;on data&#x27;</span>, title=<span class="hljs-string">&#x27;&#x27;</span>, frameon=<span class="hljs-literal">False</span>, save=<span class="hljs-string">&#x27;.pdf&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f6ab7056c8db2b739d56ea0ce21bf24d.png" alt="image.png"></p>
+<p><strong>可视化每个类群的标记基因</strong></p>
+<p>气泡图显示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.dotplot(adata, marker_genes, groupby=<span class="hljs-string"><code class="language-hljs python">sc.pl.dotplot(adata, marker_genes, groupby=<span class="hljs-string">&#x27;leiden&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/73db633aaeaf8acff19d5626b929628f.png" alt="image.png"></p>
+<p>小提琴图显示</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">sc.pl.stacked_violin(adata, marker_genes, groupby=<span class="hljs-string">&#x27;leiden&#x27;</span>, rotation=<span class="hljs-number"><code class="language-hljs python">sc.pl.stacked_violin(adata, marker_genes, groupby=<span class="hljs-string">&#x27;leiden&#x27;</span>, rotation=<span class="hljs-number">90</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/4b7fb5f91b1f811bb2982f1f236420e0.png" alt="image.png"></p>
+<h3 id="7、保存数据"><a href="#7、保存数据" class="headerlink" title="7、保存数据"></a>7、保存数据</h3><p><strong>保存压缩文件</strong></p>
+<p>如果只想将其用于可视化的人共享此文件，减少文件大小的一种简单方法是删除缩放和校正的数据矩阵。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">adata.write(results_file, compression=<span class="hljs-string"><code class="language-hljs python">adata.write(results_file, compression=<span class="hljs-string">&#x27;gzip&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>保存为 h5ad 数据</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">adata.raw.to_adata().write(<span class="hljs-string"><code class="language-hljs python">adata.raw.to_adata().write(<span class="hljs-string">&#x27;./write/pbmc3k_withoutX.h5ad&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>读取使用 adata &#x3D; sc.read_h5ad(‘.&#x2F;write&#x2F;pbmc3k_withoutX.h5ad’)</p>
+</blockquote>
+<p><strong>导出数据子集</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 导出聚类数据</span><br>adata.obs[[<span class="hljs-string">&#x27;n_counts&#x27;</span>, <span class="hljs-string">&#x27;louvain_groups&#x27;</span>]].to_csv(<span class="hljs-string">&#x27;./write/pbmc3k_corrected_louvain_groups.csv&#x27;</span>)<br><span class="hljs-comment"># 导出PCA数据</span><br>adata.obsm.to_df()[[<span class="hljs-string">&#x27;X_pca1&#x27;</span>, <span class="hljs-string">&#x27;X_pca2&#x27;</span>]].to_csv(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-comment"># 导出聚类数据</span><br>adata.obs[[<span class="hljs-string">&#x27;n_counts&#x27;</span>, <span class="hljs-string">&#x27;louvain_groups&#x27;</span>]].to_csv(<span class="hljs-string">&#x27;./write/pbmc3k_corrected_louvain_groups.csv&#x27;</span>)<br><span class="hljs-comment"># 导出PCA数据</span><br>adata.obsm.to_df()[[<span class="hljs-string">&#x27;X_pca1&#x27;</span>, <span class="hljs-string">&#x27;X_pca2&#x27;</span>]].to_csv(<span class="hljs-string">&#x27;./write/pbmc3k_corrected_X_pca.csv&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="8、番外"><a href="#8、番外" class="headerlink" title="8、番外"></a>8、番外</h3><p>我之前在处理较多数据量的时候，会有些地方不一样，具体每个数据集的处理也会有比较大的自由度，比如：</p>
+<p>在检测线粒体基因时，这里在质控时，已经把线粒体基因直接剔除。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/41c0439c4cc2d863f2dce5c47e0ad5d0.png" alt="image.png"></p>
+<p>在做 UMAP 时，可以看到一些类群间的联系和轨迹。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/cc84826e43089b3e89230802c4a48447.png" alt="image.png"></p>
+<p>做 TSNE时，可以看到类群间比较干净利索，整体比较“饱满”。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3c6b0d6411c88b8476da145ce09c7706.png" alt="image.png"></p>
+<p>其他 Scanpy 的使用教程：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/u011262253/article/details/116070697">scanpy 单细胞分析包图文详解 01 | 深入理解 AnnData 数据结构</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/38214/">https://ziptop.top/posts/38214/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a><a class="post-meta__tags" href="/tags/%E5%8D%95%E7%BB%86%E8%83%9E%E5%88%86%E6%9E%90/">单细胞分析</a><a class="post-meta__tags" href="/tags/Scanpy/">Scanpy</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img09.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/33025/"><img class="prev-cover" src="/assert/img/background/img11.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">生信软件 | STAR（测序序列与参考序列比对）</div></div></a></div><div class="next-post pull-right"><a href="/posts/5273/"><img class="next-cover" src="/assert/img/background/img11.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux 查看并关闭端口</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/21265/" title="Pandas 修改单列，多列，Dataframe 数据类型方法汇总"><img class="cover" src="/assert/img/background/img11.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-17</div><div class="title">Pandas 修改单列，多列，Dataframe 数据类型方法汇总</div></div></a></div><div><a href="/posts/7229/" title="在 Pycharm 中玩转 GitHub（图文详解）"><img class="cover" src="/assert/img/background/img07.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-03</div><div class="title">在 Pycharm 中玩转 GitHub（图文详解）</div></div></a></div><div><a href="/posts/12247/" title="最新最全 VSCODE 插件推荐（2022版）"><img class="cover" src="/assert/img/background/img07.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-20</div><div class="title">最新最全 VSCODE 插件推荐（2022版）</div></div></a></div><div><a href="/posts/34675/" title="Hi-C 测序技术（图解详解）"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-06</div><div class="title">Hi-C 测序技术（图解详解）</div></div></a></div><div><a href="/posts/29665/" title="Python 自动化提取基因的 CDS"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-21</div><div class="title">Python 自动化提取基因的 CDS</div></div></a></div><div><a href="/posts/50931/" title="Seurat | 不同单细胞转录组的整合方法"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-15</div><div class="title">Seurat | 不同单细胞转录组的整合方法</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-text">一、安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8"><span class="toc-text">二、使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">1、准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-text">2、预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E4%BD%8E%E8%B4%A8%E9%87%8F%E7%BB%86%E8%83%9E%E6%A0%B7%E6%9C%AC"><span class="toc-text">过滤低质量细胞样本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%A3%80%E6%B5%8B%E7%89%B9%E5%BC%82%E6%80%A7%E5%9F%BA%E5%9B%A0"><span class="toc-text">3、检测特异性基因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90%EF%BC%88Principal-component-analysis%EF%BC%89"><span class="toc-text">4、主成分分析（Principal component analysis）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E9%A2%86%E5%9F%9F%E5%9B%BE%EF%BC%8C%E8%81%9A%E7%B1%BB%E5%9B%BE%EF%BC%88Neighborhood-graph%EF%BC%89"><span class="toc-text">5、领域图，聚类图（Neighborhood graph）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E6%A3%80%E7%B4%A2%E6%A0%87%E8%AE%B0%E5%9F%BA%E5%9B%A0"><span class="toc-text">6、检索标记基因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E4%BF%9D%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="toc-text">7、保存数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E7%95%AA%E5%A4%96"><span class="toc-text">8、番外</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

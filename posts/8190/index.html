@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>从零开始学统计 10 | 通俗易懂的 P 值 | 白墨</title><meta name="keywords" content="生信情报站,统计学,1024程序员节,显著性,P值,pvalue"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="怎么计算P值抛两次硬币，计算两次都为正（H）的概率  计算的P值由三个部分组成：  在观察到，在随机事件中发生的概率 与之概率相等的事件的概率 任何比观察的更罕见的事件发生概率  抛 5 次硬币，计算都为正（H）的概率，与P值  概率为  P值由三部分组成：  5个正面 5个反面 没有比这个事件更小的概率事件  所以计算得到  可以看到 p 值不小于 0.05（显著性阈值） 计算四个正面，一个反面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始学统计 10 | 通俗易懂的 P 值">
+<meta property="og:url" content="https://ziptop.top/posts/8190/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="怎么计算P值抛两次硬币，计算两次都为正（H）的概率  计算的P值由三个部分组成：  在观察到，在随机事件中发生的概率 与之概率相等的事件的概率 任何比观察的更罕见的事件发生概率  抛 5 次硬币，计算都为正（H）的概率，与P值  概率为  P值由三部分组成：  5个正面 5个反面 没有比这个事件更小的概率事件  所以计算得到  可以看到 p 值不小于 0.05（显著性阈值） 计算四个正面，一个反面">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img07.png">
+<meta property="article:published_time" content="2020-10-24T04:23:36.000Z">
+<meta property="article:modified_time" content="2020-10-24T04:23:36.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="生信情报站">
+<meta property="article:tag" content="统计学">
+<meta property="article:tag" content="1024程序员节">
+<meta property="article:tag" content="显著性">
+<meta property="article:tag" content="P值">
+<meta property="article:tag" content="pvalue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img07.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/8190/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从零开始学统计 10 | 通俗易懂的 P 值',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-10-24 12:23:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img07.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从零开始学统计 10 | 通俗易懂的 P 值</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-10-24T04:23:36.000Z" title="发表于 2020-10-24 12:23:36">2020-10-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/">统计学</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从零开始学统计 10 | 通俗易懂的 P 值"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="怎么计算P值"><a href="#怎么计算P值" class="headerlink" title="怎么计算P值"></a>怎么计算P值</h3><p>抛两次硬币，计算两次都为正（H）的概率</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b102b72c41aeb75ffadaa94b05ef337f.png" alt="mark"></p>
+<p>计算的P值由三个部分组成：</p>
+<ul>
+<li>在观察到，在随机事件中发生的概率</li>
+<li>与之概率相等的事件的概率</li>
+<li>任何比观察的更罕见的事件发生概率</li>
+</ul>
+<p><strong>抛 5 次硬币，计算都为正（H）的概率，与P值</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d5a6595b9129ae101f52a051f06086a8.png" alt="mark"></p>
+<p>概率为</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3f2c85fc21cb36eb3375f6bb92af7928.png" alt="mark"></p>
+<p>P值由三部分组成：</p>
+<ul>
+<li>5个正面</li>
+<li>5个反面</li>
+<li>没有比这个事件更小的概率事件</li>
+</ul>
+<p>所以计算得到</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/0bf9feface355380212328970f4d9ad5.png" alt="mark"></p>
+<p>可以看到 p 值不小于 0.05（显著性阈值）</p>
+<p><strong>计算四个正面，一个反面的概率：</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/ba9ab6c10179d7096294dbd7b446f710.png" alt="mark"></p>
+<p>p 值由三部分组成</p>
+<ul>
+<li>4正1反</li>
+<li>1正4反</li>
+<li>5正+5反</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1a57067f7755b37bc6eeaa0334135d5a.png" alt="mark"></p>
+<p>可以看到 p 值更不小于 0.05（显著性阈值），说明这个事件相对常见。</p>
+<p>但是有个问题，如果是大样本量的话，不可能去列出所有的可能的</p>
+<p>这时，就需要用到我们之前提到的分布</p>
+<p>下图表示身高分布</p>
+<p>曲线下面积表示一个人在范围内的身高概率</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f05ca3e00f71bfe2eb1275726447df10.png" alt="mark"></p>
+<p>可以发现，曲线下 95 %的面积在身高 142 ~ 169cm，表示身高在这个范围内的概率。也就是说，测量一个人身高时，得到身高在 142 ~ 169cm 间的概率在 95%。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/857e38e8d286dad304d677ac09c1abb9.png" alt="mark"></p>
+<p>曲线下有 2.5 % 的总面积对于的高度大于 169cm。也就是说，测量一个人时，她身高大于 169 cm的概率是2.5%。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/912f9df63e9e42b103d5b0a1fccbaa9d.png" alt="mark"></p>
+<p>曲线下有 2.5 % 的总面积对于的高度小于 142cm。也就是说，测量一个人时，她身高小于 142 cm的概率是2.5%。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9b6ed68e4afef6243c946d62436e3269.png" alt="mark"></p>
+<p>了解到这些，计算 p 值就很简单了，只需要将相应的面积百分比相加就行。</p>
+<p>现在计算身高超过 169cm 的身高 p 值。回忆下 p 值由三部分构成：</p>
+<ul>
+<li>在随机事件中发生的概率（&gt;169cm）：2.5%</li>
+<li>与之概率相等的事件的概率（&lt;142cm）：2.5%</li>
+<li>任何比观察的更罕见的事件发生概率：0</li>
+</ul>
+<p>在图中标记出来：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/8d047d94b5d159637f36c375d9aa4a90.png" alt="mark"></p>
+<p>p 值 &#x3D; 2.5% + 2.5% &#x3D; 5% &#x3D; 0.05</p>
+<p>计算身高在 155.4cm ~ 156cm 间的人的p值是多少？</p>
+<p>第一部分：这个身高区间，计算得到的面积是 4%</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b04851f306cde550753ab08ea1ac27b9.png" alt="mark"></p>
+<p>第二部分：&lt; 155.4cm 的面积 48% 与 &gt; 156cm 的面积为48%，二者相加为96%</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6ca169a9e444858e79fa90e9d710c1ad.png" alt="mark"></p>
+<p>第三部分：无</p>
+<p>p 值 &#x3D; 4% + 96% &#x3D; 1</p>
+<p>虽然这个区间的概率很小只有4%，但是 p &#x3D; 1，代表这段身高区间的人并没什么特别之处。</p>
+<h3 id="单尾与双尾的P值"><a href="#单尾与双尾的P值" class="headerlink" title="单尾与双尾的P值"></a>单尾与双尾的P值</h3><p>现在发明了一种新的癌症治疗方法，我们要看用新治疗方法与旧治疗方法的效果比较。</p>
+<p>对 6 个病人做治疗，新方法治疗（红点），旧方法治疗（黑点），在数轴上从左到右依次由好变坏。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/66126a1084b1981a5063c78f4f1ccc93.png" alt="mark"></p>
+<p>单尾 P 值检验是新治疗优于旧治疗方法的假设。</p>
+<p>双尾 P 值检验是新治疗是否更好，更差或没有显著差异。</p>
+<p>单尾检验 P 值更小，意味着它不区分较差和无显著差异。</p>
+<p>但是，现在我们想知道的是：新方法是否比旧治疗法更好还是更差。这时候最好使用双尾检验。</p>
+<p>分别取两次样本，一次取三个数据</p>
+<p>一种常见的情况像下图这样，两个样本会有重叠区域。这样得到的双尾t检验 P 值肯定是大于 0.05 的。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f265d4f1bd2fa653a9122963c81de1c3.png" alt="mark"></p>
+<p>一种不常见的情况是，两个样本分的很开。双尾t检验会给一个小于0.05的 p 值。这种就是常说的假阳性，发生概率在 5 %。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/cd0b2783bc563b962095a2ce54e50777.png" alt="mark"></p>
+<p>为什么是 5 %？</p>
+<p>从正态分布的数据中，重复抽样 10000次</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7028b3c1938d6b78b3a6e939eee2ae8a.png" alt="mark"></p>
+<p>将每次抽样的 p 值计算下，作图</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b95e846b446e6445a1d092db8b929028.png" alt="mark"></p>
+<p>可以看到 p 值小于 0.05 的个数大约是 500，计算 p 值 500&#x2F;10000 &#x3D; 5%</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/145e5c809e82a8f3d5e95959db50b260.png" alt="mark"></p>
+<p>现在样本一中的两个以上的值小于样本二中所有的值，用单尾 t 检验</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6616ea3ae713f972a70d3547801dbd2a.png" alt="mark"></p>
+<p>现在有 800 个假阳性，那么假阳性率为 8 %。但是刚刚我们还使用 0.05 来作为显著性阈值。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/04fae670add14c285f2ab91dc355ab5b.png" alt="mark"></p>
+<p>所以，不能看到数据后才决定使用单尾 p 值。</p>
+<p>实际上，对于所有数据都有单尾或双尾 p 值，<strong>一般都要选择双尾的 p 值</strong>。</p>
+<h3 id="抽样分布"><a href="#抽样分布" class="headerlink" title="抽样分布"></a>抽样分布</h3><h5 id="单一分布中抽样"><a href="#单一分布中抽样" class="headerlink" title="单一分布中抽样"></a>单一分布中抽样</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/515781d24563dd48c7b84791c3ed7c48.png" alt="mark"></p>
+<p>比如，现在从分布中抽取 2 组样本，每组 3 个样本。每个样本抽到的几率相等。</p>
+<p>进行T检验，由于是同一分布，T检验会给我们一个很大的P值（表示两组样本很相关）。通过大量的检验，我们可以得到T检验给出大P值的概率。</p>
+<h5 id="两个独立分布中抽样"><a href="#两个独立分布中抽样" class="headerlink" title="两个独立分布中抽样"></a>两个独立分布中抽样</h5><p>但是，这里假设要从两个独立分布中抽取样本：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/eb03d31ee65bd8ead1c2819e4abffd69.png" alt="mark"></p>
+<p>两个独立分布代表两组样本相关性很小，T检验就会给出很小的P值。</p>
+<p>如果样本量大，我可以做多次T检验，查看T检验给出小P值的概率。</p>
+<p>这个是为了检测是否需要增加样本量，排除是否因为抽样问题造成统计误差。</p>
+<p>致谢：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw">https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/8190/">https://ziptop.top/posts/8190/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E4%BF%A1%E6%83%85%E6%8A%A5%E7%AB%99/">生信情报站</a><a class="post-meta__tags" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/">统计学</a><a class="post-meta__tags" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/">1024程序员节</a><a class="post-meta__tags" href="/tags/%E6%98%BE%E8%91%97%E6%80%A7/">显著性</a><a class="post-meta__tags" href="/tags/P%E5%80%BC/">P值</a><a class="post-meta__tags" href="/tags/pvalue/">pvalue</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img07.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/57768/"><img class="prev-cover" src="/assert/img/background/img06.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">从零开始学统计 11 | 理解置信区间</div></div></a></div><div class="next-post pull-right"><a href="/posts/36445/"><img class="next-cover" src="/assert/img/background/img01.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">玩转 Windows 自带的 Linux 子系统 WSL（图文指南）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/57768/" title="从零开始学统计 11 | 理解置信区间"><img class="cover" src="/assert/img/background/img06.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-24</div><div class="title">从零开始学统计 11 | 理解置信区间</div></div></a></div><div><a href="/posts/58851/" title="Markdown_数学公式写法与速查表"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-12</div><div class="title">Markdown_数学公式写法与速查表</div></div></a></div><div><a href="/posts/7999/" title="从水果连连看到两条序列比对"><img class="cover" src="/assert/img/background/img04.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-24</div><div class="title">从水果连连看到两条序列比对</div></div></a></div><div><a href="/posts/9942/" title="从零开始学统计 01 | 神奇的正态分布"><img class="cover" src="/assert/img/background/img01.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">从零开始学统计 01 | 神奇的正态分布</div></div></a></div><div><a href="/posts/4125/" title="从零开始学统计 04 | 协方差与相关性分析"><img class="cover" src="/assert/img/background/img18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">从零开始学统计 04 | 协方差与相关性分析</div></div></a></div><div><a href="/posts/52450/" title="从零开始学统计 02 | 总体参数"><img class="cover" src="/assert/img/background/img09.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">从零开始学统计 02 | 总体参数</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E8%AE%A1%E7%AE%97P%E5%80%BC"><span class="toc-text">怎么计算P值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%B0%BE%E4%B8%8E%E5%8F%8C%E5%B0%BE%E7%9A%84P%E5%80%BC"><span class="toc-text">单尾与双尾的P值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83"><span class="toc-text">抽样分布</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%95%E4%B8%80%E5%88%86%E5%B8%83%E4%B8%AD%E6%8A%BD%E6%A0%B7"><span class="toc-text">单一分布中抽样</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E7%8B%AC%E7%AB%8B%E5%88%86%E5%B8%83%E4%B8%AD%E6%8A%BD%E6%A0%B7"><span class="toc-text">两个独立分布中抽样</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Django REST 框架详解 02 | 设置与模块 | 白墨</title><meta name="keywords" content="Python,网站开发,数据库开发,python,数据库,后端,Django,Django REST 框架"><meta name="author" content="白墨"><meta name="copyright" content="白墨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、设置setting.py import os# Build paths inside the project like this: os.path.join(BASE_DIR, ...)BASE_DIR &#x3D; os.path.dirname(os.path.dirname(os.path.abspath(__file__)))# Quick-start development settings">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django REST 框架详解 02 | 设置与模块">
+<meta property="og:url" content="https://ziptop.top/posts/885/index.html">
+<meta property="og:site_name" content="白墨">
+<meta property="og:description" content="一、设置setting.py import os# Build paths inside the project like this: os.path.join(BASE_DIR, ...)BASE_DIR &#x3D; os.path.dirname(os.path.dirname(os.path.abspath(__file__)))# Quick-start development settings">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ziptop.top/assert/img/background/img16.png">
+<meta property="article:published_time" content="2020-05-17T08:38:59.000Z">
+<meta property="article:modified_time" content="2020-05-17T08:38:59.000Z">
+<meta property="article:author" content="白墨">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="网站开发">
+<meta property="article:tag" content="数据库开发">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="Django">
+<meta property="article:tag" content="Django REST 框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ziptop.top/assert/img/background/img16.png"><link rel="shortcut icon" href="/assert/img/favicon.ico"><link rel="canonical" href="https://ziptop.top/posts/885/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D20ET8Z6PT"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D20ET8Z6PT');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 白墨","link":"链接: ","source":"来源: 白墨","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Django REST 框架详解 02 | 设置与模块',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-05-17 16:38:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assert/css/baimo-main.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3831269_b8qnvjc7vnp.css"><link rel="stylesheet" href="/assert/css/categoryBar.css"><link rel="stylesheet" href="/assert/css/nav-menu.css"><link rel="stylesheet" href="/assert/css/APlayer.min.css"><link rel="stylesheet" href="/assert/css/aplayer.css"><meta name="generator" content="Hexo 6.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assert/img/background/img16.png')"><nav id="nav"><span id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon fas fa-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">服务</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="前往博客主页" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">博客主页</span></a><a class="back-menu-item" href="/link/" rel="external nofollow" title="前往网址导航" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">网址导航</span></a><a class="back-menu-item" href="http://ref.ziptop.top/" rel="external nofollow" title="前往生信文档" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">生信文档</span></a><a class="back-menu-item" href="https://qqdb.github.io/bioinfo-book/" rel="external nofollow" title="前往编程清单" target="_blank" one-link-mark="yes"><span class="back-menu-item-text">编程清单</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/raacfold/" title="蛋白质结构约化分析" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">RaacFold</span></a><a class="back-menu-item" href="http://bioinfor.imu.edu.cn/ematlas/" title="哺乳动物胚胎发育图谱" target="_blank" rel="noopener nofollow" one-link-mark="yes"><span class="back-menu-item-text">EmAtlas</span></a></div></div></div></div><a id="site-name" href="/"><div class="title">白墨</div><i class="fa-solid fa-house"></i></a></span><div class="mask-name-container"><center id="name-container"><a id="page-name" href="javascript:btf.scrollToDest(0, 500)" rel="external nofollow noreferrer">PAGE_NAME</a></center></div><div id="menus"><div class="nav-button" id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="nav-button" id="darkmode_navswitch"><a class="darkmode_switchbutton" type="button" title="浅色和深色模式转换" onclick="switchDarkMode()"><i class="fas fa-adjust"></i></a></div><div class="nav-button" id="nav-totop"><a class="totopbtn"><i class="fas fa-arrow-up"></i><span id="percent" onclick="btf.scrollToDest(0,500)">0</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><span> 文章列表</span></a></li><li><a class="site-page child" href="/tags/"><span> 全部标签</span></a></li><li><a class="site-page child" href="/categories/"><span> 全部分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><span> 专栏</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/"><span> 生物信息</span></a></li><li><a class="site-page child" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"><span> 网站开发</span></a></li><li><a class="site-page child" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"><span> 编程基础</span></a></li><li><a class="site-page child" href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"><span> 统计学</span></a></li><li><a class="site-page child" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"><span> 数据库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><span> 网址</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Django REST 框架详解 02 | 设置与模块</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-05-17T08:38:59.000Z" title="发表于 2020-05-17 16:38:59">2020-05-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/">网站开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Django REST 框架详解 02 | 设置与模块"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、设置"><a href="#一、设置" class="headerlink" title="一、设置"></a>一、设置</h2><p><code>setting.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># Build paths inside the project like this: os.path.join(BASE_DIR, ...)</span><br>BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))<br><br><br><span class="hljs-comment"># Quick-start development settings - unsuitable for production</span><br><span class="hljs-comment"># See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/</span><br><br><span class="hljs-comment"># SECURITY WARNING: keep the secret key used in production secret!</span><br>SECRET_KEY = <span class="hljs-string">&#x27;c$6r%hz+w4b7zsnjffb-uk1lt9-53__*r60(v5t-uznv-dq210&#x27;</span><br><br><span class="hljs-comment"># SECURITY WARNING: don&#x27;t run with debug turned on in production!</span><br>DEBUG = <span class="hljs-literal">True</span><br><br>ALLOWED_HOSTS = []<br><br><br><span class="hljs-comment"># Application definition</span><br><br>INSTALLED_APPS = [<br>    <span class="hljs-comment"># 系统的</span><br>    <span class="hljs-string">&#x27;django.contrib.admin&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.auth&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.contenttypes&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.sessions&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.messages&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.staticfiles&#x27;</span>,<br><br>    <span class="hljs-comment"># 第三方</span><br>    <span class="hljs-string">&#x27;rest_framework&#x27;</span>,<br><br>    <span class="hljs-comment"># 自定义</span><br>    <span class="hljs-string">&#x27;api.apps.ApiConfig&#x27;</span>,<br>]<br><br>MIDDLEWARE = [<br>    <span class="hljs-string">&#x27;django.middleware.security.SecurityMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.middleware.common.CommonMiddleware&#x27;</span>,<br>    <span class="hljs-comment"># &#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;,</span><br>    <span class="hljs-string">&#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;</span>,<br>]<br><br>ROOT_URLCONF = <span class="hljs-string">&#x27;drf_proj.urls&#x27;</span><br><br>TEMPLATES = [<br>    &#123;<br>        <span class="hljs-string">&#x27;BACKEND&#x27;</span>: <span class="hljs-string">&#x27;django.template.backends.django.DjangoTemplates&#x27;</span>,<br>        <span class="hljs-string">&#x27;DIRS&#x27;</span>: [os.path.join(BASE_DIR, <span class="hljs-string">&#x27;templates&#x27;</span>)]<br>        ,<br>        <span class="hljs-string">&#x27;APP_DIRS&#x27;</span>: <span class="hljs-literal">True</span>,<br>        <span class="hljs-string">&#x27;OPTIONS&#x27;</span>: &#123;<br>            <span class="hljs-string">&#x27;context_processors&#x27;</span>: [<br>                <span class="hljs-string">&#x27;django.template.context_processors.debug&#x27;</span>,<br>                <span class="hljs-string">&#x27;django.template.context_processors.request&#x27;</span>,<br>                <span class="hljs-string">&#x27;django.contrib.auth.context_processors.auth&#x27;</span>,<br>                <span class="hljs-string">&#x27;django.contrib.messages.context_processors.messages&#x27;</span>,<br>            ],<br>        &#125;,<br>    &#125;,<br>]<br><br>WSGI_APPLICATION = <span class="hljs-string">&#x27;drf_proj.wsgi.application&#x27;</span><br><br><br><span class="hljs-comment"># Database</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/ref/settings/#databases</span><br><br>DATABASES = &#123;<br>    <span class="hljs-comment"># &#x27;default&#x27;: &#123;</span><br>    <span class="hljs-comment">#     &#x27;ENGINE&#x27;: &#x27;django.db.backends.sqlite3&#x27;,</span><br>    <span class="hljs-comment">#     &#x27;NAME&#x27;: os.path.join(BASE_DIR, &#x27;db.sqlite3&#x27;),</span><br>    <span class="hljs-comment"># &#125;</span><br>    <span class="hljs-string">&#x27;default&#x27;</span>: &#123;<br>        <span class="hljs-string">&#x27;ENGINE&#x27;</span>: <span class="hljs-string">&#x27;django.db.backends.mysql&#x27;</span>,<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;drf_api01&#x27;</span>,<br>        <span class="hljs-string">&#x27;USER&#x27;</span>: <span class="hljs-string">&#x27;root&#x27;</span>,<br>        <span class="hljs-string">&#x27;PASSWORD&#x27;</span>: <span class="hljs-string">&#x27;857009236&#x27;</span><br>    &#125;<br>&#125;<br><br><br><span class="hljs-comment"># Password validation</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators</span><br><br>AUTH_PASSWORD_VALIDATORS = [<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&#x27;</span>,<br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.MinimumLengthValidator&#x27;</span>,<br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.CommonPasswordValidator&#x27;</span>,<br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.NumericPasswordValidator&#x27;</span>,<br>    &#125;,<br>]<br><br><br><span class="hljs-comment"># Internationalization</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/topics/i18n/</span><br><br>LANGUAGE_CODE = <span class="hljs-string">&#x27;en-us&#x27;</span><br><br>TIME_ZONE = <span class="hljs-string">&#x27;UTC&#x27;</span><br><br>USE_I18N = <span class="hljs-literal">True</span><br><br>USE_L10N = <span class="hljs-literal">True</span><br><br>USE_TZ = <span class="hljs-literal">True</span><br><br><br><span class="hljs-comment"># Static files (CSS, JavaScript, Images)</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/howto/static-files/</span><br><br>STATIC_URL = <span class="hljs-string">&#x27;/static/&#x27;</span><br>MEDIA_URL = <span class="hljs-string">&#x27;/media/&#x27;</span><br><br>MEDIA_ROOT = os.path.join(BASE_DIR, <span class="hljs-string">&#x27;media&#x27;</span>)<br><br><span class="hljs-comment"># 全局局部配置</span><br>REST_FRAMEWORK = &#123;<br>    <span class="hljs-string">&#x27;DEFAULT_RENDERER_CLASSES&#x27;</span>: [<br>        <span class="hljs-string">&#x27;rest_framework.renderers.JSONRenderer&#x27;</span>,<br>        <span class="hljs-string">&#x27;rest_framework.renderers.BrowsableAPIRenderer&#x27;</span><br>    ],<br>    <span class="hljs-comment"># 全局解析类配置</span><br>    <span class="hljs-string">&#x27;DEFAULT_PARSER_CLASSES&#x27;</span>: [<br>        <span class="hljs-string">&#x27;rest_framework.parsers.JSONParser&#x27;</span>,<br>        <span class="hljs-string">&#x27;rest_framework.parsers.FormParser&#x27;</span>,<br>        <span class="hljs-string">&#x27;rest_framework.parsers.MultiPartParser&#x27;</span><br>    ],<br>    <span class="hljs-comment"># 全局异常模块配置</span><br>    <span class="hljs-string">&#x27;EXCEPTION_HANDLER&#x27;</span>: <span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># Build paths inside the project like this: os.path.join(BASE_DIR, ...)</span><br>BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))<br><br><br><span class="hljs-comment"># Quick-start development settings - unsuitable for production</span><br><span class="hljs-comment"># See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/</span><br><br><span class="hljs-comment"># SECURITY WARNING: keep the secret key used in production secret!</span><br>SECRET_KEY = <span class="hljs-string">&#x27;c$6r%hz+w4b7zsnjffb-uk1lt9-53__*r60(v5t-uznv-dq210&#x27;</span><br><br><span class="hljs-comment"># SECURITY WARNING: don&#x27;t run with debug turned on in production!</span><br>DEBUG = <span class="hljs-literal">True</span><br><br>ALLOWED_HOSTS = []<br><br><br><span class="hljs-comment"># Application definition</span><br><br>INSTALLED_APPS = [<br>    <span class="hljs-comment"># 系统的</span><br>    <span class="hljs-string">&#x27;django.contrib.admin&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.auth&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.contenttypes&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.sessions&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.messages&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.staticfiles&#x27;</span>,<br><br>    <span class="hljs-comment"># 第三方</span><br>    <span class="hljs-string">&#x27;rest_framework&#x27;</span>,<br><br>    <span class="hljs-comment"># 自定义</span><br>    <span class="hljs-string">&#x27;api.apps.ApiConfig&#x27;</span>,<br>]<br><br>MIDDLEWARE = [<br>    <span class="hljs-string">&#x27;django.middleware.security.SecurityMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.middleware.common.CommonMiddleware&#x27;</span>,<br>    <span class="hljs-comment"># &#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;,</span><br>    <span class="hljs-string">&#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;</span>,<br>    <span class="hljs-string">&#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;</span>,<br>]<br><br>ROOT_URLCONF = <span class="hljs-string">&#x27;drf_proj.urls&#x27;</span><br><br>TEMPLATES = [<br>    &#123;<br>        <span class="hljs-string">&#x27;BACKEND&#x27;</span>: <span class="hljs-string">&#x27;django.template.backends.django.DjangoTemplates&#x27;</span>,<br>        <span class="hljs-string">&#x27;DIRS&#x27;</span>: [os.path.join(BASE_DIR, <span class="hljs-string">&#x27;templates&#x27;</span>)]<br>        ,<br>        <span class="hljs-string">&#x27;APP_DIRS&#x27;</span>: <span class="hljs-literal">True</span>,<br>        <span class="hljs-string">&#x27;OPTIONS&#x27;</span>: &#123;<br>            <span class="hljs-string">&#x27;context_processors&#x27;</span>: [<br>                <span class="hljs-string">&#x27;django.template.context_processors.debug&#x27;</span>,<br>                <span class="hljs-string">&#x27;django.template.context_processors.request&#x27;</span>,<br>                <span class="hljs-string">&#x27;django.contrib.auth.context_processors.auth&#x27;</span>,<br>                <span class="hljs-string">&#x27;django.contrib.messages.context_processors.messages&#x27;</span>,<br>            ],<br>        &#125;,<br>    &#125;,<br>]<br><br>WSGI_APPLICATION = <span class="hljs-string">&#x27;drf_proj.wsgi.application&#x27;</span><br><br><br><span class="hljs-comment"># Database</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/ref/settings/#databases</span><br><br>DATABASES = &#123;<br>    <span class="hljs-comment"># &#x27;default&#x27;: &#123;</span><br>    <span class="hljs-comment">#     &#x27;ENGINE&#x27;: &#x27;django.db.backends.sqlite3&#x27;,</span><br>    <span class="hljs-comment">#     &#x27;NAME&#x27;: os.path.join(BASE_DIR, &#x27;db.sqlite3&#x27;),</span><br>    <span class="hljs-comment"># &#125;</span><br>    <span class="hljs-string">&#x27;default&#x27;</span>: &#123;<br>        <span class="hljs-string">&#x27;ENGINE&#x27;</span>: <span class="hljs-string">&#x27;django.db.backends.mysql&#x27;</span>,<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;drf_api01&#x27;</span>,<br>        <span class="hljs-string">&#x27;USER&#x27;</span>: <span class="hljs-string">&#x27;root&#x27;</span>,<br>        <span class="hljs-string">&#x27;PASSWORD&#x27;</span>: <span class="hljs-string">&#x27;857009236&#x27;</span><br>    &#125;<br>&#125;<br><br><br><span class="hljs-comment"># Password validation</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators</span><br><br>AUTH_PASSWORD_VALIDATORS = [<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&#x27;</span>,<br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.MinimumLengthValidator&#x27;</span>,<br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.CommonPasswordValidator&#x27;</span>,<br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;django.contrib.auth.password_validation.NumericPasswordValidator&#x27;</span>,<br>    &#125;,<br>]<br><br><br><span class="hljs-comment"># Internationalization</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/topics/i18n/</span><br><br>LANGUAGE_CODE = <span class="hljs-string">&#x27;en-us&#x27;</span><br><br>TIME_ZONE = <span class="hljs-string">&#x27;UTC&#x27;</span><br><br>USE_I18N = <span class="hljs-literal">True</span><br><br>USE_L10N = <span class="hljs-literal">True</span><br><br>USE_TZ = <span class="hljs-literal">True</span><br><br><br><span class="hljs-comment"># Static files (CSS, JavaScript, Images)</span><br><span class="hljs-comment"># https://docs.djangoproject.com/en/3.0/howto/static-files/</span><br><br>STATIC_URL = <span class="hljs-string">&#x27;/static/&#x27;</span><br>MEDIA_URL = <span class="hljs-string">&#x27;/media/&#x27;</span><br><br>MEDIA_ROOT = os.path.join(BASE_DIR, <span class="hljs-string">&#x27;media&#x27;</span>)<br><br><span class="hljs-comment"># 全局局部配置</span><br>REST_FRAMEWORK = &#123;<br>    <span class="hljs-string">&#x27;DEFAULT_RENDERER_CLASSES&#x27;</span>: [<br>        <span class="hljs-string">&#x27;rest_framework.renderers.JSONRenderer&#x27;</span>,<br>        <span class="hljs-string">&#x27;rest_framework.renderers.BrowsableAPIRenderer&#x27;</span><br>    ],<br>    <span class="hljs-comment"># 全局解析类配置</span><br>    <span class="hljs-string">&#x27;DEFAULT_PARSER_CLASSES&#x27;</span>: [<br>        <span class="hljs-string">&#x27;rest_framework.parsers.JSONParser&#x27;</span>,<br>        <span class="hljs-string">&#x27;rest_framework.parsers.FormParser&#x27;</span>,<br>        <span class="hljs-string">&#x27;rest_framework.parsers.MultiPartParser&#x27;</span><br>    ],<br>    <span class="hljs-comment"># 全局异常模块配置</span><br>    <span class="hljs-string">&#x27;EXCEPTION_HANDLER&#x27;</span>: <span class="hljs-string">&#x27;api.exception.exception_handler&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="二、路由模块"><a href="#二、路由模块" class="headerlink" title="二、路由模块"></a>二、路由模块</h2><p>1.项目路由：<code>urls.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br><span class="hljs-keyword">from</span> django.conf.urls <span class="hljs-keyword">import</span> url, include<br><span class="hljs-keyword">from</span> django.views.static <span class="hljs-keyword">import</span> serve<br><span class="hljs-keyword">from</span> django.conf <span class="hljs-keyword">import</span> settings<br><br>urlpatterns = [<br>    path(<span class="hljs-string">&#x27;admin/&#x27;</span>, admin.site.urls),<br>    url(<span class="hljs-string">r&#x27;^media/(?P&lt;path&gt;.*)&#x27;</span>, serve, &#123;<span class="hljs-string">&#x27;document_root&#x27;</span>: settings.MEDIA_ROOT&#125;),<br><br>    <span class="hljs-comment"># 路由分发</span><br>    path(<span class="hljs-string">&#x27;api/&#x27;</span>, include(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br><span class="hljs-keyword">from</span> django.conf.urls <span class="hljs-keyword">import</span> url, include<br><span class="hljs-keyword">from</span> django.views.static <span class="hljs-keyword">import</span> serve<br><span class="hljs-keyword">from</span> django.conf <span class="hljs-keyword">import</span> settings<br><br>urlpatterns = [<br>    path(<span class="hljs-string">&#x27;admin/&#x27;</span>, admin.site.urls),<br>    url(<span class="hljs-string">r&#x27;^media/(?P&lt;path&gt;.*)&#x27;</span>, serve, &#123;<span class="hljs-string">&#x27;document_root&#x27;</span>: settings.MEDIA_ROOT&#125;),<br><br>    <span class="hljs-comment"># 路由分发</span><br>    path(<span class="hljs-string">&#x27;api/&#x27;</span>, include(<span class="hljs-string">&#x27;api.urls&#x27;</span>)),<br>]<br></code></pre></td></tr></table></figure>
+
+<p>2.应用路由：<code>urls.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br><span class="hljs-keyword">from</span> django.conf.urls <span class="hljs-keyword">import</span> url, include<br><span class="hljs-keyword">from</span> django.views.static <span class="hljs-keyword">import</span> serve<br><span class="hljs-keyword">from</span> django.conf <span class="hljs-keyword">import</span> settings<br><br><span class="hljs-keyword">from</span> api <span class="hljs-keyword"><code class="language-hljs python"><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br><span class="hljs-keyword">from</span> django.conf.urls <span class="hljs-keyword">import</span> url, include<br><span class="hljs-keyword">from</span> django.views.static <span class="hljs-keyword">import</span> serve<br><span class="hljs-keyword">from</span> django.conf <span class="hljs-keyword">import</span> settings<br><br><span class="hljs-keyword">from</span> api <span class="hljs-keyword">import</span> views<br><br>urlpatterns = [<br>]<br></code></pre></td></tr></table></figure>
+
+<h2 id="三、数据库模块"><a href="#三、数据库模块" class="headerlink" title="三、数据库模块"></a>三、数据库模块</h2><p>使用 mysql 作为数据库时，使用 pymysql 来调用</p>
+<p><code>settings.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python">DATABASES = &#123;    <br>    <span class="hljs-string">&#x27;default&#x27;</span>: &#123;<br>        <span class="hljs-string">&#x27;ENGINE&#x27;</span>: <span class="hljs-string">&#x27;django.db.backends.mysql&#x27;</span>,<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;drf_api01&#x27;</span>,<br>        <span class="hljs-string">&#x27;USER&#x27;</span>: <span class="hljs-string">&#x27;root&#x27;</span>,<br>        <span class="hljs-string">&#x27;PASSWORD&#x27;</span>: <span class="hljs-string"><code class="language-hljs python">DATABASES = &#123;    <br>    <span class="hljs-string">&#x27;default&#x27;</span>: &#123;<br>        <span class="hljs-string">&#x27;ENGINE&#x27;</span>: <span class="hljs-string">&#x27;django.db.backends.mysql&#x27;</span>,<br>        <span class="hljs-string">&#x27;NAME&#x27;</span>: <span class="hljs-string">&#x27;drf_api01&#x27;</span>,<br>        <span class="hljs-string">&#x27;USER&#x27;</span>: <span class="hljs-string">&#x27;root&#x27;</span>,<br>        <span class="hljs-string">&#x27;PASSWORD&#x27;</span>: <span class="hljs-string">&#x27;857009236&#x27;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>项目：<code>__init__.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">import</span> pymysql<br>pymysql.version_info = (<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">13</span>, <span class="hljs-string">&quot;final&quot;</span>, <span class="hljs-number"><code class="language-hljs python"><span class="hljs-keyword">import</span> pymysql<br>pymysql.version_info = (<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">13</span>, <span class="hljs-string">&quot;final&quot;</span>, <span class="hljs-number">0</span>)<br>pymysql.install_as_MySQLdb()<br></code></pre></td></tr></table></figure>
+
+<h2 id="四、异常模块"><a href="#四、异常模块" class="headerlink" title="四、异常模块"></a>四、异常模块</h2><p><code>exception.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> exception_handler <span class="hljs-keyword">as</span> drf_exception_handler<br><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> Response<br><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> status<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">exception_handler</span>(<span class="hljs-params">exc, context</span>):<br>    <span class="hljs-comment"># drf 的 exception_handler 做基础处理</span><br>    response = drf_exception_handler((exc, context))<br>    <span class="hljs-comment"># 为空，自定义二次处理</span><br>    <span class="hljs-keyword">if</span> response <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;%s - %s - %s&#x27;</span> % (context[<span class="hljs-string">&#x27;view&#x27;</span>], context[<span class="hljs-string">&#x27;request&#x27;</span>].method, exc))<br>        <span class="hljs-keyword">return</span> Response(&#123;<br>            <span class="hljs-string">&#x27;detail&#x27;</span>: <span class="hljs-string">&#x27;服务器错误&#x27;</span>,<br>        &#125;, status=status.HTTP_500_INTERNAL_SERVER_ERROR, exception=<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword"><code class="language-hljs python"><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> exception_handler <span class="hljs-keyword">as</span> drf_exception_handler<br><span class="hljs-keyword">from</span> rest_framework.views <span class="hljs-keyword">import</span> Response<br><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> status<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">exception_handler</span>(<span class="hljs-params">exc, context</span>):<br>    <span class="hljs-comment"># drf 的 exception_handler 做基础处理</span><br>    response = drf_exception_handler((exc, context))<br>    <span class="hljs-comment"># 为空，自定义二次处理</span><br>    <span class="hljs-keyword">if</span> response <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;%s - %s - %s&#x27;</span> % (context[<span class="hljs-string">&#x27;view&#x27;</span>], context[<span class="hljs-string">&#x27;request&#x27;</span>].method, exc))<br>        <span class="hljs-keyword">return</span> Response(&#123;<br>            <span class="hljs-string">&#x27;detail&#x27;</span>: <span class="hljs-string">&#x27;服务器错误&#x27;</span>,<br>        &#125;, status=status.HTTP_500_INTERNAL_SERVER_ERROR, exception=<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+
+<p><code>settings.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 全局局部配置</span><br>REST_FRAMEWORK = &#123;    <br>    <span class="hljs-comment"># 全局异常模块配置</span><br>    <span class="hljs-string">&#x27;EXCEPTION_HANDLER&#x27;</span>: <span class="hljs-string"><code class="language-hljs python"><span class="hljs-comment"># 全局局部配置</span><br>REST_FRAMEWORK = &#123;    <br>    <span class="hljs-comment"># 全局异常模块配置</span><br>    <span class="hljs-string">&#x27;EXCEPTION_HANDLER&#x27;</span>: <span class="hljs-string">&#x27;api.exception.exception_handler&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ziptop.top">白墨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ziptop.top/posts/885/">https://ziptop.top/posts/885/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ziptop.top" target="_blank">白墨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/">网站开发</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/">数据库开发</a><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E5%90%8E%E7%AB%AF/">后端</a><a class="post-meta__tags" href="/tags/Django/">Django</a><a class="post-meta__tags" href="/tags/Django-REST-%E6%A1%86%E6%9E%B6/">Django REST 框架</a></div><div class="post_share"><div class="social-share" data-image="/assert/img/background/img16.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assert/img/pay/WeChat_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/WeChat_pay.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assert/img/pay/ali_pay.jpg" target="_blank"><img class="post-qr-code-img" src="/assert/img/pay/ali_pay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/29922/"><img class="prev-cover" src="/assert/img/background/img20.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Django REST 框架详解 04 | 序列化与反序列化及二者整合</div></div></a></div><div class="next-post pull-right"><a href="/posts/56516/"><img class="next-cover" src="/assert/img/background/img20.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Django 的脚本化启动</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/8315/" title="Django REST 框架详解 03 | 模型建立与表设计"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-17</div><div class="title">Django REST 框架详解 03 | 模型建立与表设计</div></div></a></div><div><a href="/posts/35794/" title="Django REST 框架的 FBV 与 CBV 选择"><img class="cover" src="/assert/img/background/img15.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-17</div><div class="title">Django REST 框架的 FBV 与 CBV 选择</div></div></a></div><div><a href="/posts/29922/" title="Django REST 框架详解 04 | 序列化与反序列化及二者整合"><img class="cover" src="/assert/img/background/img20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-17</div><div class="title">Django REST 框架详解 04 | 序列化与反序列化及二者整合</div></div></a></div><div><a href="/posts/35713/" title="Django REST框架 | 封装_Respose 类"><img class="cover" src="/assert/img/background/img08.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-23</div><div class="title">Django REST框架 | 封装_Respose 类</div></div></a></div><div><a href="/posts/48389/" title="Django REST 框架详解 05 | 视图家族 Mixins"><img class="cover" src="/assert/img/background/img12.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-19</div><div class="title">Django REST 框架详解 05 | 视图家族 Mixins</div></div></a></div><div><a href="/posts/16334/" title="Django REST 框架详解 09 | 权限组件"><img class="cover" src="/assert/img/background/img05.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-21</div><div class="title">Django REST 框架详解 09 | 权限组件</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info card-baimo"><div class="is-center"><div class="card-baimo-sayhi">你好，我是</div><div class="card-baimo-name">郑磊 <span class="card-baimo-subname">白墨</span></div><div class="card-baimo-description">这里有关于<b>生物信息</b>，<b>软件开发</b>相关的文章和看法，也有<b>科研动态</b>和<b>学术分享</b>。<br/> 相信你可以在这里找到对你有用的<b>知识</b>和<b>启发</b>。</div><div class="author-info__description"></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://baimoc.ziptop.top/blog/20201216/5ctbVrG5RAO3.png" rel="external nofollow noreferrer" target="_blank" title="微信"><i class="iconfont icon-weixin"></i></a><a class="social-icon" href="https://www.zhihu.com/people/baimoc" rel="external nofollow noreferrer" target="_blank" title="知乎"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://zhenglei.blog.csdn.net/" rel="external nofollow noreferrer" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a><a class="social-icon" href="https://github.com/qqdb" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:baimoc@163.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-youjianduanxin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%AE%BE%E7%BD%AE"><span class="toc-text">一、设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97"><span class="toc-text">二、路由模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9D%97"><span class="toc-text">三、数据库模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BC%82%E5%B8%B8%E6%A8%A1%E5%9D%97"><span class="toc-text">四、异常模块</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标"><img src="/assert/img/background/img12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习之回归模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/41842/" title="图解机器学习之回归模型性能评估指标">图解机器学习之回归模型性能评估指标</a><time datetime="2022-06-03T03:04:30.000Z" title="发表于 2022-06-03 11:04:30">2022-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/17813/" title="序列比对应用场景"><img src="/assert/img/background/img05.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="序列比对应用场景"/></a><div class="content"><a class="title" href="/posts/17813/" title="序列比对应用场景">序列比对应用场景</a><time datetime="2022-05-16T10:47:18.000Z" title="发表于 2022-05-16 18:47:18">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22838/" title="axios 使用详解"><img src="/assert/img/background/img04.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="axios 使用详解"/></a><div class="content"><a class="title" href="/posts/22838/" title="axios 使用详解">axios 使用详解</a><time datetime="2022-05-16T08:20:58.000Z" title="发表于 2022-05-16 16:20:58">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项"><img src="/assert/img/background/img19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库涉及大量数据查询时的注意事项"/></a><div class="content"><a class="title" href="/posts/57043/" title="数据库涉及大量数据查询时的注意事项">数据库涉及大量数据查询时的注意事项</a><time datetime="2022-05-16T03:44:30.000Z" title="发表于 2022-05-16 11:44:30">2022-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标"><img src="/assert/img/background/img18.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图解机器学习：分类模型性能评估指标"/></a><div class="content"><a class="title" href="/posts/63432/" title="图解机器学习：分类模型性能评估指标">图解机器学习：分类模型性能评估指标</a><time datetime="2022-05-05T04:48:34.000Z" title="发表于 2022-05-05 12:48:34">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright 2020 - 2023 By 白墨 | 蒙ICP备16001931号</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="baimo.musicToggle()">播放音乐</div><meting-js id="7827269582" server="netease" type="playlist" mutex="true" preload="none" theme="var(--baimo-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text" style="margin-botton: 15px"/></div></div><div id="local-search-results"><div id="tag-lists"><a class="tag-list" href="/tags/自学/">自学</a><a class="tag-list" href="tags/统计学/">统计学</a><a class="tag-list" href="/tags/机器学习/">机器学习</a><a class="tag-list" href="/tags/测序技术/">测序技术</a><a class="tag-list" href="/tags/生信流程/">生信流程</a></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function insertCSS () {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css"
+    document.head.appendChild(link)
+  }
+
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.ziptop.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else {
+    insertCSS()
+    getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
+  }
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script data-pjax src="/assert/js/categoryBar.js"></script><script data-pjax src="/assert/js/nav-menu.js"></script><script async src="/assert/js/APlayer.min.js"></script><script async src="/assert/js/Meting2.min.js"></script><script async src="/assert/js/baimo.js"></script><script async src="/assert/js/baimofunction.js"></script><script async src="/assert/js/info.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-D20ET8Z6PT', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="../../../../js/busuanzi.pure.mini.js"></script></div></body></html>
